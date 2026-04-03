@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_GITHUB_URL } from '../constants';
+---
+
+<Layout
+  title="Documentation — Kery"
+  description="Kery documentation is coming soon. The README and repo guides are the canonical reference today."
+>
+  <Navbar />
+  <main class="soon-page">
+    <div class="container soon-inner">
+      <span class="section-badge">Documentation</span>
+      <h1>Coming soon</h1>
+      <p class="soon-lead">
+        Hosted docs for install, MCP configuration, API reference, and operations are in progress.
+        Use the README, <code>.env.example</code>, and package docs in the monorepo until this site goes live.
+      </p>
+      <a href={SITE_GITHUB_URL} class="btn btn-primary">Open the repository</a>
+      <p class="soon-foot">
+        <a href="/">← Back to home</a>
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .soon-page {
+    padding-top: 6rem;
+    padding-bottom: var(--space-2xl);
+    min-height: 70vh;
+  }
+
+  .soon-inner {
+    max-width: 560px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .soon-inner h1 {
+    margin: 0.75rem 0 var(--space-md);
+  }
+
+  .soon-lead {
+    margin-bottom: var(--space-lg);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .soon-lead code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--color-surface);
+    padding: 0.12rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  .soon-foot {
+    margin-top: var(--space-xl);
+    font-size: 0.9rem;
+  }
+
+  .soon-foot a {
+    color: var(--color-text-muted);
+    transition: color 0.2s;
+  }
+
+  .soon-foot a:hover {
+    color: var(--color-text);
+  }
+</style>

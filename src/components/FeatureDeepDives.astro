@@ -1,0 +1,562 @@
+---
+---
+
+<hr class="section-divider" />
+<section class="feature-section section">
+  <div class="container">
+    <div class="feature-split reveal">
+      <div class="feature-text">
+        <span class="section-badge">Multi-agent</span>
+        <h2>Navigator, reviewer, planner.</h2>
+        <p>
+          Kery splits work across focused agents: execution in the browser, holistic screenshot review,
+          path and test planning, and network monitoring for API errors. Each piece does one job well so
+          the stack stays debuggable.
+        </p>
+        <p class="feature-note">Accessibility tree plus pixels — not brittle coordinates alone.</p>
+        <div class="agent-badges">
+          <span class="agent-badge">Navigator</span>
+          <span class="agent-badge">Review</span>
+          <span class="agent-badge">Path gen</span>
+          <span class="agent-badge">Network</span>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div class="mockup-card">
+          <div class="agent-flow">
+            <div class="agent-row">
+              <span class="agent-label">Intent</span>
+              <span class="agent-mono">“Verify checkout with coupon”</span>
+            </div>
+            <div class="agent-arrow">↓</div>
+            <div class="agent-row">
+              <span class="agent-label">Plan</span>
+              <span class="agent-mono">routes · forms · assertions</span>
+            </div>
+            <div class="agent-arrow">↓</div>
+            <div class="agent-row">
+              <span class="agent-label">Browser</span>
+              <span class="agent-mono">Playwright + LLM steps</span>
+            </div>
+            <div class="agent-arrow">↓</div>
+            <div class="agent-row agent-row-success">
+              <span class="agent-label">Review</span>
+              <span class="agent-mono">filmstrip + bug cards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+<section class="feature-section section heartbeat-dark" id="regression-section">
+  <div class="pendant-lamp">
+    <div class="lamp-wire"></div>
+    <div class="lamp-bulb"></div>
+  </div>
+  <div class="light-glow"></div>
+  <div class="container">
+    <div class="feature-split reveal">
+      <div class="feature-text">
+        <span class="section-badge dark-badge">
+          <span class="badge-pulse"></span>
+          Regression engine
+        </span>
+        <h2>Green runs become scripts.</h2>
+        <p class="dark-text">
+          When a run succeeds, Kery can compile it into deterministic Playwright. Replay critical flows on
+          a schedule or in CI with <strong>zero</strong> LLM calls — reserve the model for exploration and change.
+        </p>
+        <ul class="dark-list">
+          <li>Stable replay for smoke and release gates</li>
+          <li>Keep exploratory and scripted suites in one project</li>
+          <li>Costs and latency drop where automation is enough</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="mockup-card dark-mockup">
+          <div class="reg-block">
+            <div class="reg-header">Run pipeline</div>
+            <div class="reg-step">
+              <span class="reg-tag reg-explore">LLM</span>
+              <span>Discover new states</span>
+            </div>
+            <div class="reg-step">
+              <span class="reg-tag reg-record">Record</span>
+              <span>Persist passing path</span>
+            </div>
+            <div class="reg-step">
+              <span class="reg-tag reg-replay">Replay</span>
+              <span>Playwright only — no model</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+<section class="feature-section section">
+  <div class="container">
+    <div class="feature-split reverse reveal">
+      <div class="feature-text">
+        <span class="section-badge">Dashboard</span>
+        <h2>Bugs, runs, and memory<br />in one place.</h2>
+        <p>
+          The web app ties together environments, discovered pages, test plans, run history, and bug triage.
+          See spend per run, drill into traces, and let memory curation feed the next session.
+        </p>
+        <p>
+          Prefer the terminal or your editor? The same backend powers the <strong>MCP server</strong> — pick the
+          surface that matches how you work.
+        </p>
+      </div>
+      <div class="feature-visual">
+        <div class="mockup-card">
+          <div class="dash-mock">
+            <div class="dash-row dash-head">
+              <span>Overview</span>
+              <span class="dash-pill">Project</span>
+            </div>
+            <div class="dash-kpis">
+              <div class="dash-kpi"><span class="dash-k">Runs</span><span class="dash-v">24</span></div>
+              <div class="dash-kpi"><span class="dash-k">Open bugs</span><span class="dash-v">7</span></div>
+              <div class="dash-kpi"><span class="dash-k">Pages</span><span class="dash-v">38</span></div>
+            </div>
+            <div class="dash-row"><span class="dash-dot"></span> Last run <span class="dash-mono">passed</span> · 4m 12s</div>
+            <div class="dash-row"><span class="dash-dot dash-warn"></span> Coupon edge case <span class="dash-mono">new</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+<section class="feature-section section">
+  <div class="container">
+    <div class="feature-split reveal">
+      <div class="feature-text">
+        <span class="section-badge">Self-healing</span>
+        <h2>When selectors drift,<br />intent still lands.</h2>
+        <p>
+          Optional Stagehand-style resolution finds elements by described intent when rigid selectors break,
+          so agent-driven runs survive refactors a little more gracefully.
+        </p>
+        <div class="oss-cards">
+          <div class="oss-card">
+            <strong>Apache 2.0</strong>
+            <span>Fork, audit, and deploy on your own infrastructure.</span>
+          </div>
+          <div class="oss-card">
+            <strong>Hosted Kery</strong>
+            <span>Fully managed cloud is coming soon — sign up from GitHub releases when we open the waitlist.</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <div class="mockup-card">
+          <div class="heal-mock">
+            <div class="heal-line"><span class="heal-bad">#submit-btn</span> <span class="heal-x">not found</span></div>
+            <div class="heal-line heal-resolve"><span class="heal-good">intent:</span> primary checkout CTA → <span class="heal-good">clicked</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .feature-split.reverse {
+    direction: rtl;
+  }
+
+  .feature-split.reverse > * {
+    direction: ltr;
+  }
+
+  .feature-text {
+    max-width: 520px;
+  }
+
+  .feature-text h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-text p {
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-note {
+    font-style: italic;
+    color: var(--color-text-muted) !important;
+    font-size: 0.9rem !important;
+    margin-top: var(--space-sm);
+  }
+
+  .feature-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mockup-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .agent-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-sm);
+  }
+
+  .agent-badge {
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-accent-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-hover);
+  }
+
+  .agent-flow {
+    font-size: 0.9rem;
+  }
+
+  .agent-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .agent-row-success {
+    border-bottom: none;
+  }
+
+  .agent-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+
+  .agent-mono {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+  }
+
+  .agent-arrow {
+    text-align: center;
+    color: var(--color-accent);
+    font-size: 0.85rem;
+    padding: 0.15rem 0;
+  }
+
+  .heartbeat-dark {
+    background: #141816;
+    color: #e8ece9;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pendant-lamp {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .lamp-wire {
+    width: 1px;
+    height: 40px;
+    background: #444;
+  }
+
+  .lamp-bulb {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent-muted);
+    box-shadow: 0 0 20px rgba(184, 92, 58, 0.45);
+  }
+
+  .light-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(184, 92, 58, 0.08) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  .dark-badge {
+    background: #1c211e;
+    border-color: #2f3833;
+    color: var(--color-accent-muted);
+  }
+
+  .badge-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    display: inline-block;
+    margin-right: 0.35rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  .heartbeat-dark h2 {
+    color: #f2f5f3;
+  }
+
+  .dark-text {
+    color: #a8b0ab !important;
+  }
+
+  .dark-text strong {
+    color: #e8ece9;
+  }
+
+  .dark-list {
+    list-style: none;
+    margin-top: var(--space-sm);
+  }
+
+  .dark-list li {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+    color: #9aa39e;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .dark-list li::before {
+    content: '↳';
+    position: absolute;
+    left: 0;
+    color: #5c6560;
+  }
+
+  .dark-mockup {
+    background: #1c211e;
+    border: 1px solid #2a302c;
+  }
+
+  .reg-block {
+    font-size: 0.88rem;
+  }
+
+  .reg-header {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #6b756f;
+    margin-bottom: 1rem;
+  }
+
+  .reg-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid #2a302c;
+    color: #c5ccc7;
+  }
+
+  .reg-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+  }
+
+  .reg-explore {
+    background: rgba(184, 92, 58, 0.2);
+    color: #e8b09a;
+  }
+
+  .reg-record {
+    background: rgba(155, 196, 168, 0.15);
+    color: #9bc4a8;
+  }
+
+  .reg-replay {
+    background: rgba(200, 200, 200, 0.08);
+    color: #b8bfb9;
+  }
+
+  .dash-mock {
+    font-size: 0.88rem;
+  }
+
+  .dash-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .dash-head {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .dash-pill {
+    margin-left: auto;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent-soft);
+    color: var(--color-accent-hover);
+    font-weight: 500;
+  }
+
+  .dash-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin: 0.75rem 0 1rem;
+  }
+
+  .dash-kpi {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .dash-k {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .dash-v {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+
+  .dash-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent-muted);
+    flex-shrink: 0;
+  }
+
+  .dash-warn {
+    background: #c99882;
+  }
+
+  .dash-mono {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    margin-left: auto;
+  }
+
+  .oss-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: var(--space-md);
+  }
+
+  .oss-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .oss-card strong {
+    font-size: 0.9rem;
+  }
+
+  .oss-card span {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .heal-mock {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .heal-line {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .heal-bad {
+    color: #b85c3a;
+  }
+
+  .heal-x {
+    color: var(--color-text-muted);
+    margin-left: 0.5rem;
+  }
+
+  .heal-resolve {
+    border-bottom: none;
+    padding-top: 1rem;
+  }
+
+  .heal-good {
+    color: var(--color-accent-hover);
+  }
+
+  @media (max-width: 768px) {
+    .feature-split {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .feature-split.reverse {
+      direction: ltr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .badge-pulse {
+      animation: none;
+    }
+  }
+</style>

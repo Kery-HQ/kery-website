@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_GITHUB_URL } from '../constants';
+---
+
+<Layout
+  title="Privacy Policy — Kery"
+  description="Privacy policy for kery.dev and Kery open-source and future hosted services."
+>
+  <Navbar />
+  <main class="legal-page">
+    <div class="container legal-inner">
+      <h1>Privacy Policy</h1>
+      <p class="legal-updated">Last updated: April 4, 2026</p>
+
+      <h2>1. Who we are</h2>
+      <p>
+        “Kery” refers to the open-source software project and this website (<strong>kery.dev</strong>). This policy
+        describes how we handle information in connection with the marketing site and how we expect deployments
+        of the software to behave by default.
+      </p>
+
+      <h2>2. This website (kery.dev)</h2>
+      <p>
+        The static marketing site is designed not to require accounts. We do not intentionally collect personal
+        data through forms on this site. Our hosting provider may process standard server or edge logs (such as IP
+        address, user agent, and request path) for security and reliability — refer to your host’s documentation
+        for retention and subprocessors.
+      </p>
+      <p>
+        If we add analytics, newsletters, or account-based features later, we will update this policy and, where
+        required, provide appropriate notice and choices.
+      </p>
+
+      <h2>3. Self-hosted Kery (open source)</h2>
+      <p>
+        When you run Kery yourself, you control the infrastructure. Test artifacts, credentials, LLM prompts,
+        database contents, and logs reside in <strong>your</strong> environment. The open-source project does not
+        phone home by default; review the repository and your configuration for any optional integrations you enable.
+      </p>
+
+      <h2>4. Future hosted Kery (“Kery Cloud”)</h2>
+      <p>
+        A managed offering may collect and process personal data to operate the service — for example account
+        details, billing, support correspondence, and operational telemetry needed to run the product. We will
+        publish a dedicated privacy notice and data processing terms before any hosted service accepts customers.
+      </p>
+
+      <h2>5. Third parties</h2>
+      <p>
+        Kery can be configured to call third-party AI providers (for example language model APIs). Those calls are
+        governed by your agreements with those vendors. You are responsible for the categories of data you send to
+        them and for complying with applicable law.
+      </p>
+
+      <h2>6. Your rights</h2>
+      <p>
+        Depending on where you live, you may have rights to access, correct, delete, or restrict certain personal
+        data. For data processed only on your self-hosted deployment, exercise those rights with your own
+        organization. For data we process as a controller through this site or a future hosted product, contact us
+        using the channels listed on <a href={SITE_GITHUB_URL}>GitHub</a> once published.
+      </p>
+
+      <h2>7. Changes</h2>
+      <p>
+        We may update this policy as the product and site evolve. Material changes will be reflected by updating the
+        date above and, where appropriate, an announcement in the repository or on this site.
+      </p>
+
+      <h2>8. Contact</h2>
+      <p>
+        Questions about this policy can be opened as a discussion or issue on the
+        <a href={SITE_GITHUB_URL}>Kery GitHub repository</a>.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding-top: 6rem;
+    padding-bottom: var(--space-2xl);
+    min-height: 60vh;
+  }
+
+  .legal-inner {
+    max-width: 720px;
+  }
+
+  .legal-inner h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-updated {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .legal-inner h2 {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+  }
+
+  .legal-inner p {
+    margin-bottom: var(--space-sm);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .legal-inner a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .legal-inner a:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

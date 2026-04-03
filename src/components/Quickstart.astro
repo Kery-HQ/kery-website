@@ -1,0 +1,109 @@
+---
+import { SITE_GITHUB_URL } from '../constants';
+---
+
+<section class="quickstart section" id="quickstart">
+  <div class="container quickstart-inner reveal">
+    <h2>Quickstart</h2>
+    <p class="quickstart-desc">
+      Open source under Apache 2.0. Run locally with Docker, point Kery at your app URL, add an LLM key,
+      and open the dashboard. Documentation on kery.dev is coming soon — the README in the repo is the
+      source of truth today.
+    </p>
+    <div class="quickstart-actions-top">
+      <a href={SITE_GITHUB_URL} class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+        Open GitHub
+      </a>
+      <a href="/docs" class="docs-link">Docs — coming soon &rarr;</a>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="terminal-dot"></span>
+        <span class="terminal-dot"></span>
+        <span class="terminal-dot"></span>
+      </div>
+      <div class="terminal-body">
+        <span class="terminal-prompt">$</span>
+        <span class="terminal-cmd">cp .env.example .env &amp;&amp; docker compose up -d</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quickstart-inner {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .quickstart-inner h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .quickstart-desc {
+    margin-bottom: var(--space-lg);
+  }
+
+  .quickstart-actions-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .docs-link {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    transition: color 0.2s;
+  }
+
+  .docs-link:hover {
+    color: var(--color-text);
+  }
+
+  .terminal {
+    background: #1a1a1a;
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-align: left;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .terminal-bar {
+    display: flex;
+    gap: 6px;
+    padding: 12px 16px;
+    background: #222;
+  }
+
+  .terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #444;
+  }
+
+  .terminal-body {
+    padding: 16px 20px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #e0e0e0;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .terminal-prompt {
+    color: #888;
+  }
+
+  .terminal-cmd {
+    color: #f0f0f0;
+    word-break: break-all;
+  }
+</style>

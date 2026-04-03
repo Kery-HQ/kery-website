@@ -1,0 +1,125 @@
+---
+const comparisons = [
+  {
+    without: 'You write brittle E2E scripts that break on every redesign, and nobody trusts the signal.',
+    with: 'Agents navigate by intent and structure; optional self-healing and compiled regression scripts cover stable paths.',
+  },
+  {
+    without: '“Did we test this flow?” is answered by whoever remembers which spec file might cover it.',
+    with: 'Discovery lists real pages and flows; coverage views show what has been exercised and where bugs still sit.',
+  },
+  {
+    without: 'AI coding assistants can edit code but cannot see how the app behaves in a browser.',
+    with: 'MCP connects the same assistant to scans, runs, bug lists, and run detail — grounded in your Kery project.',
+  },
+  {
+    without: 'Every exploratory pass burns the same full-model cost as the last one.',
+    with: 'Green runs compile to Playwright replay; reserve LLM usage for exploration and meaningful change.',
+  },
+  {
+    without: 'Failures are a wall of logs with a screenshot buried five clicks deep.',
+    with: 'Runs and bugs carry traces, network context, and review-oriented evidence in the dashboard.',
+  },
+  {
+    without: 'You want cloud convenience but cannot ship test data to a black box.',
+    with: 'Apache 2.0 self-host today; managed Kery Cloud is coming for teams that prefer we run the plane.',
+  },
+];
+---
+
+<hr class="section-divider" />
+<section class="problems-section section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge">Problems solved</span>
+      <h2>What changes with Kery.</h2>
+    </div>
+    <div class="problems-grid reveal">
+      {comparisons.map((c) => (
+        <div class="problem-row">
+          <div class="problem-card problem-without">
+            <span class="problem-label">Without</span>
+            <p>{c.without}</p>
+          </div>
+          <div class="problem-arrow">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M4 10h12m-4-4l4 4-4 4"/>
+            </svg>
+          </div>
+          <div class="problem-card problem-with">
+            <span class="problem-label">With Kery</span>
+            <p>{c.with}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .problems-section h2 {
+    margin-top: 0.5rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .problems-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .problem-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .problem-card {
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius);
+    background: var(--color-bg-alt);
+  }
+
+  .problem-with {
+    background: var(--color-accent-soft);
+    border: 1px solid var(--color-accent-muted);
+  }
+
+  .problem-label {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    margin-bottom: 0.5rem;
+  }
+
+  .problem-with .problem-label {
+    background: var(--color-accent-light);
+    color: var(--color-accent-hover);
+  }
+
+  .problem-card p {
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .problem-arrow {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .problem-row {
+      grid-template-columns: 1fr;
+    }
+
+    .problem-arrow {
+      transform: rotate(90deg);
+      justify-self: center;
+    }
+  }
+</style>

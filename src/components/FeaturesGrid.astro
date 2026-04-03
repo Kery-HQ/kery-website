@@ -1,0 +1,135 @@
+---
+const features = [
+  {
+    abbr: 'AI',
+    title: 'AI browser agent',
+    desc: 'LLM-driven Playwright uses the accessibility tree and screenshots to navigate like a user.',
+  },
+  {
+    abbr: 'CR',
+    title: 'Crawl & discovery',
+    desc: 'BFS crawl finds pages, modals, and interactions so testing is grounded in how the app is actually built.',
+  },
+  {
+    abbr: 'RG',
+    title: 'Regression engine',
+    desc: 'Successful exploratory runs compile into deterministic scripts — replay without spending tokens on every pass.',
+  },
+  {
+    abbr: 'MEM',
+    title: 'Agent memory',
+    desc: 'Curated memory from past runs helps agents avoid repeating mistakes and focus on what changed.',
+  },
+  {
+    abbr: 'MCP',
+    title: 'MCP server',
+    desc: 'Wire Kery into Claude, Cursor, Copilot, Codex, and other MCP clients for natural-language test workflows.',
+  },
+  {
+    abbr: 'BUG',
+    title: 'Bugs & evidence',
+    desc: 'Triaged issues with traces, network context, and screenshot review — not just pass or fail.',
+  },
+  {
+    abbr: 'ENV',
+    title: 'Environments',
+    desc: 'Model staging, production-like URLs, and credentials per project without forking your setup.',
+  },
+  {
+    abbr: 'OSS',
+    title: 'Self-hosted OSS',
+    desc: 'Apache 2.0. Your data stays on your stack. Hosted Kery Cloud is on the roadmap.',
+  },
+];
+---
+
+<section class="features-section section">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-badge">Features</span>
+      <h2>
+        One platform for<br />
+        agentic browser QA.
+      </h2>
+    </div>
+    <div class="features-grid reveal">
+      {features.map((f) => (
+        <div class="feature-card">
+          <span class="feature-icon" aria-hidden="true">{f.abbr}</span>
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .features-header h2 {
+    margin-top: 0.5rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    transition: border-color 0.2s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--color-accent-muted);
+  }
+
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-accent-soft);
+    border: 1px solid var(--color-accent-light);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--color-accent-hover);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .feature-card h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .feature-card p {
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

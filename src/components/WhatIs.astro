@@ -1,0 +1,82 @@
+---
+const identities = [
+  {
+    title: 'A browser QA agent.',
+    desc: 'LLMs drive real Playwright sessions against your deployed app — not mocked DOM — with traces you can inspect.',
+  },
+  {
+    title: 'A discovery layer.',
+    desc: 'Crawls map how users move through the product so tests and agents start from ground truth, not guesswork.',
+  },
+  {
+    title: 'A regression compiler.',
+    desc: 'Turns successful exploration into scripts you can replay without model spend when behavior is stable.',
+  },
+  {
+    title: 'An MCP backend for your IDE.',
+    desc: 'The same projects, runs, and bugs your dashboard sees are available to Claude, Cursor, Copilot, Codex, and friends.',
+  },
+  {
+    title: 'A memory loop.',
+    desc: 'Curated notes from past runs help the stack adapt instead of repeating the same blind spots.',
+  },
+  {
+    title: 'Your infrastructure.',
+    desc: 'Self-host with Docker and Postgres today. Hosted Kery Cloud is on the way for teams who want zero ops.',
+  },
+];
+---
+
+<hr class="section-divider" />
+<section class="what-is-section section">
+  <div class="container reveal">
+    <span class="section-badge">What Kery is</span>
+    <h2>One spine for agentic testing.</h2>
+    <div class="identity-grid">
+      {identities.map((item) => (
+        <div class="identity-card">
+          <h3>{item.title}</h3>
+          <p>{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .what-is-section h2 {
+    margin-top: 0.5rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .identity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .identity-card {
+    padding: 1.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+  }
+
+  .identity-card h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .identity-card p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .identity-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

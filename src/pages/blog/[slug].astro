@@ -1,0 +1,15 @@
+---
+/**
+ * Individual posts will return here when Sanity (or another CMS) is wired.
+ * No routes are generated until then — /blog shows a coming-soon page.
+ */
+export function getStaticPaths() {
+  return [];
+}
+---
+
+<!-- No static paths; template unused until CMS is connected. -->
+<div class="cms-placeholder" aria-hidden="true"></div>
+<style>
+  .cms-placeholder { display: none; }
+</style>

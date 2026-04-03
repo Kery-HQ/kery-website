@@ -1,0 +1,241 @@
+/* ===== RESET ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+  /* Kery palette: pale sage surfaces + muted terracotta accent */
+  --color-bg: #fafbf9;
+  --color-bg-alt: #f1f4f1;
+  --color-surface: #e8ece9;
+  --color-surface-raised: #dde3df;
+  --color-border: #c9d2cc;
+  --color-text: #1a1f1c;
+  --color-text-secondary: #3d4540;
+  --color-text-muted: #6b756f;
+  --color-accent: #b85c3a;
+  --color-accent-hover: #9d4e30;
+  --color-accent-light: #efd9cf;
+  --color-accent-soft: #f7efeb;
+  --color-accent-muted: #c99882;
+
+  --font-serif: "Instrument Serif", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: clamp(2rem, calc(1.5rem + 1.5vw), 3rem);
+  --space-xl: clamp(3rem, calc(2rem + 3vw), 5rem);
+  --space-2xl: clamp(4rem, calc(2.5rem + 4.5vw), 7rem);
+  --space-3xl: clamp(5rem, calc(3rem + 6vw), 10rem);
+  --space-section: clamp(5rem, calc(3rem + 5.5vw), 9rem);
+  --space-section-gap: clamp(2rem, 5vw, 6rem);
+
+  --max-width: 1140px;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 100px;
+  --radius-lg: 24px;
+}
+
+/* ===== LAYOUT ===== */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.section {
+  padding: var(--space-section) 0;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: clamp(2.5rem, calc(1.5rem + 4vw), 5rem);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(2rem, calc(1.2rem + 3vw), 3.5rem);
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: clamp(1.25rem, calc(1rem + 0.8vw), 1.75rem);
+}
+
+p {
+  color: var(--color-text-secondary);
+  font-size: clamp(0.95rem, calc(0.9rem + 0.2vw), 1.1rem);
+  line-height: 1.7;
+}
+
+/* ===== BADGES ===== */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-accent-muted);
+  background: var(--color-accent-soft);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-accent-hover);
+  margin-bottom: var(--space-md);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: var(--color-bg-alt);
+  transform: translateY(-1px);
+}
+
+/* ===== DIVIDERS ===== */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 0;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+
+/*
+ * Two-tier approach:
+ * 1. CSS scroll-driven animations for browsers that support it (Chrome 115+, Edge 115+)
+ * 2. JS IntersectionObserver fallback for Safari / Firefox — class toggle only
+ *
+ * Elements start visible (no FOUC). The animation plays once when entering the viewport.
+ */
+
+.reveal {
+  opacity: 1; /* visible by default — no blank sections on slow JS */
+}
+
+/* Browsers that support scroll-driven animations — pure CSS, no JS needed */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* JS fallback — only kicks in when scroll-driven animations are NOT supported */
+@supports not (animation-timeline: view()) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-sm);
+  }
+}

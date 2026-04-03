@@ -1,0 +1,157 @@
+---
+const specials = [
+  {
+    title: 'Engine separate from storage.',
+    desc: 'The testing engine talks through a storage adapter so Postgres can be swapped without rewriting agents.',
+  },
+  {
+    title: 'Real browser, real environments.',
+    desc: 'Runs target URLs you configure — staging, preview, or local — with auth and headers modeled like production.',
+  },
+  {
+    title: 'SSE run streams.',
+    desc: 'Long-running agent sessions stream progress so dashboards and tooling stay in sync with live execution.',
+  },
+  {
+    title: 'First-class MCP.',
+    desc: 'Tools map cleanly to API operations: setup, scan, run, bugs, coverage, and run inspection.',
+  },
+  {
+    title: 'Cost-aware by design.',
+    desc: 'Surface run cost in the product so teams can balance LLM exploration against deterministic replay.',
+  },
+];
+
+const nots = [
+  {
+    title: 'Not a generic test runner marketplace.',
+    desc: 'Kery is opinionated about AI-guided browser automation, discovery, and replay — not about ingesting arbitrary JUnit XML from any framework.',
+  },
+  {
+    title: 'Not a replacement for your CI provider.',
+    desc: 'You still pick where jobs execute; Kery is the brain for agentic browser testing and the system of record for findings.',
+  },
+  {
+    title: 'Not only a hosted SaaS (yet).',
+    desc: 'Today the path is self-hosted open source. Hosted Kery Cloud is coming for teams that want us to operate the stack.',
+  },
+  {
+    title: 'Not magic.',
+    desc: 'LLMs misread UIs like humans do. Kery gives you traces, memory, and regression export so you can tighten loops deliberately.',
+  },
+];
+---
+
+<hr class="section-divider" />
+<section class="special-section section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge">Architecture</span>
+      <h2>Built for agents and operators.</h2>
+      <p class="special-subtitle">Concrete seams between crawl, plan, execute, review, and store.</p>
+    </div>
+    <div class="special-grid reveal">
+      {specials.map((s) => (
+        <div class="special-card">
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+<section class="diff-section section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge">Scope</span>
+      <h2>What Kery is not.</h2>
+    </div>
+    <div class="diff-grid reveal">
+      {nots.map((n) => (
+        <div class="diff-card">
+          <h3>{n.title}</h3>
+          <p>{n.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .special-section h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .special-subtitle {
+    margin-bottom: var(--space-xl);
+  }
+
+  .special-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .special-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .special-card h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .special-card p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .diff-section h2 {
+    margin-top: 0.5rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .diff-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .diff-card h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .diff-card p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 768px) {
+    .special-grid,
+    .diff-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .special-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

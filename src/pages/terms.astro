@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_GITHUB_URL } from '../constants';
+---
+
+<Layout
+  title="Terms of Service — Kery"
+  description="Terms of use for kery.dev and notices regarding the Kery open-source software."
+>
+  <Navbar />
+  <main class="legal-page">
+    <div class="container legal-inner">
+      <h1>Terms of Service</h1>
+      <p class="legal-updated">Last updated: April 4, 2026</p>
+
+      <h2>1. Agreement</h2>
+      <p>
+        By accessing <strong>kery.dev</strong> (“Site”), you agree to these Terms. If you do not agree, do not use the
+        Site.
+      </p>
+
+      <h2>2. Software license</h2>
+      <p>
+        The Kery software is distributed under the <strong>Apache License, Version 2.0</strong>. Your use, reproduction,
+        and distribution of the code are governed by that license, not by these Terms. A copy of the license ships
+        with the repository at <a href={SITE_GITHUB_URL}>GitHub</a>.
+      </p>
+
+      <h2>3. Site content</h2>
+      <p>
+        Marketing copy, branding, and design assets on the Site are owned by the Kery project or its contributors
+        and are provided for informational purposes. You may link to the Site; do not misrepresent affiliation or
+        endorsements.
+      </p>
+
+      <h2>4. No warranty</h2>
+      <p>
+        THE SITE AND ANY DOCUMENTATION ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+        INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+        NON-INFRINGEMENT. AI-assisted testing can miss issues or report false positives; you remain responsible for
+        your release process.
+      </p>
+
+      <h2>5. Limitation of liability</h2>
+      <p>
+        TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+        ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, OR
+        GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF THE SITE OR THE SOFTWARE, WHETHER BASED IN CONTRACT,
+        TORT, OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+      </p>
+
+      <h2>6. Future hosted services</h2>
+      <p>
+        If Kery offers a managed cloud product, it will be subject to separate terms of service and, where applicable,
+        a commercial agreement. These Site terms apply only to the marketing website and general OSS distribution
+        unless otherwise stated.
+      </p>
+
+      <h2>7. Changes</h2>
+      <p>
+        We may modify these Terms. The “Last updated” date will change when we do; continued use of the Site after
+        changes constitutes acceptance of the revised Terms.
+      </p>
+
+      <h2>8. Contact</h2>
+      <p>
+        Reach the maintainers via the
+        <a href={SITE_GITHUB_URL}>Kery GitHub repository</a>.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding-top: 6rem;
+    padding-bottom: var(--space-2xl);
+    min-height: 60vh;
+  }
+
+  .legal-inner {
+    max-width: 720px;
+  }
+
+  .legal-inner h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-updated {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .legal-inner h2 {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+  }
+
+  .legal-inner p {
+    margin-bottom: var(--space-sm);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .legal-inner a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .legal-inner a:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

@@ -1,0 +1,256 @@
+---
+import { SITE_GITHUB_URL } from '../constants';
+
+const tools = [
+  'kery_setup_project',
+  'kery_scan',
+  'kery_run_test',
+  'kery_get_bugs',
+  'kery_get_coverage',
+  'kery_get_run',
+  'kery_list_tests',
+  'kery_start',
+];
+
+const ides = ['Claude', 'Cursor', 'GitHub Copilot', 'Codex', 'ChatGPT'];
+---
+
+<section class="mcp-section section" id="mcp" aria-labelledby="mcp-heading">
+  <div class="container">
+    <div class="mcp-intro reveal">
+      <span class="section-badge mcp-badge">Model Context Protocol</span>
+      <h2 id="mcp-heading">Let your coding agent run the tests.</h2>
+      <p class="mcp-lead">
+        Kery ships an MCP server so assistants in <strong>Claude</strong>, <strong>Cursor</strong>,
+        <strong>GitHub Copilot</strong>, <strong>Codex</strong>, and other MCP-capable clients can
+        trigger crawls, start runs, inspect failures, and pull bug lists — without leaving the editor.
+      </p>
+      <div class="ide-pills" aria-label="Example MCP clients">
+        {ides.map((name) => (
+          <span class="ide-pill">{name}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="mcp-split reveal">
+      <div class="mcp-terminal-wrap">
+        <div class="terminal mcp-terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">mcp · kery</span>
+          </div>
+          <div class="terminal-body mcp-terminal-body">
+            <div class="mcp-line mcp-muted"># Tools exposed to your agent</div>
+            {tools.map((t) => (
+              <div class="mcp-line">
+                <span class="mcp-tool">{t}</span>
+                <span class="mcp-arrow">→</span>
+                <span class="mcp-api">Kery API</span>
+              </div>
+            ))}
+            <div class="mcp-line mcp-muted mcp-gap"># Your agent plans; Kery executes in the browser</div>
+          </div>
+        </div>
+      </div>
+      <div class="mcp-aside">
+        <h3 class="mcp-aside-title">Why MCP matters</h3>
+        <ul class="mcp-list">
+          <li>Natural language: “Scan staging and list new bugs from the last run.”</li>
+          <li>Same project data as the dashboard — runs, pages, environments, costs.</li>
+          <li>Self-hosted: point clients at your API with standard env configuration.</li>
+        </ul>
+        <p class="mcp-footnote">
+          Hosted MCP endpoints and managed Kery Cloud are <strong>coming soon</strong>. Today, run Kery yourself and connect any MCP client to your instance.
+        </p>
+        <a href={SITE_GITHUB_URL} class="btn btn-primary mcp-cta">Get the MCP server on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mcp-section {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mcp-intro {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .mcp-badge {
+    background: var(--color-bg);
+  }
+
+  .mcp-intro h2 {
+    margin-top: 0.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .mcp-lead {
+    font-size: clamp(1rem, 0.95rem + 0.2vw, 1.12rem);
+    line-height: 1.65;
+    margin-bottom: var(--space-md);
+  }
+
+  .mcp-lead strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .ide-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .ide-pill {
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  .mcp-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .mcp-terminal-wrap {
+    min-width: 0;
+  }
+
+  .terminal {
+    background: #141816;
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-align: left;
+    border: 1px solid #2a302c;
+  }
+
+  .terminal-bar {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 12px 16px;
+    background: #1c211e;
+  }
+
+  .terminal-title {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #6b756f;
+    letter-spacing: 0.04em;
+  }
+
+  .terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #444;
+  }
+
+  .mcp-terminal-body {
+    padding: 1rem 1.25rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: #e2e8e4;
+    display: block;
+  }
+
+  .mcp-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+  }
+
+  .mcp-line.mcp-gap {
+    margin-top: 0.75rem;
+  }
+
+  .mcp-muted {
+    color: #6b756f;
+  }
+
+  .mcp-tool {
+    color: #e8b09a;
+  }
+
+  .mcp-arrow {
+    color: #5c6560;
+  }
+
+  .mcp-api {
+    color: #9bc4a8;
+    font-size: 0.72rem;
+  }
+
+  .mcp-aside-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+  }
+
+  .mcp-list {
+    list-style: none;
+    margin-bottom: var(--space-md);
+  }
+
+  .mcp-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+  }
+
+  .mcp-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .mcp-footnote {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .mcp-cta {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  @media (max-width: 900px) {
+    .mcp-split {
+      grid-template-columns: 1fr;
+    }
+    .mcp-cta {
+      max-width: none;
+    }
+  }
+</style>

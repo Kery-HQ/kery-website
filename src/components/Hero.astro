@@ -1,0 +1,173 @@
+---
+import { SITE_GITHUB_URL } from '../constants';
+
+const heroImage = '/landing_image/v1.png';
+---
+
+<section class="hero">
+  <!-- Top: art only; bottom edge fades to white (same technique as paperclip.ing) -->
+  <div class="hero-art">
+    <div class="hero-art-fade">
+      <img
+        src={heroImage}
+        alt=""
+        class="hero-photo"
+        width="1408"
+        height="768"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+  </div>
+
+  <!-- Copy overlaps bottom of art slightly; gradient hands off to solid white for body + CTAs -->
+  <div class="hero-copy">
+    <div class="container hero-copy-inner">
+      <h1 class="hero-headline">
+        Kery<br />
+        AI browser testing<br />
+        for real apps
+      </h1>
+      <p class="hero-subtitle">
+        AI agents explore your app in a real browser, flag what breaks, and you steer runs from MCP in your editor.
+      </p>
+      <div class="hero-actions">
+        <a href={SITE_GITHUB_URL} class="hero-btn hero-btn-primary">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    text-align: center;
+    background: #ffffff;
+  }
+
+  .hero-art {
+    background: #ffffff;
+  }
+
+  /* Mask = soft vertical fade into the white page (no hard crop line) */
+  .hero-art-fade {
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    max-height: clamp(260px, 58vh, 640px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 48%, rgba(0, 0, 0, 0.75) 68%, rgba(0, 0, 0, 0.5) 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 48%, rgba(0, 0, 0, 0.75) 68%, rgba(0, 0, 0, 0.5) 78%, transparent 100%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .hero-photo {
+    width: 100%;
+    height: clamp(260px, 58vh, 640px);
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+    margin-top: clamp(-3.5rem, -9vw, -6.75rem);
+    padding: 0 0 clamp(2.5rem, 5vw, 4rem);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.35) 18%,
+      rgba(255, 255, 255, 0.82) 38%,
+      #ffffff 55%,
+      #ffffff 100%
+    );
+  }
+
+  .hero-copy-inner {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+
+  .hero-headline {
+    font-family: var(--font-serif);
+    font-size: 4.68rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--color-text);
+    margin-bottom: clamp(1rem, 2.5vw, 1.35rem);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.95),
+      0 0 19.2px rgba(255, 255, 255, 0.85),
+      0 2px 12px rgba(255, 255, 255, 0.6);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+    margin-top: 0.15rem;
+    margin-bottom: 1.75rem;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Paperclip-style CTAs: dark primary, light bordered secondary */
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.65rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .hero-btn-primary {
+    background: #111111;
+    color: #ffffff;
+    border: 1px solid #111111;
+  }
+
+  .hero-btn-primary:hover {
+    background: #2a2a2a;
+    border-color: #2a2a2a;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 640px) {
+    .hero-photo {
+      object-position: center 36%;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.52rem, 10.8vw, 4.68rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-btn-primary:hover {
+      transform: none;
+    }
+
+    .hero-photo {
+      object-position: center center;
+    }
+  }
+</style>

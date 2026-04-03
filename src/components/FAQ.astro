@@ -1,0 +1,108 @@
+---
+const faqs = [
+  {
+    q: 'How is Kery different from Playwright or Cypress alone?',
+    a: 'Playwright and Cypress are automation libraries. Kery adds LLM-driven navigation, crawling, multi-agent review, bug tracking, MCP access, and a regression path that compiles successful runs into scripts — so exploration and governance live in one system.',
+  },
+  {
+    q: 'Do I need an LLM API key?',
+    a: 'Yes for agent-driven and auxiliary tasks. The README documents supported providers (for example OpenRouter or OpenAI) and model environment variables you can tune for cost versus quality.',
+  },
+  {
+    q: 'What is MCP and why should I care?',
+    a: 'Model Context Protocol lets coding assistants call tools your server exposes. Kery’s MCP server connects Claude, Cursor, GitHub Copilot, Codex, and other clients to scans, test runs, bugs, and coverage — so “run a smoke test on staging” can be a sentence instead of a context switch.',
+  },
+  {
+    q: 'Where does my data live?',
+    a: 'In self-hosted deployments, data stays in your Postgres and infrastructure. A future hosted Kery Cloud offering would run on our managed stack — we will publish clear data handling terms before it launches.',
+  },
+  {
+    q: 'When is hosted Kery available?',
+    a: 'Managed Kery Cloud is coming soon. Until then, Docker Compose and the open-source repo are the supported path.',
+  },
+  {
+    q: 'What license applies?',
+    a: 'Kery is released under the Apache License 2.0. See the LICENSE file in the repository for full terms.',
+  },
+  {
+    q: 'Can I use Kery only from the dashboard?',
+    a: 'Yes. MCP is optional. Teams can work entirely from the web UI and API if they prefer.',
+  },
+  {
+    q: 'How do I get help or report issues?',
+    a: 'Use the GitHub repository for bug reports, feature discussion, and community support while we stand up docs and blog content on kery.dev.',
+  },
+];
+---
+
+<hr class="section-divider" />
+<section class="faq-section section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-badge">FAQ</span>
+      <h2>Frequently asked questions.</h2>
+    </div>
+    <div class="faq-list reveal">
+      {faqs.map((faq) => (
+        <details class="faq-item">
+          <summary class="faq-question">{faq.q}</summary>
+          <div class="faq-answer">
+            <p>{faq.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section h2 {
+    margin-top: 0.5rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-question {
+    padding: 1.1rem 0;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: 1.25rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .faq-item[open] .faq-question::after {
+    content: '−';
+  }
+
+  .faq-answer {
+    padding-bottom: 1.1rem;
+  }
+
+  .faq-answer p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+</style>
