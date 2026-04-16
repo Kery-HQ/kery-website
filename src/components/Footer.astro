@@ -5,25 +5,25 @@ const columns = [
   {
     title: 'Product',
     links: [
+      { text: 'How it works', href: '#quickstart' },
+      { text: 'Regression engine', href: '#regression-section' },
       { text: 'Get started', href: '#get-started' },
-      { text: 'MCP & agents', href: '#mcp' },
-      { text: 'Quickstart', href: '#quickstart' },
     ],
   },
   {
     title: 'Platform',
     links: [
-      { text: 'Self-host (OSS)', href: SITE_GITHUB_URL },
-      { text: 'Hosted Kery', href: '#get-started' },
-      { text: 'Dashboard', href: SITE_GITHUB_URL },
+      { text: 'Self-hosted', href: SITE_GITHUB_URL },
+      { text: 'Bring your own LLM', href: '#regression-section' },
+      { text: 'Apache 2.0', href: `${SITE_GITHUB_URL}/blob/main/LICENSE` },
     ],
   },
   {
     title: 'Developers',
     links: [
-      { text: 'Documentation', href: '/docs' },
-      { text: 'Blog', href: '/blog' },
+      { text: 'Docs', href: '/docs' },
       { text: 'GitHub', href: SITE_GITHUB_URL },
+      { text: 'MCP config', href: '#quickstart' },
     ],
   },
   {
@@ -31,7 +31,7 @@ const columns = [
     links: [
       { text: 'Privacy', href: '/privacy' },
       { text: 'Terms', href: '/terms' },
-      { text: 'License (Apache 2.0)', href: `${SITE_GITHUB_URL}/blob/main/LICENSE` },
+      { text: 'License', href: `${SITE_GITHUB_URL}/blob/main/LICENSE` },
     ],
   },
 ];
@@ -53,7 +53,7 @@ const columns = [
           />
           <span class="footer-logo-text">Kery</span>
         </div>
-        <p class="footer-tagline">AI browser testing<br />with MCP for your editor.</p>
+        <p class="footer-tagline">Built with Playwright.<br />Bring your own LLM.</p>
       </div>
       {columns.map((col) => (
         <div class="footer-col">
@@ -67,7 +67,7 @@ const columns = [
       ))}
     </div>
     <div class="container footer-bottom">
-      <span>&copy; {new Date().getFullYear()} Kery. Open source under Apache 2.0.</span>
+      <span>&copy; {new Date().getFullYear()} Kery. Apache 2.0 · Self-hosted.</span>
       <div class="footer-legal">
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
@@ -176,22 +176,62 @@ const columns = [
     color: var(--color-accent-muted);
   }
 
-  @media (max-width: 900px) {
+  /* Tablet: brand full-width, links in 2×2 grid */
+  @media (max-width: 960px) {
+    .footer-inner {
+      padding: 3rem 0 0;
+    }
+
     .footer-grid {
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 1.5rem 2rem;
     }
 
     .footer-brand {
       grid-column: 1 / -1;
+      padding-right: 0;
     }
   }
 
-  @media (max-width: 768px) {
+  /* Large phone: 2-column links but tighter */
+  @media (max-width: 640px) {
+    .footer-inner {
+      padding: 2.5rem 0 0;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 1.5rem;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-col ul {
+      gap: 0.35rem;
+    }
+  }
+
+  /* Small phone: single column */
+  @media (max-width: 420px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  /* Footer bottom stacks on narrow */
+  @media (max-width: 640px) {
     .footer-bottom {
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.6rem;
       text-align: center;
+      padding: 1rem 0 1.25rem;
+    }
+
+    .footer-legal {
+      gap: 1rem;
     }
   }
 </style>

@@ -44,20 +44,20 @@ button {
 
 /* ===== CSS CUSTOM PROPERTIES ===== */
 :root {
-  /* Kery palette: pale sage surfaces + muted terracotta accent */
-  --color-bg: #fafbf9;
-  --color-bg-alt: #f1f4f1;
-  --color-surface: #e8ece9;
-  --color-surface-raised: #dde3df;
-  --color-border: #c9d2cc;
-  --color-text: #1a1f1c;
-  --color-text-secondary: #3d4540;
+  /* Kery dark palette */
+  --color-bg: #0f1210;
+  --color-bg-alt: #141816;
+  --color-surface: #1c211e;
+  --color-surface-raised: #252b27;
+  --color-border: #2a302c;
+  --color-text: #e8ece9;
+  --color-text-secondary: #b8c0bb;
   --color-text-muted: #6b756f;
-  --color-accent: #b85c3a;
-  --color-accent-hover: #9d4e30;
-  --color-accent-light: #efd9cf;
-  --color-accent-soft: #f7efeb;
-  --color-accent-muted: #c99882;
+  --color-accent: #c96b46;
+  --color-accent-hover: #b85c3a;
+  --color-accent-light: #3a2318;
+  --color-accent-soft: #2a1a12;
+  --color-accent-muted: #8c5035;
 
   --font-serif: "Instrument Serif", serif;
   --font-sans: "Inter", sans-serif;
@@ -149,7 +149,7 @@ p {
 
 .btn-primary {
   background: var(--color-accent);
-  color: #fff;
+  color: #ffffff;
 }
 
 .btn-primary:hover {
@@ -180,16 +180,16 @@ p {
 /*
  * Two-tier approach:
  * 1. CSS scroll-driven animations for browsers that support it (Chrome 115+, Edge 115+)
- * 2. JS IntersectionObserver fallback for Safari / Firefox — class toggle only
+ * 2. JS IntersectionObserver fallback for Safari / Firefox - class toggle only
  *
  * Elements start visible (no FOUC). The animation plays once when entering the viewport.
  */
 
 .reveal {
-  opacity: 1; /* visible by default — no blank sections on slow JS */
+  opacity: 1; /* visible by default - no blank sections on slow JS */
 }
 
-/* Browsers that support scroll-driven animations — pure CSS, no JS needed */
+/* Browsers that support scroll-driven animations - pure CSS, no JS needed */
 @supports (animation-timeline: view()) {
   .reveal {
     animation: reveal-in linear both;
@@ -209,7 +209,7 @@ p {
   }
 }
 
-/* JS fallback — only kicks in when scroll-driven animations are NOT supported */
+/* JS fallback - only kicks in when scroll-driven animations are NOT supported */
 @supports not (animation-timeline: view()) {
   .reveal {
     opacity: 0;

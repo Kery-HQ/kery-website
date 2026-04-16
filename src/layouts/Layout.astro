@@ -6,7 +6,7 @@ interface Props {
 }
 
 const {
-  title = "Kery — AI-powered browser testing",
+  title = "Kery - AI-powered browser testing",
   description =
     "Open-source platform: LLM agents crawl your app, plan tests, run them in a real browser, and surface bugs. MCP for Claude, Cursor, Codex, and more. Self-host today; hosted Kery coming soon.",
   ogImage = "/kery.png",
@@ -61,7 +61,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <script>
       // JS fallback for browsers without CSS scroll-driven animations (Safari, Firefox)
-      // Chrome/Edge use pure CSS animation-timeline: view() — no JS needed.
+      // Chrome/Edge use pure CSS animation-timeline: view() - no JS needed.
       if (!CSS.supports('animation-timeline: view()')) {
         const observer = new IntersectionObserver(
           (entries) => {

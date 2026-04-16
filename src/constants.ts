@@ -3,5 +3,8 @@ export const SITE_GITHUB_URL = 'https://github.com/kery-dev/kery';
 
 export const SITE_ORIGIN = 'https://kery.dev';
 
-/** Pixel mango mark — use in nav, footer, favicon, OG default. */
+/** Pixel mango mark - use in nav, footer, favicon, OG default. */
 export const SITE_LOGO_URL = '/kery.png';
+
+/** Toggle to show only hero section on homepage. */
+export const COMING_SOON = true;

@@ -1,44 +1,34 @@
 ---
 const features = [
   {
-    abbr: 'AI',
-    title: 'AI browser agent',
-    desc: 'LLM-driven Playwright uses the accessibility tree and screenshots to navigate like a user.',
-  },
-  {
-    abbr: 'CR',
-    title: 'Crawl & discovery',
-    desc: 'BFS crawl finds pages, modals, and interactions so testing is grounded in how the app is actually built.',
-  },
-  {
-    abbr: 'RG',
-    title: 'Regression engine',
-    desc: 'Successful exploratory runs compile into deterministic scripts — replay without spending tokens on every pass.',
-  },
-  {
-    abbr: 'MEM',
-    title: 'Agent memory',
-    desc: 'Curated memory from past runs helps agents avoid repeating mistakes and focus on what changed.',
-  },
-  {
-    abbr: 'MCP',
-    title: 'MCP server',
-    desc: 'Wire Kery into Claude, Cursor, Copilot, Codex, and other MCP clients for natural-language test workflows.',
+    abbr: 'DISC',
+    title: 'Discovery',
+    desc: 'Point Kery at a URL. It crawls pages, maps forms and interactions, and suggests test flows before you write anything.',
   },
   {
     abbr: 'BUG',
-    title: 'Bugs & evidence',
-    desc: 'Triaged issues with traces, network context, and screenshot review — not just pass or fail.',
+    title: 'Bug Detection',
+    desc: 'Find functional, visual, UX, and API bugs during and after runs with screenshots, severity, and context.',
   },
   {
-    abbr: 'ENV',
-    title: 'Environments',
-    desc: 'Model staging, production-like URLs, and credentials per project without forking your setup.',
+    abbr: 'HEAL',
+    title: 'Self-Healing',
+    desc: "Selectors break. Kery doesn't. Intent-based element resolution helps runs survive UI changes.",
   },
   {
-    abbr: 'OSS',
-    title: 'Self-hosted OSS',
-    desc: 'Apache 2.0. Your data stays on your stack. Hosted Kery Cloud is on the roadmap.',
+    abbr: 'REPL',
+    title: 'Regression Replay',
+    desc: 'Successful runs compile into Playwright scripts so later runs are deterministic and near-zero cost.',
+  },
+  {
+    abbr: 'AUTH',
+    title: 'Auth',
+    desc: 'Clerk, Supabase, OAuth, API tokens, and TOTP/2FA support for testing real flows behind login.',
+  },
+  {
+    abbr: 'MEM',
+    title: 'Memory',
+    desc: 'Kery learns navigation paths and failure patterns over time, so tests get better with use.',
   },
 ];
 ---
@@ -46,10 +36,10 @@ const features = [
 <section class="features-section section">
   <div class="container">
     <div class="features-header reveal">
-      <span class="section-badge">Features</span>
+      <span class="section-badge">Feature primitives</span>
       <h2>
-        One platform for<br />
-        agentic browser QA.
+        Core capabilities,<br />
+        clearly separated.
       </h2>
     </div>
     <div class="features-grid reveal">

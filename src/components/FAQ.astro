@@ -1,46 +1,56 @@
 ---
 const faqs = [
   {
-    q: 'How is Kery different from Playwright or Cypress alone?',
-    a: 'Playwright and Cypress are automation libraries. Kery adds LLM-driven navigation, crawling, multi-agent review, bug tracking, MCP access, and a regression path that compiles successful runs into scripts — so exploration and governance live in one system.',
+    q: 'How is Kery different from plain Playwright?',
+    a: 'Playwright executes scripts you write. Kery explores your app autonomously, finds bugs, and compiles the run into a Playwright script. You get test coverage without writing selectors or page objects.',
+  },
+  {
+    q: 'How is Kery different from Playwright codegen?',
+    a: 'Codegen records your manual clicks. Kery explores on its own - it opens a real browser, navigates your app, identifies flows, and reports bugs without you touching a mouse.',
+  },
+  {
+    q: 'How much does a typical run cost?',
+    a: 'First exploratory run: ~$0.02–$0.05 depending on app complexity and model choice. Each regression replay after that: ~$0.001. Cost drops roughly 95% once a run compiles to a script.',
   },
   {
     q: 'Do I need an LLM API key?',
-    a: 'Yes for agent-driven and auxiliary tasks. The README documents supported providers (for example OpenRouter or OpenAI) and model environment variables you can tune for cost versus quality.',
+    a: 'Yes, for exploratory runs. You bring your own key - OpenAI, Anthropic, Gemini, or OpenRouter. Regression replays run as deterministic Playwright with no model calls.',
   },
   {
-    q: 'What is MCP and why should I care?',
-    a: 'Model Context Protocol lets coding assistants call tools your server exposes. Kery’s MCP server connects Claude, Cursor, GitHub Copilot, Codex, and other clients to scans, test runs, bugs, and coverage — so “run a smoke test on staging” can be a sentence instead of a context switch.',
+    q: 'What happens when a regression test fails?',
+    a: 'The heal agent fires on the specific failing step. It reads the accessibility tree, identifies the broken selector, patches it in one shot, and hands control back to the replay. The output is a corrected .spec.ts file.',
+  },
+  {
+    q: 'Does it work behind authentication?',
+    a: 'Yes. Clerk, Supabase Auth, OAuth 2.0, GitHub, API tokens, and TOTP/2FA are all supported natively. Kery authenticates as part of the run - auth pages are not a wall.',
+  },
+  {
+    q: 'Can I run Kery in CI?',
+    a: 'Yes. Compiled regression scripts are standard Playwright .spec.ts files that run in any CI environment. The Kery server can also be triggered via API or MCP.',
+  },
+  {
+    q: 'What can I do with MCP?',
+    a: 'Trigger runs, pull bug reports, and inspect run history directly from Claude, Cursor, Copilot, or Codex without leaving your editor.',
   },
   {
     q: 'Where does my data live?',
-    a: 'In self-hosted deployments, data stays in your Postgres and infrastructure. A future hosted Kery Cloud offering would run on our managed stack — we will publish clear data handling terms before it launches.',
-  },
-  {
-    q: 'When is hosted Kery available?',
-    a: 'Managed Kery Cloud is coming soon. Until then, Docker Compose and the open-source repo are the supported path.',
+    a: 'In your own Postgres on your own infrastructure. Nothing leaves your environment.',
   },
   {
     q: 'What license applies?',
-    a: 'Kery is released under the Apache License 2.0. See the LICENSE file in the repository for full terms.',
-  },
-  {
-    q: 'Can I use Kery only from the dashboard?',
-    a: 'Yes. MCP is optional. Teams can work entirely from the web UI and API if they prefer.',
-  },
-  {
-    q: 'How do I get help or report issues?',
-    a: 'Use the GitHub repository for bug reports, feature discussion, and community support while we stand up docs and blog content on kery.dev.',
+    a: 'Apache 2.0.',
   },
 ];
+import HangingMango from './HangingMango.astro';
 ---
 
 <hr class="section-divider" />
 <section class="faq-section section">
+  <HangingMango left="18%" wire={58} delay={0.6} />
   <div class="container">
     <div class="reveal">
       <span class="section-badge">FAQ</span>
-      <h2>Frequently asked questions.</h2>
+      <h2>Short answers.</h2>
     </div>
     <div class="faq-list reveal">
       {faqs.map((faq) => (
@@ -56,6 +66,11 @@ const faqs = [
 </section>
 
 <style>
+  .faq-section {
+    position: relative;
+    overflow: hidden;
+  }
+
   .faq-section h2 {
     margin-top: 0.5rem;
     margin-bottom: var(--space-xl);

@@ -1,65 +1,23 @@
 ---
-const specials = [
-  {
-    title: 'Engine separate from storage.',
-    desc: 'The testing engine talks through a storage adapter so Postgres can be swapped without rewriting agents.',
-  },
-  {
-    title: 'Real browser, real environments.',
-    desc: 'Runs target URLs you configure — staging, preview, or local — with auth and headers modeled like production.',
-  },
-  {
-    title: 'SSE run streams.',
-    desc: 'Long-running agent sessions stream progress so dashboards and tooling stay in sync with live execution.',
-  },
-  {
-    title: 'First-class MCP.',
-    desc: 'Tools map cleanly to API operations: setup, scan, run, bugs, coverage, and run inspection.',
-  },
-  {
-    title: 'Cost-aware by design.',
-    desc: 'Surface run cost in the product so teams can balance LLM exploration against deterministic replay.',
-  },
-];
-
 const nots = [
   {
-    title: 'Not a generic test runner marketplace.',
-    desc: 'Kery is opinionated about AI-guided browser automation, discovery, and replay — not about ingesting arbitrary JUnit XML from any framework.',
+    title: 'Not a magic black box.',
+    desc: 'AI handles exploration, reasoning, and selector healing. Deterministic Playwright handles replay. You can read every line.',
   },
   {
-    title: 'Not a replacement for your CI provider.',
-    desc: 'You still pick where jobs execute; Kery is the brain for agentic browser testing and the system of record for findings.',
+    title: 'Not a SaaS.',
+    desc: 'Self-hosted, Apache 2.0. Your data never leaves your infrastructure.',
   },
   {
-    title: 'Not only a hosted SaaS (yet).',
-    desc: 'Today the path is self-hosted open source. Hosted Kery Cloud is coming for teams that want us to operate the stack.',
+    title: 'Not a no-code recorder.',
+    desc: 'The output is clean, readable Playwright. Engineers can commit it, review it, and extend it.',
   },
   {
-    title: 'Not magic.',
-    desc: 'LLMs misread UIs like humans do. Kery gives you traces, memory, and regression export so you can tighten loops deliberately.',
+    title: 'Not pass/fail only.',
+    desc: 'Every bug includes a screenshot, a bounding box, the step that triggered it, and a severity level.',
   },
 ];
 ---
-
-<hr class="section-divider" />
-<section class="special-section section">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-badge">Architecture</span>
-      <h2>Built for agents and operators.</h2>
-      <p class="special-subtitle">Concrete seams between crawl, plan, execute, review, and store.</p>
-    </div>
-    <div class="special-grid reveal">
-      {specials.map((s) => (
-        <div class="special-card">
-          <h3>{s.title}</h3>
-          <p>{s.desc}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
 
 <hr class="section-divider" />
 <section class="diff-section section">

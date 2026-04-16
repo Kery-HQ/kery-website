@@ -2,36 +2,37 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
-import Quickstart from '../components/Quickstart.astro';
-import McpShowcase from '../components/McpShowcase.astro';
-import HowItWorks from '../components/HowItWorks.astro';
-import FeaturesGrid from '../components/FeaturesGrid.astro';
-import FeatureDeepDives from '../components/FeatureDeepDives.astro';
-import WhatIs from '../components/WhatIs.astro';
+import DemoVideo from '../components/DemoVideo.astro';
+import GetRunning from '../components/GetRunning.astro';
 import Problems from '../components/Problems.astro';
-import WhySpecial from '../components/WhySpecial.astro';
+import Agents from '../components/Agents.astro';
+import BugTypes from '../components/BugTypes.astro';
+import FeatureDeepDives from '../components/FeatureDeepDives.astro';
 import FAQ from '../components/FAQ.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
+import { COMING_SOON } from '../constants';
 ---
 
 <Layout
-  title="Kery — AI browser testing with MCP"
-  description="Open-source AI agents crawl and test your web app in a real browser. MCP for Claude, Cursor, Codex, and more. Self-host today; hosted Kery coming soon."
+  title="Kery - Ship fast. Break nothing."
+  description="Open-source testing engine for real browser runs, bug detection, and self-healing Playwright replay. Apache 2.0, self-hosted, bring your own LLM."
 >
   <Navbar />
   <main>
     <Hero />
-    <Quickstart />
-    <McpShowcase />
-    <HowItWorks />
-    <FeaturesGrid />
-    <FeatureDeepDives />
-    <WhatIs />
-    <Problems />
-    <WhySpecial />
-    <FAQ />
-    <CTA />
+    {!COMING_SOON && (
+      <>
+        <DemoVideo />
+        <GetRunning />
+        <Problems />
+        <Agents />
+        <BugTypes />
+        <FeatureDeepDives />
+        <FAQ />
+        <CTA />
+      </>
+    )}
   </main>
-  <Footer />
+  {!COMING_SOON && <Footer />}
 </Layout>

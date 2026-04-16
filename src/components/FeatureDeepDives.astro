@@ -1,62 +1,10 @@
 ---
+import HangingMango from './HangingMango.astro';
 ---
 
 <hr class="section-divider" />
-<section class="feature-section section">
-  <div class="container">
-    <div class="feature-split reveal">
-      <div class="feature-text">
-        <span class="section-badge">Multi-agent</span>
-        <h2>Navigator, reviewer, planner.</h2>
-        <p>
-          Kery splits work across focused agents: execution in the browser, holistic screenshot review,
-          path and test planning, and network monitoring for API errors. Each piece does one job well so
-          the stack stays debuggable.
-        </p>
-        <p class="feature-note">Accessibility tree plus pixels — not brittle coordinates alone.</p>
-        <div class="agent-badges">
-          <span class="agent-badge">Navigator</span>
-          <span class="agent-badge">Review</span>
-          <span class="agent-badge">Path gen</span>
-          <span class="agent-badge">Network</span>
-        </div>
-      </div>
-      <div class="feature-visual">
-        <div class="mockup-card">
-          <div class="agent-flow">
-            <div class="agent-row">
-              <span class="agent-label">Intent</span>
-              <span class="agent-mono">“Verify checkout with coupon”</span>
-            </div>
-            <div class="agent-arrow">↓</div>
-            <div class="agent-row">
-              <span class="agent-label">Plan</span>
-              <span class="agent-mono">routes · forms · assertions</span>
-            </div>
-            <div class="agent-arrow">↓</div>
-            <div class="agent-row">
-              <span class="agent-label">Browser</span>
-              <span class="agent-mono">Playwright + LLM steps</span>
-            </div>
-            <div class="agent-arrow">↓</div>
-            <div class="agent-row agent-row-success">
-              <span class="agent-label">Review</span>
-              <span class="agent-mono">filmstrip + bug cards</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider" />
 <section class="feature-section section heartbeat-dark" id="regression-section">
-  <div class="pendant-lamp">
-    <div class="lamp-wire"></div>
-    <div class="lamp-bulb"></div>
-  </div>
-  <div class="light-glow"></div>
+  <HangingMango left="72%" wire={64} delay={0} />
   <div class="container">
     <div class="feature-split reveal">
       <div class="feature-text">
@@ -64,32 +12,34 @@
           <span class="badge-pulse"></span>
           Regression engine
         </span>
-        <h2>Green runs become scripts.</h2>
+        <h2>Every deploy is a regression test.</h2>
         <p class="dark-text">
-          When a run succeeds, Kery can compile it into deterministic Playwright. Replay critical flows on
-          a schedule or in CI with <strong>zero</strong> LLM calls — reserve the model for exploration and change.
+          The first run explores your app and compiles a <code class="dark-code">.spec.ts</code> file.
+          That script runs on every subsequent deploy - no prompts, no LLM calls, no maintenance.
+          If a selector drifts, the <code class="dark-code">heal</code> agent patches it and keeps going.
+          If a flow breaks, you hear about it before your users do.
         </p>
         <ul class="dark-list">
-          <li>Stable replay for smoke and release gates</li>
-          <li>Keep exploratory and scripted suites in one project</li>
-          <li>Costs and latency drop where automation is enough</li>
+          <li>Drop the compiled script into any CI pipeline</li>
+          <li>Selectors self-heal - no manual selector upkeep</li>
+          <li>Replay cost: ~$0.001 per run</li>
         </ul>
       </div>
       <div class="feature-visual">
         <div class="mockup-card dark-mockup">
           <div class="reg-block">
-            <div class="reg-header">Run pipeline</div>
-            <div class="reg-step">
-              <span class="reg-tag reg-explore">LLM</span>
-              <span>Discover new states</span>
-            </div>
-            <div class="reg-step">
-              <span class="reg-tag reg-record">Record</span>
-              <span>Persist passing path</span>
-            </div>
+            <div class="reg-header">On every deploy</div>
             <div class="reg-step">
               <span class="reg-tag reg-replay">Replay</span>
-              <span>Playwright only — no model</span>
+              <span>Run compiled <code class="dark-code">.spec.ts</code> - no LLM</span>
+            </div>
+            <div class="reg-step">
+              <span class="reg-tag reg-heal">Heal</span>
+              <span>Broken selector? Patch from a11y tree, continue</span>
+            </div>
+            <div class="reg-step reg-step-last">
+              <span class="reg-tag reg-fail">Fail</span>
+              <span>Flow actually broke - alert fired, run stopped</span>
             </div>
           </div>
         </div>
@@ -103,31 +53,73 @@
   <div class="container">
     <div class="feature-split reverse reveal">
       <div class="feature-text">
-        <span class="section-badge">Dashboard</span>
-        <h2>Bugs, runs, and memory<br />in one place.</h2>
+        <span class="section-badge">Works behind auth</span>
+        <h2>Your login page is not a wall.</h2>
         <p>
-          The web app ties together environments, discovered pages, test plans, run history, and bug triage.
-          See spend per run, drill into traces, and let memory curation feed the next session.
+          Most testing tools stop at login. Kery authenticates natively, including multi-factor, so you can
+          test real app flows behind real auth.
         </p>
         <p>
-          Prefer the terminal or your editor? The same backend powers the <strong>MCP server</strong> — pick the
-          surface that matches how you work.
+          Supports Clerk, Supabase Auth, OAuth 2.0, API tokens, TOTP/2FA, and custom providers.
         </p>
       </div>
       <div class="feature-visual">
-        <div class="mockup-card">
-          <div class="dash-mock">
-            <div class="dash-row dash-head">
-              <span>Overview</span>
-              <span class="dash-pill">Project</span>
+        <div class="auth-icon-grid">
+          <!-- Clerk -->
+          <div class="auth-icon-item">
+            <div class="auth-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M19 8.5C17.3 5.5 14.4 3.5 12 3.5a8.5 8.5 0 0 0-8.5 8.5A8.5 8.5 0 0 0 12 20.5c2.4 0 5.3-2 7-5"/>
+              </svg>
             </div>
-            <div class="dash-kpis">
-              <div class="dash-kpi"><span class="dash-k">Runs</span><span class="dash-v">24</span></div>
-              <div class="dash-kpi"><span class="dash-k">Open bugs</span><span class="dash-v">7</span></div>
-              <div class="dash-kpi"><span class="dash-k">Pages</span><span class="dash-v">38</span></div>
+            <span class="auth-icon-label">Clerk</span>
+          </div>
+          <!-- Supabase -->
+          <div class="auth-icon-item">
+            <div class="auth-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M13 2L4.5 13.5H11L9 22l10.5-12H13z"/>
+              </svg>
             </div>
-            <div class="dash-row"><span class="dash-dot"></span> Last run <span class="dash-mono">passed</span> · 4m 12s</div>
-            <div class="dash-row"><span class="dash-dot dash-warn"></span> Coupon edge case <span class="dash-mono">new</span></div>
+            <span class="auth-icon-label">Supabase</span>
+          </div>
+          <!-- OAuth -->
+          <div class="auth-icon-item">
+            <div class="auth-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="11" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+            </div>
+            <span class="auth-icon-label">OAuth 2.0</span>
+          </div>
+          <!-- GitHub -->
+          <div class="auth-icon-item">
+            <div class="auth-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+            </div>
+            <span class="auth-icon-label">GitHub</span>
+          </div>
+          <!-- API Token -->
+          <div class="auth-icon-item">
+            <div class="auth-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="7.5" cy="15.5" r="5.5"/>
+                <path d="M21 2l-9.6 9.6M15.5 7.5l3 3"/>
+              </svg>
+            </div>
+            <span class="auth-icon-label">API Token</span>
+          </div>
+          <!-- TOTP / 2FA -->
+          <div class="auth-icon-item">
+            <div class="auth-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span class="auth-icon-label">TOTP / 2FA</span>
           </div>
         </div>
       </div>
@@ -135,39 +127,6 @@
   </div>
 </section>
 
-<hr class="section-divider" />
-<section class="feature-section section">
-  <div class="container">
-    <div class="feature-split reveal">
-      <div class="feature-text">
-        <span class="section-badge">Self-healing</span>
-        <h2>When selectors drift,<br />intent still lands.</h2>
-        <p>
-          Optional Stagehand-style resolution finds elements by described intent when rigid selectors break,
-          so agent-driven runs survive refactors a little more gracefully.
-        </p>
-        <div class="oss-cards">
-          <div class="oss-card">
-            <strong>Apache 2.0</strong>
-            <span>Fork, audit, and deploy on your own infrastructure.</span>
-          </div>
-          <div class="oss-card">
-            <strong>Hosted Kery</strong>
-            <span>Fully managed cloud is coming soon — sign up from GitHub releases when we open the waitlist.</span>
-          </div>
-        </div>
-      </div>
-      <div class="feature-visual">
-        <div class="mockup-card">
-          <div class="heal-mock">
-            <div class="heal-line"><span class="heal-bad">#submit-btn</span> <span class="heal-x">not found</span></div>
-            <div class="heal-line heal-resolve"><span class="heal-good">intent:</span> primary checkout CTA → <span class="heal-good">clicked</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <style>
   .feature-split {
@@ -277,42 +236,6 @@
     overflow: hidden;
   }
 
-  .pendant-lamp {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1;
-  }
-
-  .lamp-wire {
-    width: 1px;
-    height: 40px;
-    background: #444;
-  }
-
-  .lamp-bulb {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-accent-muted);
-    box-shadow: 0 0 20px rgba(184, 92, 58, 0.45);
-  }
-
-  .light-glow {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    height: 200px;
-    background: radial-gradient(ellipse, rgba(184, 92, 58, 0.08) 0%, transparent 70%);
-    z-index: 0;
-  }
-
   .dark-badge {
     background: #1c211e;
     border-color: #2f3833;
@@ -411,8 +334,31 @@
   }
 
   .reg-replay {
-    background: rgba(200, 200, 200, 0.08);
-    color: #b8bfb9;
+    background: rgba(155, 196, 168, 0.15);
+    color: #9bc4a8;
+  }
+
+  .reg-heal {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f5b84b;
+  }
+
+  .reg-fail {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+  }
+
+  .reg-step-last {
+    border-bottom: none;
+  }
+
+  .dark-code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: rgba(255,255,255,0.07);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    color: #9bc4a8;
   }
 
   .dash-mock {
@@ -490,6 +436,49 @@
     font-family: var(--font-mono);
     font-size: 0.78rem;
     margin-left: auto;
+  }
+
+  /* Auth icon grid */
+  .auth-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .auth-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .auth-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .auth-icon-item:hover .auth-icon-wrap {
+    border-color: var(--color-accent-muted);
+    color: var(--color-text);
+    background: var(--color-accent-soft);
+  }
+
+  .auth-icon-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    letter-spacing: 0.02em;
   }
 
   .oss-cards {

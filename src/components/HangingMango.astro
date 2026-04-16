@@ -1,0 +1,72 @@
+---
+interface Props {
+  left?: string;
+  wire?: number;
+  delay?: number;
+}
+
+const {
+  left  = '50%',
+  wire  = 60,
+  delay = 0,
+} = Astro.props;
+---
+
+<div class="hm-root" style={`left:${left};`} aria-hidden="true">
+  <div class="hm-wire" style={`height:${wire}px;`}></div>
+  <div class="hm-swing" style={`animation-delay:${delay}s;`}>
+    <img src="/kery.png" class="hm-logo" alt="" />
+  </div>
+</div>
+
+<style>
+  .hm-root {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hm-wire {
+    width: 1.5px;
+    background: linear-gradient(to bottom, transparent 0%, #9a6030 35%, #7a4520 100%);
+    flex-shrink: 0;
+  }
+
+  .hm-swing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: top center;
+    animation: mango-swing 5.2s ease-in-out infinite;
+  }
+
+  .hm-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    filter:
+      drop-shadow(0 0 6px rgba(255, 160, 40, 0.85))
+      drop-shadow(0 0 18px rgba(255, 120, 20, 0.5))
+      drop-shadow(0 0 36px rgba(220, 90, 10, 0.25));
+  }
+
+  @keyframes mango-swing {
+    0%,  100% { transform: rotate(-5deg); }
+    25%        { transform: rotate(-1deg); }
+    50%        { transform: rotate(5deg);  }
+    75%        { transform: rotate(1deg);  }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-swing { animation: none; }
+  }
+</style>

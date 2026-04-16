@@ -1,28 +1,28 @@
 ---
 const identities = [
   {
-    title: 'A browser QA agent.',
-    desc: 'LLMs drive real Playwright sessions against your deployed app — not mocked DOM — with traces you can inspect.',
+    title: 'Open-source testing engine.',
+    desc: 'Explores your app in a real browser and reports functional, visual, and API bugs with evidence.',
   },
   {
-    title: 'A discovery layer.',
-    desc: 'Crawls map how users move through the product so tests and agents start from ground truth, not guesswork.',
+    title: 'Intent-first workflow.',
+    desc: 'Describe what to test in plain English, then let Kery explore and execute the flow end-to-end.',
   },
   {
-    title: 'A regression compiler.',
-    desc: 'Turns successful exploration into scripts you can replay without model spend when behavior is stable.',
+    title: 'Compiled regression replay.',
+    desc: 'Successful runs become deterministic Playwright scripts so repeat runs do not burn LLM tokens.',
   },
   {
-    title: 'An MCP backend for your IDE.',
-    desc: 'The same projects, runs, and bugs your dashboard sees are available to Claude, Cursor, Copilot, Codex, and friends.',
+    title: 'MCP + SDK + API.',
+    desc: 'Use Kery from your editor agent, CLI, or backend integration with one shared execution backend.',
   },
   {
-    title: 'A memory loop.',
-    desc: 'Curated notes from past runs help the stack adapt instead of repeating the same blind spots.',
+    title: 'Self-healing selectors.',
+    desc: 'Intent-based element resolution helps tests survive UI changes without constant selector rewrites.',
   },
   {
-    title: 'Your infrastructure.',
-    desc: 'Self-host with Docker and Postgres today. Hosted Kery Cloud is on the way for teams who want zero ops.',
+    title: 'Self-hosted by default.',
+    desc: 'Apache 2.0. Run it on your infrastructure and bring your own model provider and pricing.',
   },
 ];
 ---
@@ -31,7 +31,7 @@ const identities = [
 <section class="what-is-section section">
   <div class="container reveal">
     <span class="section-badge">What Kery is</span>
-    <h2>One spine for agentic testing.</h2>
+    <h2>Built to ship, not babysit tests.</h2>
     <div class="identity-grid">
       {identities.map((item) => (
         <div class="identity-card">

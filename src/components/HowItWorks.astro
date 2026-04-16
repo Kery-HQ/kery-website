@@ -1,39 +1,38 @@
 ---
-const steps = [
-  {
-    num: '01',
-    title: 'Connect your app.',
-    desc: 'Register the URL (and auth if needed). Kery uses real environments — the same surfaces your users hit.',
-  },
-  {
-    num: '02',
-    title: 'Discover and plan.',
-    desc: 'A breadth-first crawl maps pages, forms, and flows. Agents and saved tests turn intents into browser actions.',
-  },
-  {
-    num: '03',
-    title: 'Run, regress, iterate.',
-    desc: 'Executions run in Playwright with LLM guidance, optional self-healing selectors, and a regression path that replays green runs without model calls.',
-  },
-];
+import HangingMango from './HangingMango.astro';
 ---
 
 <section class="how-it-works section">
+  <HangingMango left="84%" wire={52} delay={1.4} />
   <div class="container">
     <div class="reveal">
-      <h2>
-        From URL to bugs you<br />
-        can actually fix.
-      </h2>
+      <h2>Describe. Explore. Lock it down.</h2>
     </div>
     <div class="steps-grid reveal">
-      {steps.map((step) => (
-        <div class="step-card">
-          <span class="step-num">{step.num}</span>
-          <h3>{step.title}</h3>
-          <p>{step.desc}</p>
+
+      <div class="step-card">
+        <span class="step-num">01</span>
+        <h3>Describe</h3>
+        <p>Give Kery a URL and an intent. No selectors, no page objects, no test setup.</p>
+        <div class="step-snippet">
+          <div class="snippet-line"><span class="snip-key">intent</span><span class="snip-sep">:</span> <span class="snip-val">"sign up, add a card, verify billing page"</span></div>
+          <div class="snippet-line"><span class="snip-key">url</span><span class="snip-sep">:</span> <span class="snip-val">https://app.example.com</span></div>
+          <div class="snippet-line"><span class="snip-key">auth</span><span class="snip-sep">:</span> <span class="snip-val">{"{ provider: \"clerk\" }"}</span></div>
         </div>
-      ))}
+      </div>
+
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <h3>Explore</h3>
+        <p>Three agents run in sequence. <code>navigator</code> drives a real Chromium session with 15 action types. <code>reviewer</code> audits the full flow for state and behavioral gaps. <code>filmstrip</code> checks visual consistency across every screenshot.</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <h3>Lock it down</h3>
+        <p><code>script_generator</code> compiles the navigator trace into a <code>.spec.ts</code> file. Every run after that replays it with zero LLM calls. If a selector drifts, <code>heal</code> corrects it from the accessibility tree and keeps going.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -41,6 +40,8 @@ const steps = [
 <style>
   .how-it-works {
     text-align: center;
+    position: relative;
+    overflow: hidden;
   }
 
   .how-it-works h2 {
@@ -76,7 +77,38 @@ const steps = [
 
   .step-card p {
     font-size: 0.9rem;
+    line-height: 1.6;
   }
+
+  .step-card code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--color-surface);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    color: var(--color-accent-hover);
+  }
+
+  .step-snippet {
+    margin-top: 1rem;
+    background: #141816;
+    border: 1px solid #2a302c;
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .snippet-line {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .snip-key  { color: #e8b09a; }
+  .snip-sep  { color: #6b756f; margin: 0 0.25rem; }
+  .snip-val  { color: #9bc4a8; }
 
   @media (max-width: 768px) {
     .steps-grid {

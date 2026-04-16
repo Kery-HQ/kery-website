@@ -1,0 +1,205 @@
+---
+const bugTypes = [
+  {
+    icon: 'F', color: '#ef4444', dim: 'rgba(239,68,68,0.12)',
+    tag: 'functional',
+    desc: 'Buttons with no effect, forms that silently fail, broken state transitions, missing network calls.',
+  },
+  {
+    icon: 'V', color: '#a855f7', dim: 'rgba(168,85,247,0.12)',
+    tag: 'visual',
+    desc: 'Element overlap, layout shifts, broken responsive design, z-index stacking issues, missing images.',
+  },
+  {
+    icon: 'U', color: '#f97316', dim: 'rgba(249,115,22,0.12)',
+    tag: 'ux',
+    desc: 'Dead click zones, missing loading states, empty states not handled, broken pagination.',
+  },
+  {
+    icon: 'A', color: '#06b6d4', dim: 'rgba(6,182,212,0.12)',
+    tag: 'accessibility',
+    desc: 'No focus ring, missing aria labels, keyboard traps, interactive elements unreachable by keyboard.',
+  },
+  {
+    icon: 'H', color: '#3b82f6', dim: 'rgba(59,130,246,0.12)',
+    tag: 'http_error',
+    desc: '4xx / 5xx responses, CORS failures, auth token expiry, API timeouts surfaced silently.',
+  },
+  {
+    icon: 'P', color: '#f59e0b', dim: 'rgba(245,158,11,0.12)',
+    tag: 'performance',
+    desc: 'Slow time-to-interactive, render-blocking requests, memory growth, excessive re-renders.',
+  },
+  {
+    icon: 'D', color: '#22c55e', dim: 'rgba(34,197,94,0.12)',
+    tag: 'data',
+    desc: 'Wrong values rendered, stale cache shown, missing fields, type errors surfacing in the UI.',
+  },
+  {
+    icon: 'C', color: '#71717a', dim: 'rgba(113,113,122,0.12)',
+    tag: 'console',
+    desc: 'Uncaught exceptions, unhandled promise rejections, React warnings, silent errors logged.',
+  },
+];
+---
+
+<hr class="section-divider" />
+<section class="bugtypes-section section">
+  <div class="container">
+
+    <div class="bt-header reveal">
+      <span class="section-badge">Bug Detection</span>
+      <h2>Not pass/fail. Actual bugs.</h2>
+      <p class="bt-lead">Screenshot, bounding box, step number, severity. Every finding is actionable.</p>
+    </div>
+
+    <div class="bug-canvas reveal">
+      <div class="bug-canvas-head">
+        <span class="bug-panel-title">what Kery detects</span>
+        <span class="bug-count-badge">8 types</span>
+      </div>
+      <div class="bug-grid">
+        {bugTypes.map((b) => (
+          <article class="bug-card" style={`--bug-color:${b.color};--bug-dim:${b.dim};`}>
+            <div class="bug-card-top">
+              <div class="bug-icon" style={`background:${b.dim};color:${b.color}`}>{b.icon}</div>
+              <span class="bug-tag" style={`background:${b.dim};color:${b.color}`}>{b.tag}</span>
+            </div>
+            <p class="bug-desc">{b.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .bt-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .bt-header h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .bt-lead {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .bug-canvas {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  }
+
+  .bug-canvas-head {
+    background: var(--color-surface);
+    padding: 0.75rem 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--radius) - 6px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.9rem;
+  }
+
+  .bug-panel-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+  }
+
+  .bug-count-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(239,68,68,0.12);
+    color: #ef4444;
+  }
+
+  .bug-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .bug-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+  }
+
+  .bug-card {
+    border: 1px solid color-mix(in srgb, var(--bug-color) 22%, var(--color-border));
+    background: color-mix(in srgb, var(--color-bg) 92%, var(--bug-dim));
+    border-radius: calc(var(--radius) - 8px);
+    padding: 0.95rem 1rem;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  }
+
+  .bug-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--bug-color) 45%, var(--color-border));
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--bug-color) 18%, transparent);
+  }
+
+  .bug-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .bug-title {
+    margin-bottom: 0.25rem;
+  }
+
+  .bug-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.18rem 0.5rem;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+
+  .bug-desc {
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .bug-canvas {
+      padding: 0.8rem;
+    }
+
+    .bug-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+</style>
