@@ -1,5 +1,4 @@
 ---
-import { SITE_GITHUB_URL } from '../constants';
 ---
 
 <section class="cta-section" id="get-started">
@@ -15,26 +14,19 @@ import { SITE_GITHUB_URL } from '../constants';
       </div>
       <div class="terminal-body">
         <span class="terminal-prompt">$</span>
-        <span class="terminal-cmd">git clone https://github.com/kery-dev/kery &amp;&amp; cd kery &amp;&amp; docker compose up</span>
+        <span class="terminal-cmd">npx keryai</span>
       </div>
     </div>
     <p class="cta-desc">
-      Apache 2.0 · Self-hosted · Bring your own LLM
+      Bring your own LLM · Open-source coming soon
     </p>
-    <div class="cta-actions">
-      <a href={SITE_GITHUB_URL} class="btn btn-primary">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
-        View on GitHub
-      </a>
-      <a href="/docs" class="docs-link">Get Started &rarr;</a>
-    </div>
   </div>
 </section>
 
 <style>
   .cta-section {
     position: relative;
-    padding: var(--space-3xl) 0;
+    padding: var(--space-3xl) 0 var(--space-xl);
     text-align: center;
     overflow: hidden;
   }
@@ -106,7 +98,7 @@ import { SITE_GITHUB_URL } from '../constants';
 
   .cta-desc {
     max-width: 520px;
-    margin: 0 auto var(--space-lg);
+    margin: 0 auto 0;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 400;

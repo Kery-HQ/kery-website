@@ -1,12 +1,12 @@
 ---
 import { COMING_SOON, SITE_GITHUB_URL } from '../constants';
 
-const heroImage = '/landing_image/v1.png';
+const heroImage = '/mango-trees.jpg';
 ---
 
 <section class="hero">
   <!-- Top: art only; bottom edge fades to white (same technique as paperclip.ing) -->
-  <div class="hero-art">
+<div class="hero-art">
     <div class="hero-art-fade">
       <img
         src={heroImage}
@@ -29,8 +29,7 @@ const heroImage = '/landing_image/v1.png';
         Break nothing.
       </h1>
       <p class="hero-subtitle">
-        You ship. It tests. When things break, it fixes itself.<br />
-        You find out before your users do.
+        AI agents that test your web app and find bugs;<br />no test scripts required.
       </p>
       {COMING_SOON ? (
         <div class="hero-countdown" aria-live="polite">
@@ -58,12 +57,11 @@ const heroImage = '/landing_image/v1.png';
         </div>
       ) : (
         <div class="hero-actions">
-          <a href="/docs" class="hero-btn hero-btn-primary">Get Started</a>
-          <a href={SITE_GITHUB_URL} class="hero-btn hero-btn-primary">View on GitHub</a>
+          <a href="#quickstart" class="hero-btn hero-btn-primary">Get Started</a>
         </div>
       )}
       {!COMING_SOON && (
-        <p class="hero-trust">Apache 2.0 · Self-hosted · Bring your own LLM</p>
+        <p class="hero-trust">Bring your own LLM · Open-source coming soon</p>
       )}
     </div>
   </div>
@@ -85,26 +83,27 @@ const heroImage = '/landing_image/v1.png';
     max-width: 100%;
     margin: 0 auto;
     overflow: hidden;
+    position: relative;
     max-height: clamp(260px, 58vh, 640px);
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 48%, rgba(0, 0, 0, 0.75) 68%, rgba(0, 0, 0, 0.5) 78%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 48%, rgba(0, 0, 0, 0.75) 68%, rgba(0, 0, 0, 0.5) 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 65%, rgba(0, 0, 0, 0.7) 80%, rgba(0, 0, 0, 0.3) 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 65%, rgba(0, 0, 0, 0.7) 80%, rgba(0, 0, 0, 0.3) 90%, transparent 100%);
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
   }
 
-  .hero-photo {
+.hero-photo {
     width: 100%;
     height: clamp(260px, 58vh, 640px);
     object-fit: cover;
-    object-position: center 40%;
+    object-position: center top;
     display: block;
   }
 
   .hero-copy {
     position: relative;
     z-index: 1;
-    margin-top: clamp(-3.5rem, -9vw, -6.75rem);
-    padding: 0 0 clamp(2.5rem, 5vw, 4rem);
+    margin-top: clamp(-6rem, -14vw, -11rem);
+    padding: 0 0 clamp(1rem, 2.5vw, 1.75rem);
     background: linear-gradient(
       180deg,
       color-mix(in srgb, var(--color-bg) 0%, transparent) 0%,
@@ -254,6 +253,14 @@ const heroImage = '/landing_image/v1.png';
     background: var(--color-text-secondary);
     border-color: var(--color-text-secondary);
     transform: translateY(-1px);
+  }
+
+  .hero-btn-ghost {
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    cursor: default;
   }
 
   @media (max-width: 640px) {

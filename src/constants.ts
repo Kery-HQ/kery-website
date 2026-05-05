@@ -7,4 +7,4 @@ export const SITE_ORIGIN = 'https://kery.dev';
 export const SITE_LOGO_URL = '/kery.png';
 
 /** Toggle to show only hero section on homepage. */
-export const COMING_SOON = true;
+export const COMING_SOON = false;

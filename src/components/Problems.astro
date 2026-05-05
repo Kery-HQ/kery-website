@@ -1,47 +1,65 @@
 ---
-const problems = [
-  {
-    pain: 'You shipped. You have no idea if it works.',
-    fix:  'One sentence. Kery opens a real browser, maps your flows, files a report.',
-  },
-  {
-    pain: 'Writing Playwright takes longer than building the feature.',
-    fix:  '~$0.02 first run. Deterministic replay after. Zero selectors written by hand.',
-  },
-  {
-    pain: 'Selectors break on every deploy. Auth walls block the runner.',
-    fix:  'Broken selectors heal mid-run. Clerk, Supabase, OAuth, TOTP - all native.',
-  },
-  {
-    pain: 'Your users are finding the bugs.',
-    fix:  '8 bug categories, 3 severity levels, screenshot + bounding box per finding.',
-  },
+const row1 = [
+  { id: '01', pain: 'You shipped. You have no idea if the happy path still works.', fix: 'Kery crawls every route, runs every flow, and hands you a report with no test code written.' },
+  { id: '02', pain: 'You spend more time fixing broken selectors than writing features.', fix: 'Kery navigates by accessibility tree and intent, not CSS selectors. Nothing to maintain.' },
+  { id: '03', pain: 'Every test runner dies at the login page.', fix: 'Form login, Clerk, Supabase, and OAuth work natively. Kery authenticates as part of the run.' },
+  { id: '04', pain: 'You click through the app before every release. An hour. You still miss things.', fix: 'Point Kery at a URL. It maps the app, picks the flows, files a structured bug report.' },
+  { id: '05', pain: '"Something looks off on checkout." No URL, no screenshot, no repro steps.', fix: 'Every finding: screenshot, bounding box, severity, and the exact step that triggered it.' },
+  { id: '06', pain: 'You have no idea which routes have ever been exercised by a test.', fix: 'Route dashboard shows every URL: clean, issues, stale, or untested.' },
+];
+
+const row2 = [
+  { id: '07', pain: 'Writing automated tests is a separate skill. Your team doesn\'t have bandwidth.', fix: 'Describe what to test in plain English. Kery plans and executes the flow end-to-end.' },
+  { id: '08', pain: 'The same false positive keeps appearing. Real bugs get buried in noise.', fix: 'Agent memory tracks known false positives and bug patterns, so findings get sharper over time.' },
+  { id: '09', pain: 'Your pipeline goes green. Users still find visual breaks in prod.', fix: 'Review Agent and Filmstrip Reviewer catch visual, functional, and UX regressions, not just crashes.' },
+  { id: '10', pain: 'Confusing copy, missing feedback states, and a11y gaps don\'t throw errors.', fix: 'Kery\'s UX bug category catches unclear flows, missing affordances, and accessibility gaps.' },
+  { id: '11', pain: 'Bugs surface in production, in support tickets, in Slack from your CEO.', fix: 'Kery runs before you ship. 8 bug categories, 3 severity levels, evidence on every finding.' },
+  { id: '12', pain: 'AI testing tools lock you into their cloud, their models, their pricing.', fix: 'Bring your own LLM: OpenAI, Anthropic, Gemini, or OpenRouter. Every agent role configurable.' },
 ];
 ---
 
 <hr class="section-divider" />
 <section class="problems-section section">
   <div class="container">
-    <div class="reveal">
+    <div class="problems-header reveal">
       <span class="section-badge">The problem</span>
       <h2>Sound familiar?</h2>
+      <p class="problems-sub">Hover any card to see what Kery changes.</p>
+    </div>
+  </div>
+
+  <div class="ticker-wrap reveal">
+    <div class="ticker-track ticker-left" id="ticker-row-1">
+      {[...row1, ...row1, ...row1].map((p) => (
+        <div class="ticker-card">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <span class="card-label">The problem</span>
+              <p class="card-pain">{p.pain}</p>
+              <span class="card-id">{p.id}</span>
+            </div>
+            <div class="card-face card-back">
+              <span class="card-label card-label--fix">With Kery</span>
+              <p class="card-fix">{p.fix}</p>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
 
-    <div class="problem-list reveal">
-      {problems.map((p, i) => (
-        <div class="problem-item">
-          <div class="problem-head">
-            <span class="p-num">0{i + 1}</span>
-          </div>
-
-          <div class="problem-col problem-col-pain">
-            <span class="problem-kicker">What breaks</span>
-            <p class="p-pain">{p.pain}</p>
-          </div>
-
-          <div class="problem-col problem-col-fix">
-            <span class="problem-kicker">What Kery changes</span>
-            <p class="p-fix">{p.fix}</p>
+    <div class="ticker-track ticker-right" id="ticker-row-2">
+      {[...row2, ...row2, ...row2].map((p) => (
+        <div class="ticker-card">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <span class="card-label">The problem</span>
+              <p class="card-pain">{p.pain}</p>
+              <span class="card-id">{p.id}</span>
+            </div>
+            <div class="card-face card-back">
+              <span class="card-label card-label--fix">With Kery</span>
+              <p class="card-fix">{p.fix}</p>
+            </div>
           </div>
         </div>
       ))}
@@ -49,97 +67,169 @@ const problems = [
   </div>
 </section>
 
+<script>
+  let userHasHovered = false;
+
+  document.querySelectorAll('.ticker-card').forEach(card => {
+    card.addEventListener('mouseenter', () => { userHasHovered = true; });
+  });
+
+  function autoFlip() {
+    if (userHasHovered) return;
+    const cx = window.innerWidth / 2;
+
+    document.querySelectorAll('.ticker-track').forEach(track => {
+      const cards = Array.from(track.querySelectorAll('.ticker-card'));
+      let best: Element | null = null;
+      let bestDist = Infinity;
+
+      cards.forEach(card => {
+        const r = card.getBoundingClientRect();
+        if (r.left < 0 || r.right > window.innerWidth) return;
+        const dist = Math.abs((r.left + r.right) / 2 - cx);
+        if (dist < bestDist) { bestDist = dist; best = card; }
+      });
+
+      if (best && !(best as HTMLElement).classList.contains('auto-flipped')) {
+        (best as HTMLElement).classList.add('auto-flipped');
+        setTimeout(() => (best as HTMLElement).classList.remove('auto-flipped'), 2200);
+      }
+    });
+  }
+
+  setInterval(autoFlip, 3800);
+</script>
+
 <style>
-  .problems-section h2 {
-    margin-top: 0.5rem;
-    margin-bottom: var(--space-xl);
-  }
+  .problems-section { overflow: hidden; }
 
-  /* ── list ────────────────────────────────────────── */
-  .problem-list {
-    display: grid;
-    gap: 0.9rem;
-  }
 
-  .problem-item {
-    display: grid;
-    grid-template-columns: 2.75rem 1fr 1fr;
-    gap: 0 1rem;
-    align-items: start;
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
+  .problems-header { margin-bottom: var(--space-xl); }
+  .problems-header h2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
 
-  .problem-head {
-    padding: 1.15rem 0 0 1rem;
-  }
-
-  .p-num {
+  .problems-sub {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    padding-top: 0.25rem;
-    letter-spacing: 0.04em;
-  }
-
-  .problem-col {
-    padding: 1.1rem 1rem 1.15rem;
-  }
-
-  .problem-col-pain {
-    border-right: 1px solid var(--color-border);
-  }
-
-  .problem-kicker {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 0.75rem;
     color: var(--color-text-muted);
-    margin-bottom: 0.55rem;
+    opacity: 0.7;
   }
 
-  .p-pain {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--color-text-secondary);
-    font-weight: 450;
+  /* ── ticker ── */
+  .ticker-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .ticker-left  { animation: scroll-left  44s linear infinite; }
+  .ticker-right { animation: scroll-right 44s linear infinite; }
+  .ticker-track:hover { animation-play-state: paused; }
+
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-100% / 3)); }
+  }
+
+  @keyframes scroll-right {
+    from { transform: translateX(calc(-100% / 3)); }
+    to   { transform: translateX(0); }
+  }
+
+  /* ── cards ── */
+  .ticker-card {
+    width: 260px;
+    height: 172px;
+    flex-shrink: 0;
+    margin-right: 1rem;
+    perspective: 900px;
+    cursor: default;
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ticker-card:hover .card-inner,
+  .ticker-card.auto-flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-front {
+    background: #141816;
+    border: 1px solid #2a302c;
+    justify-content: space-between;
+  }
+
+  .card-back {
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    transform: rotateY(180deg);
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .card-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #3a4540;
+  }
+
+  .card-label--fix { color: rgba(255,255,255,0.55); }
+
+  .card-pain {
+    font-size: 0.875rem;
+    line-height: 1.52;
+    color: #b8c0bc;
+    margin: 0;
+    flex: 1;
+    padding-top: 0.45rem;
+  }
+
+  .card-fix {
+    font-size: 0.875rem;
+    line-height: 1.52;
+    color: rgba(255,255,255,0.93);
     margin: 0;
   }
 
-  .p-fix {
-    font-size: 0.92rem;
-    line-height: 1.58;
-    color: var(--color-text);
-    margin: 0;
+  .card-id {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: #2a302c;
+    align-self: flex-end;
   }
 
-  .problem-col-fix .problem-kicker {
-    color: var(--color-accent);
-  }
-
-  @media (max-width: 768px) {
-    .problem-item {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    .problem-head {
-      padding: 0.85rem 1rem 0;
-    }
-
-    .problem-col {
-      padding: 0.75rem 1rem 1rem;
-    }
-
-    .problem-col-pain {
-      border-right: none;
-      border-bottom: 1px solid var(--color-border);
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-left, .ticker-right { animation: none; }
+    .ticker-wrap { overflow-x: auto; }
   }
 </style>

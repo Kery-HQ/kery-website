@@ -3,52 +3,6 @@ import HangingMango from './HangingMango.astro';
 ---
 
 <hr class="section-divider" />
-<section class="feature-section section heartbeat-dark" id="regression-section">
-  <HangingMango left="72%" wire={64} delay={0} />
-  <div class="container">
-    <div class="feature-split reveal">
-      <div class="feature-text">
-        <span class="section-badge dark-badge">
-          <span class="badge-pulse"></span>
-          Regression engine
-        </span>
-        <h2>Every deploy is a regression test.</h2>
-        <p class="dark-text">
-          The first run explores your app and compiles a <code class="dark-code">.spec.ts</code> file.
-          That script runs on every subsequent deploy - no prompts, no LLM calls, no maintenance.
-          If a selector drifts, the <code class="dark-code">heal</code> agent patches it and keeps going.
-          If a flow breaks, you hear about it before your users do.
-        </p>
-        <ul class="dark-list">
-          <li>Drop the compiled script into any CI pipeline</li>
-          <li>Selectors self-heal - no manual selector upkeep</li>
-          <li>Replay cost: ~$0.001 per run</li>
-        </ul>
-      </div>
-      <div class="feature-visual">
-        <div class="mockup-card dark-mockup">
-          <div class="reg-block">
-            <div class="reg-header">On every deploy</div>
-            <div class="reg-step">
-              <span class="reg-tag reg-replay">Replay</span>
-              <span>Run compiled <code class="dark-code">.spec.ts</code> - no LLM</span>
-            </div>
-            <div class="reg-step">
-              <span class="reg-tag reg-heal">Heal</span>
-              <span>Broken selector? Patch from a11y tree, continue</span>
-            </div>
-            <div class="reg-step reg-step-last">
-              <span class="reg-tag reg-fail">Fail</span>
-              <span>Flow actually broke - alert fired, run stopped</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider" />
 <section class="feature-section section">
   <div class="container">
     <div class="feature-split reverse reveal">
@@ -60,68 +14,39 @@ import HangingMango from './HangingMango.astro';
           test real app flows behind real auth.
         </p>
         <p>
-          Supports Clerk, Supabase Auth, OAuth 2.0, API tokens, TOTP/2FA, and custom providers.
+          Supports form-based login, Clerk, and Supabase Auth.
         </p>
       </div>
       <div class="feature-visual">
         <div class="auth-icon-grid">
           <!-- Clerk -->
           <div class="auth-icon-item">
-            <div class="auth-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-                <path d="M19 8.5C17.3 5.5 14.4 3.5 12 3.5a8.5 8.5 0 0 0-8.5 8.5A8.5 8.5 0 0 0 12 20.5c2.4 0 5.3-2 7-5"/>
-              </svg>
+            <div class="auth-icon-wrap auth-icon-clerk">
+              <img src="/icons/clerk-dark.png" width="32" height="32" alt="Clerk" loading="lazy" />
             </div>
             <span class="auth-icon-label">Clerk</span>
           </div>
           <!-- Supabase -->
           <div class="auth-icon-item">
-            <div class="auth-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M13 2L4.5 13.5H11L9 22l10.5-12H13z"/>
-              </svg>
+            <div class="auth-icon-wrap auth-icon-supabase">
+              <img src="/icons/supabase.webp" width="32" height="32" alt="Supabase" loading="lazy" />
             </div>
             <span class="auth-icon-label">Supabase</span>
           </div>
-          <!-- OAuth -->
+          <!-- Form Login -->
           <div class="auth-icon-item">
-            <div class="auth-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                <rect x="5" y="11" width="14" height="11" rx="2"/>
-                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
-              </svg>
+            <div class="auth-icon-wrap auth-icon-form">
+              <img src="/icons/form-login.svg" width="36" height="36" alt="Form Login" loading="lazy" />
             </div>
-            <span class="auth-icon-label">OAuth 2.0</span>
-          </div>
-          <!-- GitHub -->
-          <div class="auth-icon-item">
-            <div class="auth-icon-wrap">
-              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-              </svg>
-            </div>
-            <span class="auth-icon-label">GitHub</span>
-          </div>
-          <!-- API Token -->
-          <div class="auth-icon-item">
-            <div class="auth-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                <circle cx="7.5" cy="15.5" r="5.5"/>
-                <path d="M21 2l-9.6 9.6M15.5 7.5l3 3"/>
-              </svg>
-            </div>
-            <span class="auth-icon-label">API Token</span>
-          </div>
-          <!-- TOTP / 2FA -->
-          <div class="auth-icon-item">
-            <div class="auth-icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </div>
-            <span class="auth-icon-label">TOTP / 2FA</span>
+            <span class="auth-icon-label">Form Login</span>
           </div>
         </div>
+        <div class="auth-soon-row">
+          <div class="auth-soon-box"></div>
+          <div class="auth-soon-box"></div>
+          <div class="auth-soon-box"></div>
+        </div>
+        <p class="auth-soon-label">More providers coming soon</p>
       </div>
     </div>
   </div>
@@ -165,7 +90,9 @@ import HangingMango from './HangingMango.astro';
 
   .feature-visual {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
 
   .mockup-card {
@@ -440,45 +367,88 @@ import HangingMango from './HangingMango.astro';
 
   /* Auth icon grid */
   .auth-icon-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    width: 100%;
-    max-width: 360px;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: flex-start;
   }
 
   .auth-icon-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 
   .auth-icon-wrap {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius-sm);
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
     border: 1px solid var(--color-border);
-    background: var(--color-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-secondary);
-    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    overflow: hidden;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+
+  .auth-icon-wrap img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .auth-icon-form img {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Per-brand backgrounds */
+  .auth-icon-form {
+    background: #f0eeec;
+  }
+
+  .auth-icon-clerk {
+    background: #f5f4f2;
+  }
+
+  .auth-icon-supabase {
+    background: #1c1f1e;
   }
 
   .auth-icon-item:hover .auth-icon-wrap {
-    border-color: var(--color-accent-muted);
-    color: var(--color-text);
-    background: var(--color-accent-soft);
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .auth-soon-row {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .auth-soon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    border: 1.5px dashed var(--color-border);
+    background: transparent;
+  }
+
+  .auth-soon-label {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    opacity: 0.5;
+    margin-top: 0.75rem;
   }
 
   .auth-icon-label {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
     color: var(--color-text-muted);
     text-align: center;
-    letter-spacing: 0.02em;
   }
 
   .oss-cards {

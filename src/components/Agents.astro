@@ -24,18 +24,6 @@ const agents = [
     colorDim: 'rgba(34,197,94,0.15)',
     desc: 'Extracts navigation paths and bug patterns after each run. Proposes memory entries with confidence scores.',
   },
-  {
-    name: 'script_generator',
-    color: '#06b6d4',
-    colorDim: 'rgba(6,182,212,0.15)',
-    desc: 'Compiles the navigator trace into a deterministic .spec.ts file. Handles dynamic URLs. Zero LLM calls on replay.',
-  },
-  {
-    name: 'heal',
-    color: '#ef4444',
-    colorDim: 'rgba(239,68,68,0.15)',
-    desc: 'Fires on a failing regression step. Reads the accessibility tree, corrects the broken selector, hands back to replay.',
-  },
 ];
 ---
 
@@ -44,7 +32,7 @@ const agents = [
   <div class="container">
     <div class="agents-header reveal">
       <span class="section-badge agents-badge">Architecture</span>
-      <h2>Six agents. One run.</h2>
+      <h2>Four agents. One run.</h2>
       <p class="agents-desc">
         Each agent has one job. Bugs from all sources are merged and deduplicated.
       </p>
@@ -97,7 +85,7 @@ const agents = [
 
   .agents-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1px;
     background: #2a302c;
     border: 1px solid #2a302c;
@@ -145,7 +133,7 @@ const agents = [
 
   @media (max-width: 900px) {
     .agents-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
     }
   }
 

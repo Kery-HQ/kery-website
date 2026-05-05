@@ -1,44 +1,40 @@
 ---
 const faqs = [
   {
-    q: 'How is Kery different from plain Playwright?',
-    a: 'Playwright executes scripts you write. Kery explores your app autonomously, finds bugs, and compiles the run into a Playwright script. You get test coverage without writing selectors or page objects.',
+    q: 'How does Kery find bugs without any test scripts?',
+    a: 'The Navigator agent drives a real Playwright browser using the accessibility tree and screenshots, not CSS selectors. It maps your app, plans flows, executes them, and reports bugs. Nothing to write, nothing to maintain.',
   },
   {
-    q: 'How is Kery different from Playwright codegen?',
-    a: 'Codegen records your manual clicks. Kery explores on its own - it opens a real browser, navigates your app, identifies flows, and reports bugs without you touching a mouse.',
+    q: 'What happens when the DOM changes?',
+    a: 'Stagehand self-healing kicks in. When an element moves or the layout shifts, Kery finds it by intent rather than a stale selector. Tests don\'t break when your UI changes.',
   },
   {
-    q: 'How much does a typical run cost?',
-    a: 'First exploratory run: ~$0.02–$0.05 depending on app complexity and model choice. Each regression replay after that: ~$0.001. Cost drops roughly 95% once a run compiles to a script.',
-  },
-  {
-    q: 'Do I need an LLM API key?',
-    a: 'Yes, for exploratory runs. You bring your own key - OpenAI, Anthropic, Gemini, or OpenRouter. Regression replays run as deterministic Playwright with no model calls.',
-  },
-  {
-    q: 'What happens when a regression test fails?',
-    a: 'The heal agent fires on the specific failing step. It reads the accessibility tree, identifies the broken selector, patches it in one shot, and hands control back to the replay. The output is a corrected .spec.ts file.',
+    q: 'Which LLM providers are supported?',
+    a: 'OpenRouter (recommended), OpenAI, Anthropic, and Google Gemini. Navigator, Review, Auxiliary, and Stagehand roles are each configurable independently so you can optimize cost and quality per task.',
   },
   {
     q: 'Does it work behind authentication?',
-    a: 'Yes. Clerk, Supabase Auth, OAuth 2.0, GitHub, API tokens, and TOTP/2FA are all supported natively. Kery authenticates as part of the run - auth pages are not a wall.',
+    a: 'Yes. Kery supports form-based login, Clerk, and Supabase Auth out of the box. Set credentials once in the dashboard and every run authenticates automatically.',
   },
   {
     q: 'Can I run Kery in CI?',
-    a: 'Yes. Compiled regression scripts are standard Playwright .spec.ts files that run in any CI environment. The Kery server can also be triggered via API or MCP.',
+    a: 'Yes. Use the TypeScript client SDK or trigger runs via the REST API from any pipeline. Results come back as structured JSON you can parse, diff, or fail a build on.',
   },
   {
     q: 'What can I do with MCP?',
-    a: 'Trigger runs, pull bug reports, and inspect run history directly from Claude, Cursor, Copilot, or Codex without leaving your editor.',
+    a: 'Scan your app, run tests, pull bug reports, and browse route coverage directly from Claude, Cursor, or any MCP-compatible editor. Over 20 tools available including kery_scan, kery_get_bugs, kery_list_routes, and more.',
+  },
+  {
+    q: 'Does Kery get smarter over time?',
+    a: 'Yes. The memory curator agent learns successful navigation paths and records known false positives after each run. Confidence scores decay over time so memory stays fresh, not compounding.',
   },
   {
     q: 'Where does my data live?',
-    a: 'In your own Postgres on your own infrastructure. Nothing leaves your environment.',
+    a: 'Kery is fully self-hosted. Screenshots, run history, and bug reports live in your own PostgreSQL instance. Nothing leaves your environment except the prompts sent to your LLM provider.',
   },
   {
-    q: 'What license applies?',
-    a: 'Apache 2.0.',
+    q: 'Is Kery open-source?',
+    a: 'Open-source is coming soon. Watch the GitHub repo for updates.',
   },
 ];
 import HangingMango from './HangingMango.astro';
