@@ -9,15 +9,18 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html, body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #0f1210;
+    }
+
     body {
-      background: #1a1e1b;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      padding: 48px;
+      align-items: flex-start;
+      justify-content: flex-start;
     }
 
     /* ── Card ── */
@@ -47,10 +50,9 @@
       width: 580px;
       height: 100%;
       object-fit: cover;
-      object-position: center 30%;
-      opacity: 0.45;
-      mix-blend-mode: luminosity;
-      filter: contrast(0.9) brightness(0.85);
+      object-position: center 15%;
+      opacity: 0.75;
+      filter: saturate(0.6) brightness(0.42) contrast(0.95);
     }
 
     /* Gradient fade: dark left edge blending into illustration */
@@ -61,6 +63,18 @@
       width: 580px;
       height: 100%;
       background: linear-gradient(to right, #0f1210 0%, rgba(15,18,16,0.6) 35%, rgba(15,18,16,0) 65%);
+      pointer-events: none;
+    }
+
+    /* Top + bottom vignette over illustration — kills the light sky/ground edges */
+    .grove-vignette {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 580px;
+      height: 100%;
+      background:
+        linear-gradient(to bottom, #0f1210 0%, transparent 18%, transparent 62%, #0f1210 88%, #0f1210 100%);
       pointer-events: none;
     }
 
@@ -177,31 +191,8 @@
 
     /* ── Controls (outside card) ── */
     .controls {
-      display: flex;
-      gap: 12px;
-      align-items: center;
+      display: none;
     }
-
-    .hint {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: rgba(255,255,255,0.35);
-    }
-
-    .btn-download {
-      padding: 10px 22px;
-      background: #c96b46;
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-download:hover { background: #b85c3a; }
   </style>
 </head>
 <body>
@@ -210,8 +201,9 @@
     <div class="dot-grid"></div>
     <div class="glow"></div>
 
-    <img class="grove" src="public/landing_image/v2.png" alt="">
+    <img class="grove" src="public/landing_image/v1.png" alt="">
     <div class="grove-fade"></div>
+    <div class="grove-vignette"></div>
     <div class="bottom-vignette"></div>
 
     <div class="content">
@@ -223,7 +215,7 @@
 
       <!-- Headline + badge -->
       <div class="main">
-        <h1 class="headline">AI agents that find your bugs <em>before users do</em></h1>
+        <h1 class="headline">Agents that find bugs <em>before your users</em></h1>
         <span class="badge">AI-powered browser testing</span>
       </div>
 
