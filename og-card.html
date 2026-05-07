@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kery — OG Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a1e1b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 48px;
+    }
+
+    /* ── Card ── */
+    #card {
+      width: 1200px;
+      height: 630px;
+      background: #0f1210;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Dot grid */
+    .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+
+    /* Mango grove — right side */
+    .grove {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 580px;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      opacity: 0.45;
+      mix-blend-mode: luminosity;
+      filter: contrast(0.9) brightness(0.85);
+    }
+
+    /* Gradient fade: dark left edge blending into illustration */
+    .grove-fade {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 580px;
+      height: 100%;
+      background: linear-gradient(to right, #0f1210 0%, rgba(15,18,16,0.6) 35%, rgba(15,18,16,0) 65%);
+      pointer-events: none;
+    }
+
+    /* Bottom vignette so text always reads cleanly */
+    .bottom-vignette {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      background: linear-gradient(to top, rgba(15,18,16,0.7) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Subtle warm glow top-right */
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -80px;
+      top: -160px;
+      background: radial-gradient(ellipse, rgba(201,107,70,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ── Content ── */
+    .content {
+      position: absolute;
+      inset: 0;
+      padding: 52px 64px 52px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    .wordmark {
+      font-family: 'Instrument Serif', serif;
+      font-size: 26px;
+      color: #e8ece9;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .main {
+      max-width: 620px;
+    }
+
+    .headline {
+      font-family: 'Instrument Serif', serif;
+      font-size: 64px;
+      font-weight: 400;
+      color: #e8ece9;
+      line-height: 1.07;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+    }
+
+    .headline em {
+      font-style: italic;
+      color: #c8b89a;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      background: rgba(201,107,70,0.1);
+      border: 1px solid rgba(201,107,70,0.3);
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #c96b46;
+      letter-spacing: 0.01em;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c96b46;
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .url {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: rgba(184,192,187,0.3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Controls (outside card) ── */
+    .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .btn-download {
+      padding: 10px 22px;
+      background: #c96b46;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-download:hover { background: #b85c3a; }
+  </style>
+</head>
+<body>
+
+  <div id="card">
+    <div class="dot-grid"></div>
+    <div class="glow"></div>
+
+    <img class="grove" src="public/landing_image/v2.png" alt="">
+    <div class="grove-fade"></div>
+    <div class="bottom-vignette"></div>
+
+    <div class="content">
+      <!-- Brand -->
+      <div class="brand">
+        <img src="public/kery.png" alt="kery logo">
+        <span class="wordmark">kery</span>
+      </div>
+
+      <!-- Headline + badge -->
+      <div class="main">
+        <h1 class="headline">AI agents that find your bugs <em>before users do</em></h1>
+        <span class="badge">AI-powered browser testing</span>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer-row">
+        <span class="url">kery.dev</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <span class="hint">Screenshot the card above, or →</span>
+    <button class="btn-download" onclick="downloadCard()">Download PNG</button>
+  </div>
+
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script>
+    async function downloadCard() {
+      const btn = document.querySelector('.btn-download');
+      btn.textContent = 'Generating…';
+      btn.disabled = true;
+      try {
+        const card = document.getElementById('card');
+        const canvas = await html2canvas(card, {
+          width: 1200,
+          height: 630,
+          scale: 1,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#0f1210',
+          logging: false,
+        });
+        const link = document.createElement('a');
+        link.download = 'kery-og.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } finally {
+        btn.textContent = 'Download PNG';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
