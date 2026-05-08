@@ -5,8 +5,8 @@ import { Redis } from '@upstash/redis';
 import { Resend } from 'resend';
 
 const redis = new Redis({
-  url: import.meta.env.UPSTASH_REDIS_REST_URL,
-  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN,
+  url: import.meta.env.KV_REST_API_URL,
+  token: import.meta.env.KV_REST_API_TOKEN,
 });
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
