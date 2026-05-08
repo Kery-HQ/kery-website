@@ -60,19 +60,19 @@ function confirmationEmail(_email: string) {
 <html>
 <head><meta charset="utf-8"></head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #ffffff; color: #111111; padding: 48px 24px; max-width: 480px; margin: 0 auto;">
-  <p style="margin: 0 0 24px 0; font-size: 0.95rem; line-height: 1.7; color: #111;">Hey,</p>
-  <p style="margin: 0 0 16px 0; font-size: 0.95rem; line-height: 1.7; color: #111;">
-    You're on the Kery Cloud waitlist — thanks for signing up.
+  <p style="margin: 0 0 20px 0; font-size: 0.95rem; line-height: 1.7; color: #111;">Hey — got your signup, you're on the list.</p>
+  <p style="margin: 0 0 16px 0; font-size: 0.95rem; line-height: 1.7; color: #444;">
+    I'm Keval, building Kery. The hosted version is what I'm most excited about — no infra to manage, CI/CD that runs your tests on every GitHub push or Vercel deploy, scheduled monitoring, Linear &amp; Slack integrations, and regression detection that actually catches things before users do.
   </p>
   <p style="margin: 0 0 16px 0; font-size: 0.95rem; line-height: 1.7; color: #444;">
-    We're building the hosted version of Kery with CI/CD for GitHub &amp; Vercel, scheduled runs, Linear &amp; Slack integrations, regression detection, and more. I'll reach out personally when we're ready.
+    Still early, but I'll reach out personally when it's ready for you.
   </p>
   <p style="margin: 0 0 32px 0; font-size: 0.95rem; line-height: 1.7; color: #444;">
-    In the meantime, feel free to reply with any questions or feedback — I read every email.
+    In the meantime, come hang in our Discord — happy to answer questions, hear what you're building, or just chat. <a href="https://discord.gg/A3sCcxCMyq" style="color: #5865F2; text-decoration: none;">Join here →</a>
   </p>
   <p style="margin: 0; font-size: 0.95rem; color: #111;">
-    Keval Shah<br />
-    <span style="color: #888; font-size: 0.85rem;">Founder, Kery</span>
+    Keval<br />
+    <span style="color: #888; font-size: 0.85rem;">kery.dev</span>
   </p>
 </body>
 </html>`;
