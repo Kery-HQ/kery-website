@@ -56,15 +56,13 @@ function json(body: object, status = 200) {
 }
 
 function confirmationEmail(_email: string) {
-  return `Hey,
+  return `Hey, you're on the list!
 
-Got your signup. You're on the list.
+I'm Keval, I'm building Kery. Really glad you signed up. I'll reach out personally when the hosted version is ready for early access.
 
-I'm Keval, I'm building Kery. I'll reach out when the hosted version is ready for early access.
+In the meantime if you want to follow along, ask questions, or just say hi, we have a Discord: https://discord.gg/A3sCcxCMyq
 
-If you want to follow along or ask questions in the meantime, we have a Discord: https://discord.gg/A3sCcxCMyq
-
-Feel free to reply here too.
+And feel free to reply to this email too, I read everything.
 
 Keval`;
 }
