@@ -36,9 +36,9 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     await resend.emails.send({
-      from: 'Kery <waitlist@kery.dev>',
+      from: 'Keval Shah <keval@kery.dev>',
       to: email,
-      subject: "You're on the Kery Cloud waitlist",
+      subject: "You're on the list",
       html: confirmationEmail(email),
     });
   } catch {
@@ -55,18 +55,24 @@ function json(body: object, status = 200) {
   });
 }
 
-function confirmationEmail(email: string) {
+function confirmationEmail(_email: string) {
   return `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1210; color: #e8ece9; padding: 48px 24px; max-width: 520px; margin: 0 auto;">
-  <img src="https://kery.dev/kery.png" width="40" height="40" alt="Kery" style="margin-bottom: 24px;" />
-  <h1 style="font-size: 1.5rem; font-weight: 600; margin: 0 0 12px;">You're on the list.</h1>
-  <p style="color: #b8c0bb; line-height: 1.6; margin: 0 0 24px;">
-    We'll reach out to <strong style="color: #e8ece9;">${email}</strong> when Kery Cloud is ready — CI/CD with GitHub &amp; Vercel, scheduled runs, Linear &amp; Slack integrations, regression detection, and more.
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #ffffff; color: #111111; padding: 48px 24px; max-width: 480px; margin: 0 auto;">
+  <p style="margin: 0 0 24px 0; font-size: 0.95rem; line-height: 1.7; color: #111;">Hey,</p>
+  <p style="margin: 0 0 16px 0; font-size: 0.95rem; line-height: 1.7; color: #111;">
+    You're on the Kery Cloud waitlist — thanks for signing up.
   </p>
-  <p style="color: #6b756f; font-size: 0.85rem; margin: 0;">
-    — The Kery team
+  <p style="margin: 0 0 16px 0; font-size: 0.95rem; line-height: 1.7; color: #444;">
+    We're building the hosted version of Kery with CI/CD for GitHub &amp; Vercel, scheduled runs, Linear &amp; Slack integrations, regression detection, and more. I'll reach out personally when we're ready.
+  </p>
+  <p style="margin: 0 0 32px 0; font-size: 0.95rem; line-height: 1.7; color: #444;">
+    In the meantime, feel free to reply with any questions or feedback — I read every email.
+  </p>
+  <p style="margin: 0; font-size: 0.95rem; color: #111;">
+    Keval Shah<br />
+    <span style="color: #888; font-size: 0.85rem;">Founder, Kery</span>
   </p>
 </body>
 </html>`;
