@@ -3,6 +3,7 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
 import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 const redis = new Redis({
   url: import.meta.env.KV_REST_API_URL,
@@ -10,6 +11,19 @@ const redis = new Redis({
 });
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
+
+function gmailTransport() {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      type: 'OAuth2',
+      user: 'keval@kery.dev',
+      clientId: import.meta.env.GMAIL_CLIENT_ID,
+      clientSecret: import.meta.env.GMAIL_CLIENT_SECRET,
+      refreshToken: import.meta.env.GMAIL_REFRESH_TOKEN,
+    },
+  });
+}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -35,14 +49,24 @@ export const POST: APIRoute = async ({ request }) => {
   await redis.sadd('waitlist', email);
 
   try {
-    await resend.emails.send({
+    await gmailTransport().sendMail({
       from: 'Keval Shah <keval@kery.dev>',
       to: email,
       subject: "You're on the list",
       text: confirmationEmail(email),
     });
   } catch {
-    // email failure is non-fatal — the signup is already recorded
+    // fallback to Resend if Gmail fails or hits limits
+    try {
+      await resend.emails.send({
+        from: 'Keval Shah <keval@kery.dev>',
+        to: email,
+        subject: "You're on the list",
+        text: confirmationEmail(email),
+      });
+    } catch {
+      // email failure is non-fatal — the signup is already recorded
+    }
   }
 
   return json({ ok: true });
