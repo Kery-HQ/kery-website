@@ -61,7 +61,9 @@ const heroImage = '/mango-trees.jpg';
         </div>
       )}
       {!COMING_SOON && (
-        <p class="hero-trust">Bring your own LLM · Open-source coming soon</p>
+        <p class="hero-trust">
+          Bring your own LLM · <a href={SITE_GITHUB_URL} class="hero-trust-link" target="_blank" rel="noopener noreferrer">Open-source · Apache 2.0</a>
+        </p>
       )}
     </div>
   </div>
@@ -158,6 +160,17 @@ const heroImage = '/mango-trees.jpg';
     color: var(--color-text-muted);
     margin-top: 1.25rem;
     opacity: 0.7;
+  }
+
+  .hero-trust-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.15s;
+  }
+
+  .hero-trust-link:hover {
+    opacity: 1;
   }
 
   .hero-actions {

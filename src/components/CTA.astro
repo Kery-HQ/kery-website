@@ -1,4 +1,5 @@
 ---
+import { SITE_GITHUB_URL } from '../constants';
 ---
 
 <section class="cta-section" id="get-started">
@@ -18,7 +19,7 @@
       </div>
     </div>
     <p class="cta-desc">
-      Bring your own LLM · Open-source coming soon
+      Bring your own LLM · <a href={SITE_GITHUB_URL} class="cta-gh-link" target="_blank" rel="noopener noreferrer">Open-source · Apache 2.0</a>
     </p>
   </div>
 </section>
@@ -105,6 +106,17 @@
     letter-spacing: 0.04em;
     color: var(--color-text-muted);
     opacity: 0.7;
+  }
+
+  .cta-gh-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.15s;
+  }
+
+  .cta-gh-link:hover {
+    opacity: 1;
   }
 
   .cta-actions {
