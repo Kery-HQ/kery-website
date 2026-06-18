@@ -19,6 +19,7 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.6;
+  min-height: 100vh;
 }
 
 img {
@@ -44,23 +45,26 @@ button {
 
 /* ===== CSS CUSTOM PROPERTIES ===== */
 :root {
-  /* Kery dark palette */
-  --color-bg: #0f1210;
-  --color-bg-alt: #141816;
-  --color-surface: #1c211e;
-  --color-surface-raised: #252b27;
-  --color-border: #2a302c;
-  --color-text: #e8ece9;
-  --color-text-secondary: #b8c0bb;
-  --color-text-muted: #6b756f;
-  --color-accent: #c96b46;
-  --color-accent-hover: #b85c3a;
-  --color-accent-light: #3a2318;
-  --color-accent-soft: #2a1a12;
-  --color-accent-muted: #8c5035;
+  --color-bg: #fbf7ea;
+  --color-bg-alt: #f1ead9;
+  --color-surface: #fffdf6;
+  --color-surface-raised: #ffffff;
+  --color-border: #e1d8c6;
+  --color-text: #24231f;
+  --color-text-secondary: #655f53;
+  --color-text-muted: #8a8172;
+  --color-accent: #ffcf49;
+  --color-accent-hover: #d69218;
+  --color-accent-light: #ffe394;
+  --color-accent-soft: #fff4cf;
+  --color-accent-muted: #9c6413;
+  --color-leaf: #437648;
+  --color-leaf-soft: #e0eadf;
+  --color-ink: #171714;
+  --color-terminal: #1d2018;
 
-  --font-serif: "Instrument Serif", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-sans: "Outfit", Inter, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
   --space-xs: 0.5rem;
@@ -74,10 +78,10 @@ button {
   --space-section-gap: clamp(2rem, 5vw, 6rem);
 
   --max-width: 1140px;
-  --radius: 16px;
-  --radius-sm: 10px;
+  --radius: 8px;
+  --radius-sm: 6px;
   --radius-pill: 100px;
-  --radius-lg: 24px;
+  --radius-lg: 8px;
 }
 
 /* ===== LAYOUT ===== */
@@ -93,28 +97,28 @@ button {
 
 /* ===== TYPOGRAPHY ===== */
 h1, h2, h3 {
-  font-family: var(--font-serif);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-weight: 800;
   line-height: 1.15;
 }
 
 h1 {
-  font-size: clamp(2.5rem, calc(1.5rem + 4vw), 5rem);
-  letter-spacing: -0.02em;
+  font-size: 5rem;
+  letter-spacing: 0;
 }
 
 h2 {
-  font-size: clamp(2rem, calc(1.2rem + 3vw), 3.5rem);
-  letter-spacing: -0.02em;
+  font-size: 3.5rem;
+  letter-spacing: 0;
 }
 
 h3 {
-  font-size: clamp(1.25rem, calc(1rem + 0.8vw), 1.75rem);
+  font-size: 1.5rem;
 }
 
 p {
   color: var(--color-text-secondary);
-  font-size: clamp(0.95rem, calc(0.9rem + 0.2vw), 1.1rem);
+  font-size: 1rem;
   line-height: 1.7;
 }
 
@@ -237,5 +241,17 @@ p {
 @media (max-width: 768px) {
   .container {
     padding: 0 var(--space-sm);
+  }
+
+  h1 {
+    font-size: 3.25rem;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
   }
 }

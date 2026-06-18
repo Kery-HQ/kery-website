@@ -37,9 +37,9 @@ const features = [
   <div class="container">
     <div class="waitlist-inner">
       <div class="waitlist-header reveal">
-        <span class="section-badge">Coming soon</span>
+        <span class="section-badge">Kery Cloud</span>
         <h2>Kery Cloud</h2>
-        <p class="waitlist-sub">Everything you love about Kery, fully managed. No infra, no config — just tests that run.</p>
+        <p class="waitlist-sub">Managed browser workers, shared review, scheduled checks, and CI gates for teams that do not want to run the test stack.</p>
       </div>
 
       <div class="features-grid reveal">
@@ -66,7 +66,7 @@ const features = [
             required
           />
           <button type="submit" class="waitlist-submit" id="waitlist-btn">
-            <span class="btn-label">Join waitlist</span>
+            <span class="btn-label">Request access</span>
             <span class="btn-spinner" aria-hidden="true"></span>
           </button>
         </form>
@@ -102,7 +102,7 @@ const features = [
 
       if (res.ok) {
         if (data.alreadyJoined) {
-          setStatus("You're already on the list — we'll be in touch.", 'info');
+          setStatus("You're already on the list. We'll be in touch.", 'info');
         } else {
           setStatus("You're on the list. Check your inbox for a confirmation.", 'success');
           form.reset();

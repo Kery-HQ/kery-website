@@ -1,42 +1,1779 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import DemoVideo from '../components/DemoVideo.astro';
-import GetRunning from '../components/GetRunning.astro';
-import Problems from '../components/Problems.astro';
-import Agents from '../components/Agents.astro';
-import BugTypes from '../components/BugTypes.astro';
-import FeatureDeepDives from '../components/FeatureDeepDives.astro';
-import FAQ from '../components/FAQ.astro';
-import CTA from '../components/CTA.astro';
-import DiscordSection from '../components/DiscordSection.astro';
-import HostedWaitlist from '../components/HostedWaitlist.astro';
 import Footer from '../components/Footer.astro';
-import { COMING_SOON } from '../constants';
+import { SITE_DISCORD_URL, SITE_GITHUB_URL } from '../constants';
+
+const painPoints = [
+  ['AI increases release velocity', 'Small teams can now create more product surface than they can manually verify.'],
+  ['QA becomes the bottleneck', 'Every AI-generated change still needs login setup, clicking, edge-case checks, and release judgment.'],
+  ['Bugs need real evidence', 'A vague AI summary is not enough. Engineers need screenshots, logs, URLs, regions, and repro steps.'],
+];
+
+const steps = [
+  ['1', 'Point Kery at your app', 'Add a URL, environment, credentials, and the flow you care about.'],
+  ['2', 'It explores in a real browser', 'Kery crawls routes, plans steps, logs in, clicks through flows, and observes screenshots plus accessibility state.'],
+  ['3', 'It returns triaged issues', 'Visual, functional, and UX bugs come back with severity, screenshots, bounding boxes, logs, and repro context.'],
+];
+
+const artifacts = [
+  ['Screenshot', 'Highlighted region showing the broken UI state.'],
+  ['Trace', 'Route, viewport, action sequence, and browser observations.'],
+  ['Triage', 'Category, severity, confidence, and review status.'],
+  ['Memory', 'Known paths, false positives, and product-specific notes reused later.'],
+];
+
+const capabilities = [
+  ['Plain-English checks', 'Describe the outcome you expect. Kery turns intent into browser behavior.'],
+  ['Authenticated flows', 'Form login, Clerk, Supabase, OAuth, API tokens, and TOTP-backed accounts.'],
+  ['MCP from your IDE', 'Run scans, start tests, inspect bugs, and update triage from coding agents.'],
+  ['CI and preview runs', 'Cloud connects GitHub and Vercel so preview deployments get checked before merge.'],
+];
+
+const agentTools = [
+  ['Claude Code', '/icons/claude.svg'],
+  ['Codex', '/icons/codex.svg'],
+  ['Cursor', '/icons/cursor.svg'],
+  ['Any MCP client', '/icons/mcp.svg'],
+];
+
+const installSteps = [
+  ['Run the installer', 'npx keryai starts the setup wizard.'],
+  ['Connect a model', 'Add OpenRouter, OpenAI, Anthropic, or Gemini keys.'],
+  ['Open the dashboard', 'Kery starts the local stack and opens localhost:11111.'],
+  ['Use MCP', 'Install the MCP server so coding agents can run Kery from your IDE.'],
+];
+
+const cloudFeatures = [
+  ['Preview PR checks', 'Connect GitHub and Vercel so every preview deployment can get a Kery browser run before merge.'],
+  ['Managed workers', 'Run isolated browser agents without operating Playwright infrastructure, Redis, storage, or model routing.'],
+  ['Team triage', 'Share screenshots, run traces, issue status, severity, comments, and review decisions across the team.'],
+  ['Scheduled coverage', 'Run recurring checks for critical flows and surface stale or untested areas before customers do.'],
+];
+
+const faqs = [
+  ['What is Kery?', 'Kery is an AI browser testing engine. It crawls web apps, runs intent-driven tests in Playwright, and reports visual, functional, and UX bugs with reproducible evidence.'],
+  ['Do I need to write test scripts?', 'No. You can start with a URL and plain-English intent. Useful flows can later be saved and rerun.'],
+  ['Is this only for simple public sites?', 'No. Kery supports logged-in products through configured environments and credentials.'],
+  ['Why have OSS and Cloud?', 'OSS gives developers the engine and local control. Cloud adds managed execution, team workflows, CI checks, storage, and tenancy.'],
+];
 ---
 
 <Layout
-  title="Kery - Ship fast. Break nothing."
-  description="Open-source testing engine for real browser runs, bug detection, and self-healing Playwright replay. Apache 2.0, self-hosted, bring your own LLM."
+  title="Kery - AI QA agents for web apps"
+  description="Kery runs AI agents through real browser flows and returns reproducible visual, functional, and UX bugs with screenshots, logs, and repro steps."
 >
   <Navbar />
-  <main>
-    <Hero />
-    {!COMING_SOON && (
-      <>
-        <DemoVideo />
-        <GetRunning />
-        <HostedWaitlist />
-        <Problems />
-        <Agents />
-        <BugTypes />
-        <FeatureDeepDives />
-        <FAQ />
-        <DiscordSection />
-        <CTA />
-      </>
-    )}
+  <main class="site-main">
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Browser QA for teams shipping with AI</span>
+          <h1>AI builds fast. Kery tests at that speed.</h1>
+          <p>
+            Kery runs autonomous browser QA for teams shipping with AI: real flows, real evidence, reproducible bugs.
+          </p>
+          <div class="hero-actions">
+            <a href="#install" class="button button-primary">Install locally</a>
+            <a href="#cloud" class="button button-secondary">Join Cloud waitlist</a>
+          </div>
+        </div>
+
+        <div class="agent-animation" aria-label="Animated Kery agent testing a checkout page">
+          <div class="pixel-topbar">
+            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <strong>kery run / checkout</strong>
+            <span class="run-state"><i></i> live browser</span>
+          </div>
+
+          <div class="pixel-stage">
+            <div class="checkout-screen">
+              <div class="browser-bar">
+                <span>shop.example.com/checkout</span>
+                <i>390px</i>
+              </div>
+              <div class="checkout-page">
+                <section class="cart-panel">
+                  <div class="pixel-label">Cart</div>
+                  <div class="cart-row row-one">
+                    <span class="item-sprite mango-sprite"></span>
+                    <div>
+                      <strong>Mango Hoodie</strong>
+                      <small>$42.00</small>
+                    </div>
+                    <button type="button" class="remove-one">Remove</button>
+                    <span class="click-burst burst-one" aria-hidden="true"></span>
+                  </div>
+                  <div class="cart-row row-two">
+                    <span class="item-sprite leaf-sprite"></span>
+                    <div>
+                      <strong>Agent Sticker Pack</strong>
+                      <small>$8.00</small>
+                    </div>
+                    <button type="button" class="remove-two">Remove</button>
+                    <span class="click-burst burst-two" aria-hidden="true"></span>
+                  </div>
+                  <div class="cart-row row-three">
+                    <span class="item-sprite box-sprite"></span>
+                    <div>
+                      <strong>Debug Tote</strong>
+                      <small>$18.00</small>
+                    </div>
+                    <button type="button" class="remove-three">Remove</button>
+                    <span class="click-burst burst-three" aria-hidden="true"></span>
+                  </div>
+                </section>
+
+                <aside class="summary-panel">
+                  <div class="pixel-label">Summary</div>
+                  <div><span>Subtotal</span><strong>$68.00</strong></div>
+                  <div><span>Shipping</span><strong>$0.00</strong></div>
+                  <div class="total"><span>Total</span><strong>$68.00</strong></div>
+                  <button type="button" class="checkout-button">Checkout</button>
+                  <span class="click-burst burst-four" aria-hidden="true"></span>
+                </aside>
+              </div>
+            </div>
+
+            <div class="kery-cursor" aria-hidden="true">
+              <span>Kery</span>
+            </div>
+
+            <div class="bug-popup popup-one" aria-hidden="true">
+              <strong>BUG DETECTED</strong>
+            </div>
+            <div class="bug-popup popup-two" aria-hidden="true">
+              <strong>BUG DETECTED</strong>
+            </div>
+            <div class="bug-popup popup-three" aria-hidden="true">
+              <strong>BUG DETECTED</strong>
+            </div>
+            <div class="bug-popup popup-four" aria-hidden="true">
+              <strong>CHECKOUT STUCK</strong>
+            </div>
+            <div class="bug-summary-banner" aria-hidden="true">
+              <strong>4 bugs detected</strong>
+              <span>evidence saved to triage</span>
+            </div>
+          </div>
+
+          <div class="bug-ledger">
+            <span>Collected bugs</span>
+            <ol>
+              <li>#001</li>
+              <li>#002</li>
+              <li>#003</li>
+              <li>#004</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="agent-strip" aria-label="Coding agent integrations">
+      <div class="container">
+        <p>Works with the tools your team already uses to build</p>
+        <div>
+          {agentTools.map(([label, icon]) => (
+            <span>
+              <img src={icon} alt="" width="18" height="18" loading="lazy" />
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section install-section" id="install">
+      <div class="container install-grid">
+        <div class="section-copy">
+          <span class="section-kicker">Run Kery locally</span>
+          <h2>One command starts the open-source browser testing stack.</h2>
+          <p>
+            The fastest path is `npx keryai`. The CLI wizard asks for your model provider, generates the local services, starts Kery, and opens the dashboard. From there you can scan an app, save flows, run browser tests, and connect Kery to MCP-compatible coding tools.
+          </p>
+          <div class="install-actions">
+            <a href={SITE_GITHUB_URL} class="button button-secondary" target="_blank" rel="noopener noreferrer">View GitHub README</a>
+            <a href="#product" class="button button-ghost">See how it works</a>
+          </div>
+        </div>
+        <div class="install-card">
+          <div class="terminal-top">
+            <span></span><span></span><span></span>
+            <strong>terminal</strong>
+          </div>
+          <pre><code>$ npx keryai
+✓ choose your LLM provider
+✓ start API, dashboard, worker, Postgres, Redis
+✓ open http://localhost:11111
+✓ optional: install the Kery MCP server</code></pre>
+          <div class="install-steps">
+            {installSteps.map(([title, copy]) => (
+              <div>
+                <strong>{title}</strong>
+                <span>{copy}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cloud-section" id="cloud">
+      <div class="container cloud-grid">
+        <div class="section-copy">
+          <span class="section-kicker">Kery Cloud</span>
+          <h2>Managed QA for teams that want every PR tested.</h2>
+          <p>
+            Cloud is the hosted control plane around Kery: isolated browser workers, team triage, durable artifacts, scheduled coverage, and CI integrations that test preview deployments before code merges.
+          </p>
+          <div class="cloud-feature-grid">
+            {cloudFeatures.map(([title, copy]) => (
+              <article>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+        <form class="cloud-form" id="waitlist-form" novalidate>
+          <span class="form-eyebrow">Early access</span>
+          <h3>Join the Cloud waitlist</h3>
+          <p>Get updates when hosted runs, PR checks, scheduled coverage, and team review are ready.</p>
+          <label for="waitlist-email">Work email</label>
+          <div>
+            <input id="waitlist-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required />
+            <button class="button button-primary" id="waitlist-button" type="submit">Join waitlist</button>
+          </div>
+          <p id="waitlist-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section problem-section">
+      <div class="container two-col">
+        <div class="section-copy">
+          <span class="section-kicker">Why this matters</span>
+          <h2>AI changed how fast teams build. It did not remove the need to test.</h2>
+          <p>When Claude Code, Codex, Cursor, and other agents help create more changes, QA has to become part of the same agentic workflow. Kery handles the browser work that teams do not have time to repeat by hand.</p>
+        </div>
+        <div class="pain-grid">
+          {painPoints.map(([title, copy]) => (
+            <article>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section how-section" id="product">
+      <div class="container section-heading center">
+        <span class="section-kicker">How Kery works</span>
+        <h2>Give it a product flow. Get back a reproducible bug report.</h2>
+      </div>
+      <div class="container steps-grid">
+        {steps.map(([number, title, copy]) => (
+          <article>
+            <span>{number}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section demo-section" id="demo">
+      <div class="container demo-grid">
+        <div class="demo-media">
+          <video src="/kery-demo.mp4" poster="/kery-demo-thumb.jpg" muted loop playsinline controls preload="metadata"></video>
+        </div>
+        <div class="section-copy">
+          <span class="section-kicker">The output</span>
+          <h2>Evidence your engineers can act on.</h2>
+          <p>Kery does not stop at "something looks wrong." It preserves the browser state and the reasoning needed for a developer or coding agent to reproduce the issue.</p>
+          <div class="artifact-list">
+            {artifacts.map(([title, copy]) => (
+              <div>
+                <strong>{title}</strong>
+                <span>{copy}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section capability-section">
+      <div class="container section-heading">
+        <span class="section-kicker">Why teams use it</span>
+        <h2>A QA loop built for product teams and coding agents.</h2>
+      </div>
+      <div class="container capability-grid">
+        {capabilities.map(([title, copy]) => (
+          <article>
+            <span aria-hidden="true"></span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section faq-section">
+      <div class="container faq-grid">
+        <div class="section-copy">
+          <span class="section-kicker">FAQ</span>
+          <h2>What teams usually ask first.</h2>
+        </div>
+        <div class="faq-list">
+          {faqs.map(([question, answer]) => (
+            <details>
+              <summary>{question}</summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container final-cta-inner">
+        <div>
+          <span class="section-kicker">Get started</span>
+          <h2>Put an AI tester inside your release loop.</h2>
+        </div>
+        <div class="final-actions">
+          <a href="#install" class="button button-primary">Install locally</a>
+          <a href={SITE_GITHUB_URL} class="button button-secondary" target="_blank" rel="noopener noreferrer">Star on GitHub</a>
+          <a href={SITE_DISCORD_URL} class="button button-ghost" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </div>
+      </div>
+    </section>
   </main>
-  {!COMING_SOON && <Footer />}
+  <Footer />
 </Layout>
+
+<style>
+  .site-main {
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 85% 8%, rgba(255, 207, 73, 0.18), transparent 24rem),
+      linear-gradient(180deg, #fffdf6 0%, var(--color-bg) 34rem);
+  }
+
+  .hero-section {
+    padding: clamp(8rem, 13vw, 11rem) 0 clamp(4.5rem, 8vw, 7rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(520px, 1.12fr);
+    gap: clamp(3rem, 7vw, 6rem);
+    align-items: center;
+  }
+
+  .hero-copy {
+    max-width: 43rem;
+  }
+
+  .eyebrow,
+  .section-kicker,
+  .form-eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    color: var(--color-accent-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    padding: 0.42rem 0.68rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: rgba(255, 253, 246, 0.82);
+  }
+
+  .hero-copy h1 {
+    max-width: 10ch;
+    margin: 1.15rem 0 1.15rem;
+    color: var(--color-ink);
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 850;
+    letter-spacing: -0.052em;
+    line-height: 0.88;
+  }
+
+  .hero-copy p,
+  .section-copy p,
+  .section-heading p,
+  .cloud-form p {
+    color: var(--color-text-secondary);
+    font-size: clamp(1.02rem, 1.25vw, 1.16rem);
+    line-height: 1.72;
+  }
+
+  .hero-actions,
+  .final-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.65rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.72rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 760;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+  }
+
+  .button-primary {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: #fffdf6;
+  }
+
+  .button-primary:hover {
+    background: #000;
+  }
+
+  .button-secondary {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-ink);
+  }
+
+  .button-secondary:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 52%, var(--color-border));
+  }
+
+  .button-ghost {
+    background: transparent;
+    color: var(--color-text-secondary);
+  }
+
+  .button-ghost:hover {
+    background: var(--color-bg-alt);
+    color: var(--color-ink);
+  }
+
+  .agent-animation {
+    --loop: 23s;
+    overflow: hidden;
+    border: 1px solid rgba(38, 33, 21, 0.2);
+    border-radius: 16px;
+    background: #171714;
+    box-shadow:
+      0 26px 70px rgba(38, 33, 21, 0.16),
+      0 0 0 8px rgba(255, 253, 246, 0.62);
+    image-rendering: pixelated;
+  }
+
+  .pixel-topbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.82rem 0.95rem;
+    border-bottom: 1px solid rgba(255, 248, 232, 0.1);
+    color: rgba(255, 248, 232, 0.62);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .window-dots {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .window-dots span {
+    width: 0.62rem;
+    height: 0.62rem;
+    border-radius: 999px;
+    background: #ff695f;
+  }
+
+  .window-dots span:nth-child(2) {
+    background: #ffcf49;
+  }
+
+  .window-dots span:nth-child(3) {
+    background: #63c174;
+  }
+
+  .run-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: auto;
+    color: #8bdba0;
+  }
+
+  .run-state i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: currentColor;
+    animation: pixel-blink 1s steps(2, end) infinite;
+  }
+
+  .pixel-stage {
+    position: relative;
+    min-height: 31.5rem;
+    overflow: hidden;
+    padding: 1rem;
+    background:
+      linear-gradient(90deg, rgba(255, 248, 232, 0.04) 1px, transparent 1px),
+      linear-gradient(rgba(255, 248, 232, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 82% 10%, rgba(255, 207, 73, 0.13), transparent 16rem),
+      #222018;
+    background-size: 18px 18px, 18px 18px, auto, auto;
+  }
+
+  .checkout-screen {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border: 3px solid #171714;
+    border-radius: 10px;
+    background: #fff8e8;
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.26);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 3px solid #171714;
+    background: #f1ead9;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .browser-bar span,
+  .browser-bar i {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .browser-bar i {
+    flex: 0 0 auto;
+    color: var(--color-accent-muted);
+    font-style: normal;
+  }
+
+  .checkout-page {
+    display: grid;
+    grid-template-columns: minmax(0, 1.28fr) minmax(12rem, 0.72fr);
+    gap: 0.8rem;
+    padding: 0.9rem;
+  }
+
+  .cart-panel,
+  .summary-panel,
+  .pain-grid article,
+  .steps-grid article,
+  .artifact-list div,
+  .capability-grid article,
+  .cloud-feature-grid article,
+  .install-card,
+  .cloud-form {
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface);
+  }
+
+  .cart-panel,
+  .summary-panel {
+    position: relative;
+    padding: 0.75rem;
+    border-width: 2px;
+    border-radius: 6px;
+    background: #fffdf6;
+  }
+
+  .pixel-label {
+    width: fit-content;
+    margin-bottom: 0.65rem;
+    padding: 0.2rem 0.45rem;
+    border: 2px solid #171714;
+    background: #ffcf49;
+    color: #171714;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .cart-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.3rem minmax(0, 1fr) auto;
+    gap: 0.65rem;
+    align-items: center;
+    min-height: 4.15rem;
+    margin-top: 0.55rem;
+    padding: 0.58rem;
+    border: 2px solid #171714;
+    border-radius: 4px;
+    background: #fbf7ea;
+    box-shadow: 0 3px 0 rgba(23, 23, 20, 0.18);
+  }
+
+  .cart-row strong,
+  .cart-row small,
+  .summary-panel span,
+  .summary-panel strong {
+    display: block;
+  }
+
+  .cart-row strong {
+    color: var(--color-ink);
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
+  .cart-row small {
+    margin-top: 0.15rem;
+    color: var(--color-text-muted);
+    font-size: 0.72rem;
+  }
+
+  .cart-row button,
+  .summary-panel button {
+    position: relative;
+    min-height: 2rem;
+    padding: 0 0.55rem;
+    border: 2px solid #171714;
+    border-radius: 3px;
+    background: #fffdf6;
+    box-shadow: 0 3px 0 #171714;
+    color: var(--color-ink);
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .item-sprite {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #171714;
+    border-radius: 3px;
+    box-shadow: inset -4px -4px 0 rgba(0, 0, 0, 0.14);
+  }
+
+  .mango-sprite {
+    background:
+      linear-gradient(135deg, #ffcf49 0 45%, #f39b1b 45% 76%, #c95f1a 76%),
+      #ffcf49;
+  }
+
+  .leaf-sprite {
+    background:
+      linear-gradient(135deg, #7caf55 0 42%, #437648 42% 72%, #244c2b 72%),
+      #7caf55;
+  }
+
+  .box-sprite {
+    background:
+      linear-gradient(135deg, #d7ad69 0 45%, #9c6413 45% 75%, #5f3b13 75%),
+      #d7ad69;
+  }
+
+  .summary-panel {
+    display: grid;
+    align-content: start;
+    gap: 0.62rem;
+  }
+
+  .summary-panel div:not(.pixel-label) {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.45rem 0;
+    border-bottom: 2px dashed #ded4be;
+  }
+
+  .summary-panel div.total {
+    border-bottom: 0;
+  }
+
+  .summary-panel span {
+    color: var(--color-text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .summary-panel strong {
+    color: var(--color-ink);
+    font-size: 0.82rem;
+  }
+
+  .summary-panel button {
+    width: 100%;
+    min-height: 2.5rem;
+    margin-top: 0.4rem;
+    background: #ffcf49;
+  }
+
+  .remove-one {
+    animation: button-fail-one var(--loop) steps(1, end) infinite;
+  }
+
+  .remove-two {
+    animation: button-fail-two var(--loop) steps(1, end) infinite;
+  }
+
+  .remove-three {
+    animation: button-fail-three var(--loop) steps(1, end) infinite;
+  }
+
+  .checkout-button {
+    animation: button-fail-four var(--loop) steps(1, end) infinite;
+  }
+
+  .kery-cursor {
+    position: absolute;
+    z-index: 8;
+    left: 21%;
+    top: 74%;
+    width: 1.55rem;
+    height: 1.55rem;
+    transform-origin: 0 0;
+    animation: kery-cursor-run var(--loop) linear infinite;
+  }
+
+  .kery-cursor::before,
+  .kery-cursor::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.55rem;
+    height: 1.55rem;
+    clip-path: polygon(0 0, 0 100%, 35% 74%, 53% 100%, 76% 88%, 58% 62%, 100% 62%);
+    transform: scaleX(0.95);
+    transform-origin: left top;
+  }
+
+  .kery-cursor::before {
+    background: #171714;
+    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.28));
+  }
+
+  .kery-cursor::after {
+    left: 0.16rem;
+    top: 0.16rem;
+    width: 1.13rem;
+    height: 1.13rem;
+    background: #fff8e8;
+  }
+
+  .kery-cursor span {
+    position: absolute;
+    z-index: 2;
+    left: 0.95rem;
+    top: 1.05rem;
+    padding: 0.18rem 0.42rem;
+    border: 2px solid #171714;
+    border-radius: 3px;
+    background: #ffcf49;
+    color: #171714;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .click-burst {
+    position: absolute;
+    z-index: 7;
+    width: 2.1rem;
+    height: 2.1rem;
+    border: 3px solid #ffcf49;
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.2);
+    animation: click-burst var(--loop) linear infinite;
+  }
+
+  .burst-one,
+  .burst-two,
+  .burst-three {
+    right: 1.4rem;
+    top: 50%;
+    margin-top: -1.05rem;
+  }
+
+  .burst-one {
+    animation-name: click-burst-one;
+  }
+
+  .burst-two {
+    animation-name: click-burst-two;
+  }
+
+  .burst-three {
+    animation-name: click-burst-three;
+  }
+
+  .burst-four {
+    right: 50%;
+    bottom: 0.95rem;
+    margin-right: -1.05rem;
+    animation-name: click-burst-four;
+  }
+
+  .bug-popup {
+    position: absolute;
+    z-index: 9;
+    display: grid;
+    gap: 0.18rem;
+    min-width: 9.2rem;
+    padding: 0.48rem 0.62rem;
+    border: 3px solid #171714;
+    border-radius: 4px;
+    background: #d34b3a;
+    box-shadow: 0 5px 0 #171714;
+    color: #fff8e8;
+    opacity: 0;
+    text-align: center;
+    transform: translateY(0) scale(0.84);
+    animation: bug-pop var(--loop) linear infinite;
+  }
+
+  .bug-popup strong {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .popup-one {
+    left: 42%;
+    top: 21%;
+    animation-name: bug-pop-one;
+  }
+
+  .popup-two {
+    left: 42%;
+    top: 36%;
+    animation-name: bug-pop-two;
+  }
+
+  .popup-three {
+    left: 42%;
+    top: 51%;
+    animation-name: bug-pop-three;
+  }
+
+  .popup-four {
+    right: 4%;
+    top: 43%;
+    min-width: 10.2rem;
+    animation-name: bug-pop-four;
+  }
+
+  .bug-summary-banner {
+    position: absolute;
+    z-index: 10;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.72rem 0.9rem;
+    border: 3px solid #171714;
+    border-radius: 4px;
+    background: #ffcf49;
+    box-shadow: 0 5px 0 #171714;
+    color: #171714;
+    opacity: 0;
+    transform: translateY(0.7rem);
+    animation: summary-banner var(--loop) linear infinite;
+  }
+
+  .bug-summary-banner strong {
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .bug-summary-banner span {
+    color: rgba(23, 23, 20, 0.72);
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .bug-ledger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    border-top: 1px solid rgba(255, 248, 232, 0.1);
+    background: #171714;
+    color: rgba(255, 248, 232, 0.68);
+  }
+
+  .bug-ledger > span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .bug-ledger ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.4rem;
+  }
+
+  .bug-ledger li {
+    padding: 0.26rem 0.46rem;
+    border: 2px solid #ffcf49;
+    border-radius: 3px;
+    background: rgba(255, 207, 73, 0.12);
+    color: #ffcf49;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+    opacity: 0;
+    transform: translateY(0.45rem);
+    animation: ledger-collect var(--loop) steps(1, end) infinite;
+  }
+
+  .bug-ledger li:nth-child(1) { animation-name: ledger-one; }
+  .bug-ledger li:nth-child(2) { animation-name: ledger-two; }
+  .bug-ledger li:nth-child(3) { animation-name: ledger-three; }
+  .bug-ledger li:nth-child(4) { animation-name: ledger-four; }
+
+  @keyframes pixel-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0.25; }
+  }
+
+  @keyframes kery-cursor-run {
+    0%, 4.565% { left: 20%; top: 75%; transform: scale(1); }
+    6.304%, 23.696% { left: 51.8%; top: 32.5%; transform: scale(1); }
+    24.348%, 40.652% { left: 51.8%; top: 47.5%; transform: scale(1); }
+    41.304%, 57.391% { left: 51.8%; top: 62.5%; transform: scale(1); }
+    58.043%, 99.348% { left: 78.5%; top: 63%; transform: scale(1); }
+    8.826%, 13.174%, 17.522%, 25.783%, 30.13%, 34.478%, 42.739%, 47.087%, 51.435%, 59.696%, 64.043%, 68.391%, 72.739% { transform: scale(0.9); }
+    9.478%, 13.826%, 18.174%, 26.435%, 30.783%, 35.13%, 43.391%, 47.739%, 52.087%, 60.348%, 64.696%, 69.043%, 73.391% { transform: scale(1); }
+    100% { left: 20%; top: 75%; transform: scale(1); }
+  }
+
+  @keyframes click-burst-one {
+    0%, 8.652%, 9.957%, 13%, 14.304%, 17.348%, 18.652%, 100% { opacity: 0; transform: scale(0.28); }
+    8.696%, 9.913%, 13.043%, 14.261%, 17.391%, 18.609% { opacity: 1; transform: scale(1.05); }
+  }
+
+  @keyframes click-burst-two {
+    0%, 25.609%, 26.913%, 29.957%, 31.261%, 34.304%, 35.609%, 100% { opacity: 0; transform: scale(0.28); }
+    25.652%, 26.87%, 30%, 31.217%, 34.348%, 35.565% { opacity: 1; transform: scale(1.05); }
+  }
+
+  @keyframes click-burst-three {
+    0%, 42.565%, 43.87%, 46.913%, 48.217%, 51.261%, 52.565%, 100% { opacity: 0; transform: scale(0.28); }
+    42.609%, 43.826%, 46.957%, 48.174%, 51.304%, 52.522% { opacity: 1; transform: scale(1.05); }
+  }
+
+  @keyframes click-burst-four {
+    0%, 59.522%, 60.826%, 63.87%, 65.174%, 68.217%, 69.522%, 72.565%, 73.87%, 100% { opacity: 0; transform: scale(0.28); }
+    59.565%, 60.783%, 63.913%, 65.13%, 68.261%, 69.478%, 72.609%, 73.826% { opacity: 1; transform: scale(1.05); }
+  }
+
+  @keyframes bug-pop-one {
+    0%, 18.609%, 23.261%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
+    19.348%, 21.739% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
+    22.261%, 23.043% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
+  }
+
+  @keyframes bug-pop-two {
+    0%, 35.565%, 40.217%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
+    36.304%, 38.696% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
+    39.217%, 40% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
+  }
+
+  @keyframes bug-pop-three {
+    0%, 52.522%, 57.174%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
+    53.261%, 55.652% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
+    56.174%, 56.957% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
+  }
+
+  @keyframes bug-pop-four {
+    0%, 74.13%, 78.043%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
+    74.87%, 77.043% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
+    77.565%, 77.826% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
+  }
+
+  @keyframes ledger-one {
+    0%, 19.783% { opacity: 0; transform: translateY(0.45rem); }
+    20.522%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ledger-two {
+    0%, 36.739% { opacity: 0; transform: translateY(0.45rem); }
+    37.478%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ledger-three {
+    0%, 53.696% { opacity: 0; transform: translateY(0.45rem); }
+    54.435%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ledger-four {
+    0%, 75.217% { opacity: 0; transform: translateY(0.45rem); }
+    76%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes summary-banner {
+    0%, 77.739% { opacity: 0; transform: translateY(0.7rem); }
+    78.261%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes button-fail-one {
+    0%, 8.652%, 10.304%, 13%, 14.652%, 17.348%, 19%, 100% {
+      background: #fffdf6;
+      color: var(--color-ink);
+      transform: translateX(0);
+      box-shadow: 0 3px 0 #171714;
+    }
+    8.696%, 9.217%, 9.739%, 13.043%, 13.565%, 14.087%, 17.391%, 17.913%, 18.435% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(-1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+    8.957%, 9.478%, 10%, 13.304%, 13.826%, 14.348%, 17.652%, 18.174%, 18.696% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+  }
+
+  @keyframes button-fail-two {
+    0%, 25.609%, 27.261%, 29.957%, 31.609%, 34.304%, 35.957%, 100% {
+      background: #fffdf6;
+      color: var(--color-ink);
+      transform: translateX(0);
+      box-shadow: 0 3px 0 #171714;
+    }
+    25.652%, 26.174%, 26.696%, 30%, 30.522%, 31.043%, 34.348%, 34.87%, 35.391% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(-1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+    25.913%, 26.435%, 26.957%, 30.261%, 30.783%, 31.304%, 34.609%, 35.13%, 35.652% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+  }
+
+  @keyframes button-fail-three {
+    0%, 42.565%, 44.217%, 46.913%, 48.565%, 51.261%, 52.913%, 100% {
+      background: #fffdf6;
+      color: var(--color-ink);
+      transform: translateX(0);
+      box-shadow: 0 3px 0 #171714;
+    }
+    42.609%, 43.13%, 43.652%, 46.957%, 47.478%, 48%, 51.304%, 51.826%, 52.348% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(-1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+    42.87%, 43.391%, 43.913%, 47.217%, 47.739%, 48.261%, 51.565%, 52.087%, 52.609% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+  }
+
+  @keyframes button-fail-four {
+    0%, 59.522%, 61.174%, 63.87%, 65.522%, 68.217%, 69.87%, 72.565%, 74.217%, 100% {
+      background: #ffcf49;
+      color: var(--color-ink);
+      transform: translateX(0);
+      box-shadow: 0 3px 0 #171714;
+    }
+    59.565%, 60.087%, 60.609%, 63.913%, 64.435%, 64.957%, 68.261%, 68.783%, 69.304%, 72.609%, 73.13%, 73.652% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(-1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+    59.826%, 60.348%, 60.87%, 64.174%, 64.696%, 65.217%, 68.522%, 69.043%, 69.565%, 72.87%, 73.391%, 73.913% {
+      background: #d98b82;
+      color: #5d201b;
+      transform: translateX(1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+  }
+
+  .agent-strip {
+    border-block: 1px solid var(--color-border);
+    background: rgba(255, 253, 246, 0.78);
+  }
+
+  .agent-strip .container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: auto;
+    padding-block: 0.9rem;
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .agent-strip p {
+    color: var(--color-text-secondary);
+    font-size: 0.84rem;
+    font-weight: 800;
+  }
+
+  .agent-strip .container > div {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .agent-strip span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    min-height: 2.2rem;
+    padding: 0 0.68rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .agent-strip img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+  }
+
+  .agent-strip i {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    background: #8a2be2;
+    color: #fff;
+    font-size: 0.66rem;
+    font-style: normal;
+  }
+
+  .section {
+    padding: clamp(4.75rem, 8vw, 7rem) 0;
+  }
+
+  .two-col,
+  .install-grid,
+  .cloud-grid,
+  .demo-grid,
+  .faq-grid,
+  .final-cta-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .section-copy,
+  .section-heading {
+    max-width: 48rem;
+  }
+
+  .section-heading {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .section-heading.center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-copy h2,
+  .section-heading h2,
+  .final-cta h2 {
+    margin: 0.65rem 0 0.85rem;
+    color: var(--color-ink);
+    font-size: clamp(2.35rem, 4.8vw, 4.35rem);
+    font-weight: 850;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+  }
+
+  .pain-grid {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .pain-grid article,
+  .steps-grid article,
+  .capability-grid article {
+    padding: 1rem;
+    background: rgba(255, 253, 246, 0.78);
+  }
+
+  .pain-grid h3,
+  .steps-grid h3,
+  .capability-grid h3,
+  .cloud-feature-grid h3 {
+    color: var(--color-ink);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .pain-grid p,
+  .steps-grid p,
+  .capability-grid p,
+  .cloud-feature-grid p {
+    margin-top: 0.45rem;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .how-section,
+  .install-section,
+  .cloud-section {
+    border-block: 1px solid var(--color-border);
+    background: #fffdf6;
+  }
+
+  .install-section {
+    background:
+      linear-gradient(90deg, rgba(38, 33, 21, 0.035) 1px, transparent 1px),
+      linear-gradient(rgba(38, 33, 21, 0.035) 1px, transparent 1px),
+      #fffdf6;
+    background-size: 34px 34px;
+  }
+
+  .install-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.45rem;
+  }
+
+  .install-card {
+    overflow: hidden;
+    background: #171714;
+    color: #fff8e8;
+    box-shadow: 0 20px 50px rgba(38, 33, 21, 0.14);
+  }
+
+  .terminal-top {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.78rem 0.95rem;
+    border-bottom: 1px solid rgba(255, 248, 232, 0.1);
+  }
+
+  .terminal-top span {
+    width: 0.62rem;
+    height: 0.62rem;
+    border-radius: 999px;
+    background: #ff695f;
+  }
+
+  .terminal-top span:nth-child(2) {
+    background: #ffcf49;
+  }
+
+  .terminal-top span:nth-child(3) {
+    background: #63c174;
+  }
+
+  .terminal-top strong {
+    margin-left: auto;
+    color: rgba(255, 248, 232, 0.48);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .install-card pre {
+    margin: 0;
+    overflow-x: auto;
+    padding: 1.1rem;
+    border-bottom: 1px solid rgba(255, 248, 232, 0.1);
+    color: #fff8e8;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    line-height: 1.8;
+  }
+
+  .install-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: rgba(255, 248, 232, 0.06);
+  }
+
+  .install-steps div {
+    padding: 0.85rem;
+    border-right: 1px solid rgba(255, 248, 232, 0.1);
+  }
+
+  .install-steps div:last-child {
+    border-right: 0;
+  }
+
+  .install-steps strong,
+  .install-steps span {
+    display: block;
+  }
+
+  .install-steps strong {
+    color: #ffcf49;
+    font-size: 0.8rem;
+  }
+
+  .install-steps span {
+    margin-top: 0.28rem;
+    color: rgba(255, 248, 232, 0.66);
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  .cloud-section {
+    background:
+      radial-gradient(circle at 88% 16%, rgba(255, 207, 73, 0.18), transparent 22rem),
+      #171714;
+    color: #fff8e8;
+  }
+
+  .cloud-section .section-kicker,
+  .form-eyebrow {
+    color: #ffcf49;
+  }
+
+  .cloud-section h2 {
+    color: #fff8e8;
+  }
+
+  .cloud-section .section-copy > p {
+    color: rgba(255, 248, 232, 0.72);
+  }
+
+  .cloud-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(24rem, 0.72fr);
+    align-items: start;
+  }
+
+  .cloud-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+  }
+
+  .cloud-feature-grid article {
+    background: rgba(255, 248, 232, 0.06);
+    border-color: rgba(255, 248, 232, 0.13);
+    padding: 0.9rem;
+  }
+
+  .cloud-feature-grid h3 {
+    color: #fff8e8;
+  }
+
+  .cloud-feature-grid p {
+    color: rgba(255, 248, 232, 0.68);
+  }
+
+  .cloud-form {
+    display: grid;
+    gap: 0.7rem;
+    padding: 1rem;
+    background: rgba(255, 248, 232, 0.06);
+    border-color: rgba(255, 248, 232, 0.13);
+  }
+
+  .cloud-form h3 {
+    color: #fff8e8;
+    font-size: 1.35rem;
+    line-height: 1.1;
+  }
+
+  .cloud-form p {
+    color: rgba(255, 248, 232, 0.68);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .cloud-form label {
+    margin-top: 0.3rem;
+    color: rgba(255, 248, 232, 0.72);
+    font-size: 0.82rem;
+    font-weight: 760;
+  }
+
+  .cloud-form > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.6rem;
+  }
+
+  .cloud-form input {
+    width: 100%;
+    min-height: 2.75rem;
+    border: 1px solid rgba(255, 248, 232, 0.18);
+    border-radius: 8px;
+    background: rgba(255, 248, 232, 0.94);
+    color: var(--color-ink);
+    padding: 0 0.8rem;
+    font: inherit;
+  }
+
+  .cloud-form p#waitlist-status {
+    min-height: 1.1rem;
+    font-size: 0.8rem;
+  }
+
+  .cloud-form p#waitlist-status.success {
+    color: #8bdba0;
+  }
+
+  .cloud-form p#waitlist-status.error {
+    color: #ff9388;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .steps-grid article {
+    min-height: 17rem;
+  }
+
+  .steps-grid article > span {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+    border-radius: 8px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-muted);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .demo-section {
+    background: var(--color-bg);
+  }
+
+  .demo-media {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: #171714;
+    box-shadow: 0 20px 50px rgba(38, 33, 21, 0.14);
+  }
+
+  .demo-media video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .artifact-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+  }
+
+  .artifact-list div {
+    padding: 0.82rem;
+    background: rgba(255, 253, 246, 0.78);
+  }
+
+  .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .capability-grid article > span {
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-bottom: 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, rgba(255, 207, 73, 0.8), rgba(67, 118, 72, 0.18)),
+      var(--color-surface);
+  }
+
+  .faq-section {
+    background: var(--color-bg);
+  }
+
+  .faq-grid {
+    align-items: start;
+  }
+
+  .faq-list {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq-list details {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-list summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    color: var(--color-ink);
+    cursor: pointer;
+    font-weight: 800;
+    list-style: none;
+  }
+
+  .faq-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-list summary::after {
+    content: "+";
+    color: var(--color-accent-muted);
+    font-family: var(--font-mono);
+  }
+
+  .faq-list details[open] summary::after {
+    content: "-";
+  }
+
+  .faq-list p {
+    max-width: 44rem;
+    padding: 0 2rem 1.15rem 0;
+    color: var(--color-text-secondary);
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+
+  .final-cta {
+    padding: 0 0 clamp(4rem, 7vw, 5.5rem);
+    background: var(--color-bg);
+  }
+
+  .final-cta-inner {
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .final-cta h2 {
+    max-width: 16ch;
+    margin-bottom: 0;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+  }
+
+  .final-actions {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  @media (max-width: 1120px) {
+    .hero-grid,
+    .two-col,
+    .install-grid,
+    .cloud-grid,
+    .demo-grid,
+    .faq-grid,
+    .final-cta-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-copy,
+    .agent-animation {
+      max-width: 760px;
+    }
+
+    .capability-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .final-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .checkout-page,
+    .install-steps,
+    .cloud-feature-grid,
+    .steps-grid,
+    .artifact-list,
+    .capability-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-section {
+      padding-top: 6.75rem;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(3.25rem, 17vw, 4.25rem);
+    }
+
+    .hero-actions,
+    .cloud-form > div,
+    .final-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .cloud-form {
+      padding: 0.75rem;
+    }
+
+    .agent-animation {
+      display: none;
+    }
+
+    .agent-strip .container {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button {
+      transition: none;
+    }
+
+    .button:hover {
+      transform: none;
+    }
+
+    .kery-cursor,
+    .click-burst,
+    .bug-popup,
+    .bug-summary-banner,
+    .bug-ledger li,
+    .run-state i,
+    .remove-one,
+    .remove-two,
+    .remove-three,
+    .checkout-button {
+      animation: none;
+    }
+
+    .kery-cursor {
+      left: 78.5%;
+      top: 63%;
+    }
+
+    .bug-popup.popup-four,
+    .bug-summary-banner,
+    .bug-ledger li {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById('waitlist-form');
+    const input = document.getElementById('waitlist-email');
+    const button = document.getElementById('waitlist-button');
+    const status = document.getElementById('waitlist-status');
+
+    if (!(form instanceof HTMLFormElement) || !(input instanceof HTMLInputElement) || !(button instanceof HTMLButtonElement) || !(status instanceof HTMLParagraphElement)) return;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = input.value.trim();
+      status.className = '';
+
+      if (!email || !input.validity.valid) {
+        status.textContent = 'Enter a valid email address.';
+        status.classList.add('error');
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Joining...';
+      status.textContent = '';
+
+      try {
+        const response = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || data.error) throw new Error(data.error || 'Could not join waitlist.');
+        status.textContent = data.alreadyJoined ? 'You are already on the list.' : 'You are on the list. We will reach out soon.';
+        status.classList.add('success');
+        form.reset();
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : 'Could not join waitlist.';
+        status.classList.add('error');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Join waitlist';
+      }
+    });
+  })();
+</script>

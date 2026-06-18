@@ -1,12 +1,12 @@
 ---
 const faqs = [
   {
-    q: 'How does Kery find bugs without any test scripts?',
-    a: 'The Navigator agent drives a real Playwright browser using the accessibility tree and screenshots, not CSS selectors. It maps your app, plans flows, executes them, and reports bugs. Nothing to write, nothing to maintain.',
+    q: 'Do I need test scripts to start?',
+    a: 'No. The Navigator agent drives a Playwright browser using the accessibility tree and screenshots. It maps the app, plans a path, and reports what happened.',
   },
   {
     q: 'What happens when the DOM changes?',
-    a: 'Stagehand self-healing kicks in. When an element moves or the layout shifts, Kery finds it by intent rather than a stale selector. Tests don\'t break when your UI changes.',
+    a: 'Kery retries element lookup by intent instead of relying only on a stale selector. Useful flows keep running through routine UI changes.',
   },
   {
     q: 'Which LLM providers are supported?',
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: 'Is Kery open-source?',
-    a: 'Open-source is coming soon. Watch the GitHub repo for updates.',
+    a: 'Yes. Kery is designed for self-hosted use, with Apache 2.0 licensing and bring-your-own model providers.',
   },
 ];
 import HangingMango from './HangingMango.astro';
@@ -46,7 +46,7 @@ import HangingMango from './HangingMango.astro';
   <div class="container">
     <div class="reveal">
       <span class="section-badge">FAQ</span>
-      <h2>Short answers.</h2>
+      <h2>What teams ask first.</h2>
     </div>
     <div class="faq-list reveal">
       {faqs.map((faq) => (
