@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_GITHUB_URL } from '../constants';
+---
+
+<Layout
+  title="404 - Kery"
+  description="The page you are looking for does not exist."
+  robots="noindex, nofollow"
+>
+  <Navbar />
+  <main class="not-found-page">
+    <section class="not-found-hero">
+      <div class="container not-found-inner">
+        <div class="not-found-code" aria-hidden="true">
+          <span>4</span>
+          <span class="not-found-orbit">
+            <i></i>
+          </span>
+          <span>4</span>
+        </div>
+        <span class="section-badge">Page not found</span>
+        <h1>This route did not pass browser QA.</h1>
+        <p>
+          The page may have moved, shipped under a different URL, or never existed. Head back home and keep moving.
+        </p>
+        <div class="not-found-actions">
+          <a href="/" class="not-found-button primary">Back to home</a>
+          <a href={SITE_GITHUB_URL} class="not-found-button secondary" target="_blank" rel="noopener noreferrer">Open GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .not-found-page {
+    min-height: 100vh;
+    padding-top: 4.25rem;
+    background:
+      linear-gradient(180deg, rgba(255, 244, 207, 0.42), rgba(251, 247, 234, 0) 42%),
+      var(--color-bg);
+  }
+
+  .not-found-hero {
+    display: grid;
+    min-height: calc(100vh - 4.25rem);
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    align-items: center;
+  }
+
+  .not-found-inner {
+    max-width: 760px;
+    text-align: center;
+  }
+
+  .not-found-code {
+    display: inline-grid;
+    grid-template-columns: auto 1fr auto;
+    gap: clamp(0.45rem, 2vw, 0.9rem);
+    align-items: center;
+    margin-bottom: 1.2rem;
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: clamp(4.4rem, 15vw, 9rem);
+    font-weight: 850;
+    line-height: 0.9;
+  }
+
+  .not-found-orbit {
+    position: relative;
+    display: block;
+    width: clamp(3.8rem, 10vw, 6.6rem);
+    aspect-ratio: 1;
+    border: 3px solid var(--color-ink);
+    border-radius: 999px;
+    background:
+      linear-gradient(135deg, rgba(255, 207, 73, 0.86), rgba(255, 253, 246, 0.92)),
+      var(--color-accent);
+    box-shadow: inset -10px -12px 0 rgba(156, 100, 19, 0.16);
+  }
+
+  .not-found-orbit::before,
+  .not-found-orbit::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 2px solid rgba(23, 23, 20, 0.5);
+    border-radius: 999px;
+    transform: translate(-50%, -50%) rotate(-24deg);
+  }
+
+  .not-found-orbit::before {
+    width: 138%;
+    height: 42%;
+  }
+
+  .not-found-orbit::after {
+    width: 44%;
+    height: 138%;
+  }
+
+  .not-found-orbit i {
+    position: absolute;
+    right: 18%;
+    top: 22%;
+    width: 16%;
+    aspect-ratio: 1;
+    border: 2px solid var(--color-ink);
+    border-radius: 50%;
+    background: var(--color-surface);
+  }
+
+  .not-found-inner h1 {
+    max-width: 720px;
+    margin: 0 auto 1rem;
+    font-size: clamp(2.6rem, 7vw, 5.35rem);
+  }
+
+  .not-found-inner p {
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: clamp(1.05rem, 2vw, 1.24rem);
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .not-found-button {
+    display: inline-flex;
+    min-height: 2.9rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 0 1.15rem;
+    font-size: 0.95rem;
+    font-weight: 800;
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  }
+
+  .not-found-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .not-found-button.primary {
+    border: 1px solid var(--color-ink);
+    background: var(--color-ink);
+    color: #fffdf6;
+  }
+
+  .not-found-button.primary:hover {
+    background: #000;
+  }
+
+  .not-found-button.secondary {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .not-found-button.secondary:hover {
+    border-color: rgba(156, 100, 19, 0.45);
+    background: var(--color-accent-soft);
+  }
+
+  @media (max-width: 560px) {
+    .not-found-page {
+      padding-top: 3.8rem;
+    }
+
+    .not-found-hero {
+      min-height: calc(100vh - 3.8rem);
+      padding: 3.5rem 0;
+    }
+
+    .not-found-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  }
+</style>

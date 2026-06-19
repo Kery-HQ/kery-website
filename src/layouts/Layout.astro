@@ -6,6 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  robots?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -14,6 +15,7 @@ const {
   description =
     "Kery sends AI agents through your web app to find real bugs — with screenshots, logs, and reproduction steps. No test scripts. Works with Claude, Cursor, and Codex via MCP.",
   ogImage = "/og.png",
+  robots,
   structuredData,
 } = Astro.props;
 
@@ -31,6 +33,7 @@ const structuredDataItems = Array.isArray(structuredData)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
     <meta name="generator" content={Astro.generator} />
 
     <!-- Canonical -->
