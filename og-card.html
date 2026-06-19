@@ -5,7 +5,7 @@
   <title>Kery — OG Card</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -13,7 +13,7 @@
       width: 1200px;
       height: 630px;
       overflow: hidden;
-      background: #0f1210;
+      background: #fbf7ea;
     }
 
     body {
@@ -27,19 +27,10 @@
     #card {
       width: 1200px;
       height: 630px;
-      background: #0f1210;
+      background: #fbf7ea;
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
-    }
-
-    /* Dot grid */
-    .dot-grid {
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
-      background-size: 30px 30px;
-      pointer-events: none;
     }
 
     /* Mango grove — right side */
@@ -47,56 +38,56 @@
       position: absolute;
       right: 0;
       top: 0;
-      width: 580px;
+      width: 600px;
       height: 100%;
       object-fit: cover;
-      object-position: center 15%;
-      opacity: 0.75;
-      filter: saturate(0.6) brightness(0.42) contrast(0.95);
+      object-position: center 18%;
+      opacity: 0.92;
+      filter: saturate(0.85) brightness(1.05) sepia(0.08);
     }
 
-    /* Gradient fade: dark left edge blending into illustration */
+    /* Gradient fade from cream into illustration */
     .grove-fade {
       position: absolute;
       right: 0;
       top: 0;
-      width: 580px;
+      width: 600px;
       height: 100%;
-      background: linear-gradient(to right, #0f1210 0%, rgba(15,18,16,0.6) 35%, rgba(15,18,16,0) 65%);
+      background: linear-gradient(to right, #fbf7ea 0%, rgba(251,247,234,0.72) 32%, rgba(251,247,234,0.15) 55%, rgba(251,247,234,0) 70%);
       pointer-events: none;
     }
 
-    /* Top + bottom vignette over illustration — kills the light sky/ground edges */
+    /* Top + bottom vignette */
     .grove-vignette {
       position: absolute;
       right: 0;
       top: 0;
-      width: 580px;
+      width: 600px;
       height: 100%;
       background:
-        linear-gradient(to bottom, #0f1210 0%, transparent 18%, transparent 62%, #0f1210 88%, #0f1210 100%);
+        linear-gradient(to bottom, #fbf7ea 0%, transparent 16%, transparent 65%, #fbf7ea 88%);
       pointer-events: none;
     }
 
-    /* Bottom vignette so text always reads cleanly */
-    .bottom-vignette {
+    /* Right edge fade */
+    .grove-right-fade {
       position: absolute;
-      bottom: 0;
-      left: 0;
       right: 0;
-      height: 160px;
-      background: linear-gradient(to top, rgba(15,18,16,0.7) 0%, transparent 100%);
+      top: 0;
+      width: 60px;
+      height: 100%;
+      background: linear-gradient(to left, #fbf7ea 0%, transparent 100%);
       pointer-events: none;
     }
 
-    /* Subtle warm glow top-right */
-    .glow {
+    /* Warm cream wash over the whole illustration to unify with background */
+    .grove-wash {
       position: absolute;
-      width: 500px;
-      height: 500px;
-      right: -80px;
-      top: -160px;
-      background: radial-gradient(ellipse, rgba(201,107,70,0.07) 0%, transparent 65%);
+      right: 0;
+      top: 0;
+      width: 600px;
+      height: 100%;
+      background: rgba(251, 247, 234, 0.12);
       pointer-events: none;
     }
 
@@ -104,7 +95,7 @@
     .content {
       position: absolute;
       inset: 0;
-      padding: 52px 64px 52px 64px;
+      padding: 52px 64px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -121,59 +112,50 @@
       width: 40px;
       height: 40px;
       object-fit: contain;
-      image-rendering: pixelated;
+      image-rendering: auto;
     }
 
     .wordmark {
-      font-family: 'Instrument Serif', serif;
-      font-size: 26px;
-      color: #e8ece9;
-      letter-spacing: -0.01em;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #171714;
+      letter-spacing: -0.02em;
       line-height: 1;
     }
 
     .main {
-      max-width: 620px;
+      max-width: 590px;
     }
 
-    .headline {
-      font-family: 'Instrument Serif', serif;
-      font-size: 64px;
-      font-weight: 400;
-      color: #e8ece9;
-      line-height: 1.07;
-      letter-spacing: -0.025em;
-      margin-bottom: 28px;
-    }
-
-    .headline em {
-      font-style: italic;
-      color: #c8b89a;
-    }
-
-    .badge {
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 16px;
-      background: rgba(201,107,70,0.1);
-      border: 1px solid rgba(201,107,70,0.3);
+      padding: 6px 14px;
+      background: rgba(255, 207, 73, 0.22);
+      border: 1px solid rgba(156, 100, 19, 0.28);
       border-radius: 999px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: #c96b46;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #9c6413;
       letter-spacing: 0.01em;
+      margin-bottom: 22px;
     }
 
-    .badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #c96b46;
-      opacity: 0.8;
-      flex-shrink: 0;
+    .headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: 66px;
+      font-weight: 800;
+      color: #171714;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+
+    .headline em {
+      font-style: normal;
+      color: #437648;
     }
 
     .footer-row {
@@ -183,10 +165,34 @@
     }
 
     .url {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Outfit', sans-serif;
       font-size: 14px;
-      color: rgba(184,192,187,0.3);
+      color: rgba(101, 95, 83, 0.55);
       letter-spacing: 0.04em;
+      font-weight: 500;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 16px;
+      background: #fff4cf;
+      border: 1px solid #e1d8c6;
+      border-radius: 999px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #9c6413;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffcf49;
+      flex-shrink: 0;
     }
 
     /* ── Controls (outside card) ── */
@@ -198,30 +204,29 @@
 <body>
 
   <div id="card">
-    <div class="dot-grid"></div>
-    <div class="glow"></div>
-
-    <img class="grove" src="public/landing_image/v1.png" alt="">
+    <img class="grove" src="public/mango-trees.png" alt="">
+    <div class="grove-wash"></div>
     <div class="grove-fade"></div>
     <div class="grove-vignette"></div>
-    <div class="bottom-vignette"></div>
+    <div class="grove-right-fade"></div>
 
     <div class="content">
       <!-- Brand -->
       <div class="brand">
         <img src="public/kery.png" alt="kery logo">
-        <span class="wordmark">kery</span>
+        <span class="wordmark">Kery</span>
       </div>
 
-      <!-- Headline + badge -->
+      <!-- Eyebrow + Headline -->
       <div class="main">
-        <h1 class="headline">Agents that find bugs <em>before your users</em></h1>
-        <span class="badge">AI-powered browser testing</span>
+        <div class="eyebrow">Browser QA for teams shipping with AI</div>
+        <h1 class="headline">AI builds fast.<br>Kery tests at<br><em>that speed.</em></h1>
       </div>
 
       <!-- Footer -->
       <div class="footer-row">
         <span class="url">kery.dev</span>
+        <span class="badge">AI browser testing</span>
       </div>
     </div>
   </div>
@@ -245,7 +250,7 @@
           scale: 1,
           useCORS: true,
           allowTaint: true,
-          backgroundColor: '#0f1210',
+          backgroundColor: '#fbf7ea',
           logging: false,
         });
         const link = document.createElement('a');

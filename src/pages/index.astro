@@ -72,7 +72,7 @@ const faqs = [
       <div class="container hero-grid">
         <div class="hero-copy">
           <span class="eyebrow">Browser QA for teams shipping with AI</span>
-          <h1>AI builds fast. Kery tests at that speed.</h1>
+          <h1>AI builds fast. Kery tests at <em>that speed.</em></h1>
           <p>
             Kery runs autonomous browser QA for teams shipping with AI: real flows, real evidence, reproducible bugs.
           </p>
@@ -236,7 +236,7 @@ const faqs = [
       <div class="container install-grid">
         <div class="section-copy">
           <span class="section-kicker">Run Kery locally</span>
-          <h2>One command starts the open-source browser testing stack.</h2>
+          <h2>One command starts the <em>open-source browser testing stack.</em></h2>
           <ul class="install-feature-list">
             {installFeatures.map((feature) => (
               <li>
@@ -487,7 +487,7 @@ const faqs = [
 
         <div class="section-copy">
           <span class="section-kicker">Kery Cloud</span>
-          <h2>Cloud QA for teams shipping continuously.</h2>
+          <h2>Cloud QA for teams <em>shipping continuously.</em></h2>
           <p>
             Kery Cloud connects with GitHub, Vercel, and your preview environments to run browser agents on new changes, then sends screenshots, traces, and repro steps back before merge.
           </p>
@@ -521,7 +521,7 @@ const faqs = [
       <div class="container two-col">
         <div class="section-copy">
           <span class="section-kicker">Why this matters</span>
-          <h2>AI made shipping cheap. Quality is still expensive.</h2>
+          <h2>AI made shipping cheap. <em>Quality is still expensive.</em></h2>
           <p>
             Claude Code, Codex, Cursor, and other agents can create more product changes than a team can manually click through. The risk is not that teams stop building. The risk is that they merge faster than they can verify real user flows.
           </p>
@@ -541,7 +541,7 @@ const faqs = [
     <section class="section how-section" id="product">
       <div class="container section-heading center">
         <span class="section-kicker">How Kery works</span>
-        <h2>Give it a product flow. Get back a reproducible bug report.</h2>
+        <h2>Give it a product flow. Get back a <em>reproducible bug report.</em></h2>
       </div>
       <div class="container steps-grid">
         {steps.map(([number, title, copy]) => (
@@ -585,7 +585,7 @@ const faqs = [
       <div class="container faq-grid">
         <div class="section-copy">
           <span class="section-kicker">FAQ</span>
-          <h2>What teams usually ask first.</h2>
+          <h2>What teams <em>usually ask first.</em></h2>
         </div>
         <div class="faq-list">
           {faqs.map(([question, answer]) => (
@@ -601,7 +601,7 @@ const faqs = [
     <section class="section community-section" id="community">
       <div class="container community-inner">
         <span class="section-kicker">Community</span>
-        <h2>Join the Kery community.</h2>
+        <h2>Join the <em>Kery community.</em></h2>
         <p>
           Ask setup questions, share MCP workflows, compare real browser runs, and follow what lands next.
         </p>
@@ -620,7 +620,7 @@ const faqs = [
       <div class="container final-cta-inner">
         <div>
           <span class="section-kicker">Get started</span>
-          <h2>Put an AI tester inside your release loop.</h2>
+          <h2>Put an AI tester <em>inside your release loop.</em></h2>
         </div>
         <div class="final-actions">
           <a href="#install" class="button button-primary">Install locally</a>
@@ -683,6 +683,11 @@ const faqs = [
     font-weight: 850;
     letter-spacing: -0.052em;
     line-height: 0.88;
+  }
+
+  h1 em, h2 em {
+    font-style: normal;
+    color: var(--color-leaf);
   }
 
   .hero-copy p,
@@ -1609,12 +1614,12 @@ const faqs = [
   }
 
   @keyframes view-cart-press {
-    0%, 14.966%, 16.207%, 100% {
+    0%, 6.966%, 8.207%, 100% {
       background: #ffcf49;
       transform: translate(0, 0);
       box-shadow: 0 3px 0 #171714;
     }
-    15.172%, 15.69% {
+    7.172%, 7.69% {
       background: #e6b945;
       transform: translate(1px, 2px);
       box-shadow: 0 1px 0 #171714;
@@ -1622,21 +1627,21 @@ const faqs = [
   }
 
   @keyframes kery-cursor-run {
-    0%, 4.138% { left: 22%; top: 75%; transform: scale(1); }
-    6.897%, 16.552% { left: 58.5%; top: 48.5%; transform: scale(1); }
+    0%, 1% { left: 22%; top: 75%; transform: scale(1); }
+    3%, 16.552% { left: 58.5%; top: 48.5%; transform: scale(1); }
     18.966%, 22.586% { left: 20%; top: 75%; transform: scale(1); }
     23.965%, 37.759% { left: 51.8%; top: 32.5%; transform: scale(1); }
     38.276%, 51.207% { left: 51.8%; top: 47.5%; transform: scale(1); }
     51.724%, 64.483% { left: 51.8%; top: 62.5%; transform: scale(1); }
     65%, 97.759% { left: 78.5%; top: 63%; transform: scale(1); }
-    15.172%, 25.965%, 29.414%, 32.862%, 39.414%, 42.862%, 46.31%, 52.862%, 56.31%, 59.759%, 66.311%, 69.758%, 73.207%, 76.655% { transform: scale(0.9); }
-    15.69%, 26.483%, 29.931%, 33.379%, 39.931%, 43.38%, 46.827%, 53.379%, 56.827%, 60.276%, 66.828%, 70.276%, 73.724%, 77.172% { transform: scale(1); }
+    7%, 25.965%, 29.414%, 32.862%, 39.414%, 42.862%, 46.31%, 52.862%, 56.31%, 59.759%, 66.311%, 69.758%, 73.207%, 76.655% { transform: scale(0.9); }
+    7.517%, 26.483%, 29.931%, 33.379%, 39.931%, 43.38%, 46.827%, 53.379%, 56.827%, 60.276%, 66.828%, 70.276%, 73.724%, 77.172% { transform: scale(1); }
     100% { left: 22%; top: 75%; transform: scale(1); }
   }
 
   @keyframes click-burst-cart {
-    0%, 14.966%, 16.379%, 100% { opacity: 0; transform: scale(0.28); }
-    15.172%, 16.207% { opacity: 1; transform: scale(1.05); }
+    0%, 6.966%, 8.379%, 100% { opacity: 0; transform: scale(0.28); }
+    7.172%, 8.207% { opacity: 1; transform: scale(1.05); }
   }
 
   @keyframes click-burst-one {
