@@ -5,6 +5,8 @@ export const SITE_DISCORD_URL = 'https://discord.gg/A3sCcxCMyq';
 
 export const SITE_ORIGIN = 'https://kery.dev';
 
+export const SITE_TAGLINE = 'Browser QA for teams shipping with AI';
+
 /** Pixel mango mark - use in nav, footer, favicon, OG default. */
 export const SITE_LOGO_URL = '/kery.png';
 

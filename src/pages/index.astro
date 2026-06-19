@@ -2,32 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_DISCORD_URL, SITE_GITHUB_URL } from '../constants';
+import { SITE_DISCORD_URL, SITE_GITHUB_URL, SITE_TAGLINE } from '../constants';
 
 const painPoints = [
-  ['AI increases release velocity', 'Small teams can now create more product surface than they can manually verify.'],
-  ['QA becomes the bottleneck', 'Every AI-generated change still needs login setup, clicking, edge-case checks, and release judgment.'],
-  ['Bugs need real evidence', 'A vague AI summary is not enough. Engineers need screenshots, logs, URLs, regions, and repro steps.'],
+  ['Shift 01', 'Velocity outgrew review', 'Coding agents can turn a prompt into a pull request in minutes. Manual smoke testing cannot keep up with that pace.'],
+  ['Shift 02', 'The risky paths are still human', 'The bugs that hurt users live behind login, carts, permissions, forms, and empty states. Static checks do not exercise those flows.'],
+  ['Shift 03', 'Evidence decides what ships', 'Teams move faster when every finding has a URL, screenshot, trace, severity, and repro path instead of a vague QA note.'],
 ];
 
 const steps = [
   ['1', 'Point Kery at your app', 'Add a URL, environment, credentials, and the flow you care about.'],
   ['2', 'It explores in a real browser', 'Kery crawls routes, plans steps, logs in, clicks through flows, and observes screenshots plus accessibility state.'],
   ['3', 'It returns triaged issues', 'Visual, functional, and UX bugs come back with severity, screenshots, bounding boxes, logs, and repro context.'],
-];
-
-const artifacts = [
-  ['Screenshot', 'Highlighted region showing the broken UI state.'],
-  ['Trace', 'Route, viewport, action sequence, and browser observations.'],
-  ['Triage', 'Category, severity, confidence, and review status.'],
-  ['Memory', 'Known paths, false positives, and product-specific notes reused later.'],
-];
-
-const capabilities = [
-  ['Plain-English checks', 'Describe the outcome you expect. Kery turns intent into browser behavior.'],
-  ['Authenticated flows', 'Form login, Clerk, Supabase, OAuth, API tokens, and TOTP-backed accounts.'],
-  ['MCP from your IDE', 'Run scans, start tests, inspect bugs, and update triage from coding agents.'],
-  ['CI and preview runs', 'Cloud connects GitHub and Vercel so preview deployments get checked before merge.'],
 ];
 
 const agentTools = [
@@ -53,22 +39,31 @@ const supportedProviders = [
 ];
 
 const cloudFeatures = [
-  ['Preview PR checks', 'Connect GitHub and Vercel so every preview deployment can get a Kery browser run before merge.'],
-  ['Managed workers', 'Run isolated browser agents without operating Playwright infrastructure, Redis, storage, or model routing.'],
-  ['Team triage', 'Share screenshots, run traces, issue status, severity, comments, and review decisions across the team.'],
-  ['Scheduled coverage', 'Run recurring checks for critical flows and surface stale or untested areas before customers do.'],
+  'Zero-touch QA that runs automatically on product changes.',
+  'End-to-end GitHub integration.',
+  'Vercel preview deployment testing.',
+  'PR-aware testing that understands code changes and intent.',
+  'Organization and team management with shared projects.',
+  'More CI and deployment integrations coming.',
 ];
 
 const faqs = [
   ['What is Kery?', 'Kery is an AI browser testing engine. It crawls web apps, runs intent-driven tests in Playwright, and reports visual, functional, and UX bugs with reproducible evidence.'],
   ['Do I need to write test scripts?', 'No. You can start with a URL and plain-English intent. Useful flows can later be saved and rerun.'],
   ['Is this only for simple public sites?', 'No. Kery supports logged-in products through configured environments and credentials.'],
+  ['Which LLM providers are supported?', 'Kery supports OpenAI, Anthropic, Google Gemini, and OpenRouter. Bring your own provider keys when running locally.'],
+  ['Does it work behind authentication?', 'Yes. Kery supports logged-in flows through configured environments and credentials, including form login, Clerk, and Supabase Auth.'],
+  ['Can I run Kery in CI?', 'Yes. The open-source stack can run in your pipeline, and Kery Cloud is designed for managed PR checks, preview deployment testing, and CI gates.'],
+  ['What can I do with MCP?', 'Use Kery from MCP-compatible clients like Cursor, Claude Code, and Codex CLI to scan apps, run browser QA, inspect route coverage, and pull bug reports.'],
+  ['Does Kery get smarter over time?', 'Yes. Kery records useful navigation paths, bug patterns, and known false positives so future runs can focus faster and reduce repeated noise.'],
+  ['Where does my data live?', 'In the open-source setup, run artifacts live in your own environment. Kery only sends prompts and required context to the LLM provider you configure.'],
+  ['Is Kery open-source?', 'Yes. The local engine is open-source, built for self-hosting, inspection, and extension. Kery Cloud adds hosted execution and team workflows.'],
   ['Why have OSS and Cloud?', 'OSS gives developers the engine and local control. Cloud adds managed execution, team workflows, CI checks, storage, and tenancy.'],
 ];
 ---
 
 <Layout
-  title="Kery - AI QA agents for web apps"
+  title={`Kery - ${SITE_TAGLINE}`}
   description="Kery runs AI agents through real browser flows and returns reproducible visual, functional, and UX bugs with screenshots, logs, and repro steps."
 >
   <Navbar />
@@ -87,7 +82,7 @@ const faqs = [
           </div>
         </div>
 
-        <div class="agent-animation" aria-label="Animated Kery agent opening a cart and testing a checkout page">
+        <div class="agent-animation is-idle" data-agent-demo aria-label="Kery checkout flow animation">
           <div class="pixel-topbar">
             <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
             <strong>kery run / checkout</strong>
@@ -107,8 +102,8 @@ const faqs = [
                   <div class="storefront-copy">
                     <h2>Your Shopping App</h2>
                     <div class="storefront-actions">
-                      <button type="button" class="browse-button">Browse products</button>
-                      <button type="button" class="view-cart-button">View cart</button>
+                      <span class="browse-button">Browse products</span>
+                      <span class="view-cart-button">View cart</span>
                       <span class="click-burst burst-cart" aria-hidden="true"></span>
                     </div>
                   </div>
@@ -123,7 +118,7 @@ const faqs = [
                         <strong>Mango Hoodie</strong>
                         <small>$42.00</small>
                       </div>
-                      <button type="button" class="remove-one">Remove</button>
+                      <span class="cart-action remove-one">Remove</span>
                       <span class="click-burst burst-one" aria-hidden="true"></span>
                     </div>
                     <div class="cart-row row-two">
@@ -132,7 +127,7 @@ const faqs = [
                         <strong>Agent Sticker Pack</strong>
                         <small>$8.00</small>
                       </div>
-                      <button type="button" class="remove-two">Remove</button>
+                      <span class="cart-action remove-two">Remove</span>
                       <span class="click-burst burst-two" aria-hidden="true"></span>
                     </div>
                     <div class="cart-row row-three">
@@ -141,7 +136,7 @@ const faqs = [
                         <strong>Debug Tote</strong>
                         <small>$18.00</small>
                       </div>
-                      <button type="button" class="remove-three">Remove</button>
+                      <span class="cart-action remove-three">Remove</span>
                       <span class="click-burst burst-three" aria-hidden="true"></span>
                     </div>
                   </section>
@@ -151,9 +146,15 @@ const faqs = [
                     <div><span>Subtotal</span><strong>$68.00</strong></div>
                     <div><span>Shipping</span><strong>$0.00</strong></div>
                     <div class="total"><span>Total</span><strong>$68.00</strong></div>
-                    <button type="button" class="checkout-button">Checkout</button>
+                    <span class="checkout-button">Checkout</span>
                     <span class="click-burst burst-four" aria-hidden="true"></span>
                   </aside>
+                </div>
+                <div class="browser-boot-screen" aria-hidden="true">
+                  <div class="hero-boot-log">
+                    <span class="boot-line boot-line-browser"><i></i> starting browser...</span>
+                    <span class="boot-line boot-line-app"><i></i> opening your app...</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -177,6 +178,30 @@ const faqs = [
             <div class="bug-summary-banner" aria-hidden="true">
               <strong>4 bugs detected</strong>
               <span>evidence saved to triage</span>
+            </div>
+
+            <div class="hero-prompt-screen">
+              <div class="hero-prompt-box">
+                <div class="hero-prompt-window">
+                  <div class="hero-prompt-topbar">
+                    <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <strong>kery prompt</strong>
+                    <span><i></i> ready</span>
+                  </div>
+                  <div class="hero-prompt-body">
+                    <span class="hero-prompt-label">Describe a flow</span>
+                    <div class="hero-command-row">
+                      <div class="hero-command-input" aria-label="Kery prompt">
+                        <span class="hero-command-prefix">›</span>
+                        <span class="hero-prompt-text">Hey kery, test my checkout flow</span>
+                      </div>
+                      <span class="hero-enter-key" aria-hidden="true">
+                        <span>Enter</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -312,31 +337,182 @@ const faqs = [
 
     <section class="section cloud-section" id="cloud">
       <div class="container cloud-grid">
-        <div class="section-copy">
-          <span class="section-kicker">Kery Cloud</span>
-          <h2>Managed QA for teams that want every PR tested.</h2>
-          <p>
-            Cloud is the hosted control plane around Kery: isolated browser workers, team triage, durable artifacts, scheduled coverage, and CI integrations that test preview deployments before code merges.
-          </p>
-          <div class="cloud-feature-grid">
-            {cloudFeatures.map(([title, copy]) => (
-              <article>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
+        <div class="cloud-ci-card" aria-label="Animated Kery Cloud CI integration flow">
+          <div class="cloud-ci-topbar">
+            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <strong>kery cloud ci</strong>
+            <span><i></i> connected</span>
+          </div>
+          <div class="cloud-ci-stage">
+            <div class="ci-rail" aria-hidden="true">
+              <span>
+                <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="6" cy="6" r="2.25"></circle>
+                  <circle cx="6" cy="18" r="2.25"></circle>
+                  <circle cx="18" cy="18" r="2.25"></circle>
+                  <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
+                  <path d="m11.25 6.75-2 2.75 2 2.75"></path>
+                </svg>
+                GitHub
+              </span>
+              <span>
+                <svg class="ci-svg ci-vercel-svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 4 22 20H2L12 4z"></path>
+                </svg>
+                Vercel
+              </span>
+              <span>
+                <i class="ci-kery-logo" aria-hidden="true"></i>
+                Kery
+              </span>
+              <span>
+                <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
+                  <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
+                </svg>
+                GitHub
+              </span>
+            </div>
+            <div class="ci-progress-track" aria-hidden="true"><span></span></div>
+
+            <div class="ci-flow">
+              <section class="ci-platform-card ci-github-card">
+                <div class="ci-platform-head">
+                  <b>GitHub</b>
+                  <span>Pull request</span>
+                </div>
+                <div class="github-pr-ui">
+                  <div class="github-pr-main">
+                    <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="6" cy="6" r="2.25"></circle>
+                      <circle cx="6" cy="18" r="2.25"></circle>
+                      <circle cx="18" cy="18" r="2.25"></circle>
+                      <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
+                      <path d="m11.25 6.75-2 2.75 2 2.75"></path>
+                    </svg>
+                    <div>
+                      <strong>PR #184 · Add checkout promo</strong>
+                      <span>4 commits into main</span>
+                    </div>
+                    <em>Open</em>
+                  </div>
+                  <div class="github-change-row" aria-label="Changed files">
+                    <span>checkout.tsx</span>
+                    <span>cart.tsx</span>
+                    <span>promotions.ts</span>
+                  </div>
+                  <p>Intent detected: verify the promo path through cart and checkout.</p>
+                </div>
+              </section>
+
+              <section class="ci-platform-card ci-vercel-card">
+                <div class="ci-platform-head">
+                  <b>Vercel</b>
+                  <span>Preview deployment</span>
+                </div>
+                <div class="vercel-preview-ui">
+                  <div class="vercel-status">
+                    <i class="vercel-status-icon" aria-hidden="true"></i>
+                    <div>
+                      <strong>
+                        <span class="vercel-deploying">Deploying preview</span>
+                        <span class="vercel-deployed">Deployment ready</span>
+                      </strong>
+                      <span>Preview for PR #184</span>
+                    </div>
+                  </div>
+                  <div class="vercel-url-card">
+                    <span>Preview URL</span>
+                    <code>checkout-promo.vercel.app</code>
+                  </div>
+                  <div class="vercel-deploy-meta">
+                    <span>GitHub commit 7f32c9a</span>
+                    <span>ready for browser tests</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="ci-platform-card ci-run-panel">
+                <div class="ci-run-header">
+                  <strong>Kery Cloud</strong>
+                  <span>targeted browser QA</span>
+                </div>
+                <div class="kery-run-focus">
+                  <span>Live target</span>
+                  <strong>Running tests on <code>checkout-promo.vercel.app</code></strong>
+                </div>
+                <ol>
+                  <li><i>✓</i><span>Open preview</span></li>
+                  <li><i>✓</i><span>Read PR intent</span></li>
+                  <li><i class="ci-alert">!</i><span>Test cart flow</span><b>4 issues</b></li>
+                  <li><i>✓</i><span>Test checkout promo</span></li>
+                </ol>
+              </section>
+
+              <section class="ci-platform-card ci-result">
+                <div class="ci-platform-head">
+                  <b>GitHub</b>
+                  <span>Timeline update</span>
+                </div>
+                <div class="github-pr-ui github-timeline-ui">
+                  <div class="github-pr-main">
+                    <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
+                      <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
+                    </svg>
+                    <div>
+                      <strong>Kery Cloud reported QA results</strong>
+                      <span>PR #184 timeline update</span>
+                    </div>
+                    <em>Now</em>
+                  </div>
+                  <div class="github-timeline-updates">
+                    <div>
+                      <i aria-hidden="true"></i>
+                      <span>Commented with screenshots and repro steps</span>
+                    </div>
+                    <div>
+                      <i aria-hidden="true"></i>
+                      <strong>2 issues created</strong>
+                    </div>
+                  </div>
+                  <div class="github-change-row" aria-label="Generated GitHub updates">
+                    <span>cart flow</span>
+                    <span>checkout promo</span>
+                    <span>repro attached</span>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
+
+        <div class="section-copy">
+          <span class="section-kicker">Kery Cloud</span>
+          <h2>Cloud QA for teams shipping continuously.</h2>
+          <p>
+            Kery Cloud connects with GitHub, Vercel, and your preview environments to run browser agents on new changes, then sends screenshots, traces, and repro steps back before merge.
+          </p>
+          <ul class="cloud-feature-list">
+            {cloudFeatures.map((feature) => (
+              <li>
+                <span aria-hidden="true"></span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
         <form class="cloud-form" id="waitlist-form" novalidate>
-          <span class="form-eyebrow">Early access</span>
-          <h3>Join the Cloud waitlist</h3>
-          <p>Get updates when hosted runs, PR checks, scheduled coverage, and team review are ready.</p>
-          <label for="waitlist-email">Work email</label>
-          <div>
-            <input id="waitlist-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required />
-            <button class="button button-primary" id="waitlist-button" type="submit">Join waitlist</button>
+          <div class="cloud-form-copy">
+            <span class="form-eyebrow">Early access</span>
+            <h3>Join the Cloud waitlist</h3>
+            <p>Get updates when hosted runs, PR checks, scheduled coverage, and team review are ready.</p>
           </div>
-          <p id="waitlist-status" aria-live="polite"></p>
+          <div class="cloud-form-action">
+            <div>
+              <input id="waitlist-email" name="email" type="email" autocomplete="email" aria-label="Email address" placeholder="you@company.com" required />
+              <button class="button button-primary" id="waitlist-button" type="submit">Join waitlist</button>
+            </div>
+            <p id="waitlist-status" aria-live="polite"></p>
+          </div>
         </form>
       </div>
     </section>
@@ -345,12 +521,15 @@ const faqs = [
       <div class="container two-col">
         <div class="section-copy">
           <span class="section-kicker">Why this matters</span>
-          <h2>AI changed how fast teams build. It did not remove the need to test.</h2>
-          <p>When Claude Code, Codex, Cursor, and other agents help create more changes, QA has to become part of the same agentic workflow. Kery handles the browser work that teams do not have time to repeat by hand.</p>
+          <h2>AI made shipping cheap. Quality is still expensive.</h2>
+          <p>
+            Claude Code, Codex, Cursor, and other agents can create more product changes than a team can manually click through. The risk is not that teams stop building. The risk is that they merge faster than they can verify real user flows.
+          </p>
         </div>
         <div class="pain-grid">
-          {painPoints.map(([title, copy]) => (
+          {painPoints.map(([label, title, copy]) => (
             <article>
+              <span>{label}</span>
               <h3>{title}</h3>
               <p>{copy}</p>
             </article>
@@ -373,42 +552,32 @@ const faqs = [
           </article>
         ))}
       </div>
-    </section>
-
-    <section class="section demo-section" id="demo">
-      <div class="container demo-grid">
-        <div class="demo-media">
-          <video src="/kery-demo.mp4" poster="/kery-demo-thumb.jpg" muted loop playsinline controls preload="metadata"></video>
-        </div>
-        <div class="section-copy">
-          <span class="section-kicker">The output</span>
-          <h2>Evidence your engineers can act on.</h2>
-          <p>Kery does not stop at "something looks wrong." It preserves the browser state and the reasoning needed for a developer or coding agent to reproduce the issue.</p>
-          <div class="artifact-list">
-            {artifacts.map(([title, copy]) => (
-              <div>
-                <strong>{title}</strong>
-                <span>{copy}</span>
-              </div>
-            ))}
+      <div class="container how-video" id="demo" data-kery-player>
+        <div class="how-video-frame">
+          <video class="how-video-el" src="/kery-no-border-web.mp4" muted loop playsinline preload="metadata"></video>
+          <button class="how-video-overlay" type="button" data-video-play aria-label="Play video">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
+            </svg>
+          </button>
+          <div class="how-video-controls" aria-label="Video controls">
+            <button class="how-video-button" type="button" data-video-toggle aria-label="Play video">
+              <svg class="video-icon-play" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
+              </svg>
+              <svg class="video-icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 5h3v14H7zM14 5h3v14h-3z"></path>
+              </svg>
+            </button>
+            <input class="how-video-seek" type="range" min="0" max="100" value="0" step="0.1" data-video-seek aria-label="Video progress" />
+            <span class="how-video-time" data-video-time>0:00</span>
+            <button class="how-video-button" type="button" data-video-fullscreen aria-label="Fullscreen">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"></path>
+              </svg>
+            </button>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section capability-section">
-      <div class="container section-heading">
-        <span class="section-kicker">Why teams use it</span>
-        <h2>A QA loop built for product teams and coding agents.</h2>
-      </div>
-      <div class="container capability-grid">
-        {capabilities.map(([title, copy]) => (
-          <article>
-            <span aria-hidden="true"></span>
-            <h3>{title}</h3>
-            <p>{copy}</p>
-          </article>
-        ))}
       </div>
     </section>
 
@@ -429,6 +598,24 @@ const faqs = [
       </div>
     </section>
 
+    <section class="section community-section" id="community">
+      <div class="container community-inner">
+        <span class="section-kicker">Community</span>
+        <h2>Join the Kery community.</h2>
+        <p>
+          Ask setup questions, share MCP workflows, compare real browser runs, and follow what lands next.
+        </p>
+        <div class="community-actions">
+          <a href={SITE_DISCORD_URL} class="button community-discord-button" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.3 4.4a19.8 19.8 0 0 0-4.9-1.5.1.1 0 0 0-.1 0c-.2.4-.4.9-.6 1.3a18.3 18.3 0 0 0-5.5 0 12.6 12.6 0 0 0-.6-1.3.1.1 0 0 0-.1 0 19.7 19.7 0 0 0-4.9 1.5.1.1 0 0 0 0 0C.5 9.1-.3 13.6.1 18.1c0 0 0 .1.1.1a19.9 19.9 0 0 0 6 3 .1.1 0 0 0 .1 0c.5-.6.9-1.3 1.2-2a.1.1 0 0 0 0-.1 13.1 13.1 0 0 1-1.9-.9.1.1 0 0 1 0-.1l.4-.3h.1c3.9 1.8 8.2 1.8 12.1 0h.1l.4.3a.1.1 0 0 1 0 .1 12.3 12.3 0 0 1-1.9.9.1.1 0 0 0 0 .1c.4.7.8 1.4 1.2 2a.1.1 0 0 0 .1 0 19.8 19.8 0 0 0 6-3 .1.1 0 0 0 0-.1c.5-5.2-.8-9.7-3.5-13.7a.1.1 0 0 0-.1 0ZM8 15.3c-1.2 0-2.2-1.1-2.2-2.4 0-1.3 1-2.4 2.2-2.4s2.2 1.1 2.2 2.4c0 1.3-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4 0-1.3 1-2.4 2.2-2.4s2.2 1.1 2.2 2.4c0 1.3-.9 2.4-2.2 2.4Z"></path>
+            </svg>
+            Join Discord
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="final-cta">
       <div class="container final-cta-inner">
         <div>
@@ -438,7 +625,6 @@ const faqs = [
         <div class="final-actions">
           <a href="#install" class="button button-primary">Install locally</a>
           <a href={SITE_GITHUB_URL} class="button button-secondary" target="_blank" rel="noopener noreferrer">Star on GitHub</a>
-          <a href={SITE_DISCORD_URL} class="button button-ghost" target="_blank" rel="noopener noreferrer">Join Discord</a>
         </div>
       </div>
     </section>
@@ -638,6 +824,244 @@ const faqs = [
     background-size: 18px 18px, 18px 18px, auto, auto;
   }
 
+  .hero-prompt-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    padding: clamp(1rem, 4vw, 2rem);
+    background:
+      linear-gradient(90deg, rgba(255, 248, 232, 0.04) 1px, transparent 1px),
+      linear-gradient(rgba(255, 248, 232, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 76% 16%, rgba(255, 207, 73, 0.18), transparent 15rem),
+      #222018;
+    background-size: 18px 18px, 18px 18px, auto, auto;
+    transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease;
+  }
+
+  .agent-animation:is(.is-preparing, .is-running) .hero-prompt-screen {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.985);
+  }
+
+  .hero-prompt-box {
+    width: min(100%, 35rem);
+  }
+
+  .hero-prompt-window {
+    overflow: hidden;
+    border: 3px solid #171714;
+    border-radius: 10px;
+    background: #fff8e8;
+    box-shadow:
+      0 8px 0 rgba(0, 0, 0, 0.28),
+      0 0 0 6px rgba(255, 248, 232, 0.08);
+  }
+
+  .hero-prompt-topbar {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: 2.8rem;
+    padding: 0.65rem 0.78rem;
+    border-bottom: 3px solid #171714;
+    background: #171714;
+    color: rgba(255, 248, 232, 0.7);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .hero-prompt-topbar > strong {
+    color: #fff8e8;
+    font-size: 0.72rem;
+  }
+
+  .hero-prompt-topbar > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: auto;
+    color: #8bdba0;
+  }
+
+  .hero-prompt-topbar i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .hero-prompt-body {
+    padding: clamp(1rem, 3vw, 1.35rem);
+    background:
+      linear-gradient(90deg, rgba(23, 23, 20, 0.04) 1px, transparent 1px),
+      linear-gradient(rgba(23, 23, 20, 0.04) 1px, transparent 1px),
+      #fff8e8;
+    background-size: 14px 14px;
+  }
+
+  .hero-prompt-label {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 0.7rem;
+    padding: 0.2rem 0.45rem;
+    border: 2px solid #171714;
+    background: #ffcf49;
+    color: #171714;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .hero-command-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.6rem;
+    align-items: stretch;
+  }
+
+  .hero-command-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    min-height: clamp(3rem, 6vw, 3.5rem);
+    overflow: hidden;
+    padding: 0 0.78rem;
+    border: 2px solid #171714;
+    border-radius: 4px;
+    background: #fffdf6;
+    box-shadow: 0 4px 0 #171714;
+    color: #171714;
+    font-family: var(--font-mono);
+    font-size: clamp(0.7rem, 1.45vw, 0.9rem);
+    font-weight: 900;
+  }
+
+  .hero-command-prefix {
+    color: var(--color-accent-muted);
+    font-size: 1rem;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+
+  .hero-prompt-text {
+    display: inline-block;
+    width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    border-right: 2px solid #171714;
+    line-height: 1.35;
+    white-space: nowrap;
+  }
+
+  .agent-animation.is-idle .hero-prompt-text {
+    animation:
+      prompt-type 2.35s steps(31, end) 0.2s both,
+      prompt-caret 0.85s steps(1, end) infinite;
+  }
+
+  .agent-animation:is(.is-entering, .is-preparing) .hero-prompt-text {
+    width: 31ch;
+    border-right-color: transparent;
+    animation: none;
+  }
+
+  .hero-enter-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: clamp(5.2rem, 11vw, 6.3rem);
+    min-height: clamp(3rem, 6vw, 3.5rem);
+    padding: 0 0.9rem;
+    border: 2px solid #171714;
+    border-radius: 4px;
+    background: #ffcf49;
+    box-shadow: 0 4px 0 #171714;
+    color: #171714;
+    font-family: var(--font-mono);
+    font-size: clamp(0.74rem, 1.45vw, 0.88rem);
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+
+  .agent-animation.is-entering .hero-enter-key {
+    animation: prompt-key-press 0.44s steps(1, end) both;
+  }
+
+  .agent-animation.is-preparing .hero-enter-key {
+    background: #e6b945;
+    transform: translateY(1px);
+    box-shadow: 0 3px 0 #171714;
+  }
+
+  .browser-boot-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 28;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background:
+      linear-gradient(90deg, rgba(23, 23, 20, 0.04) 1px, transparent 1px),
+      linear-gradient(rgba(23, 23, 20, 0.04) 1px, transparent 1px),
+      #fff8e8;
+    background-size: 14px 14px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .agent-animation.is-preparing .browser-boot-screen {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hero-boot-log {
+    display: grid;
+    gap: 0.36rem;
+    width: min(100%, 22rem);
+    min-height: 3.55rem;
+    padding: 0.72rem 0.78rem;
+    border: 2px solid #171714;
+    border-radius: 4px;
+    background: #171714;
+    color: rgba(255, 248, 232, 0.72);
+    font-family: var(--font-mono);
+    font-size: clamp(0.68rem, 1.35vw, 0.8rem);
+    font-weight: 900;
+  }
+
+  .boot-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+
+  .boot-line i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: #ffcf49;
+    flex: 0 0 auto;
+  }
+
+  .agent-animation.is-preparing .boot-line-browser {
+    animation: boot-line-reveal 0.35s steps(1, end) 0.08s both;
+  }
+
+  .agent-animation.is-preparing .boot-line-app {
+    animation: boot-line-reveal 0.35s steps(1, end) 1.35s both;
+  }
+
   .checkout-screen {
     position: relative;
     z-index: 1;
@@ -743,7 +1167,11 @@ const faqs = [
     margin-top: 0.1rem;
   }
 
-  .storefront-actions button {
+  .storefront-actions .browse-button,
+  .storefront-actions .view-cart-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 2.38rem;
     padding: 0 0.62rem;
     border: 2px solid #171714;
@@ -772,8 +1200,6 @@ const faqs = [
   .summary-panel,
   .pain-grid article,
   .steps-grid article,
-  .artifact-list div,
-  .capability-grid article,
   .cloud-feature-grid article,
   .install-card,
   .cloud-form {
@@ -838,8 +1264,11 @@ const faqs = [
     font-size: 0.72rem;
   }
 
-  .cart-row button,
-  .summary-panel button {
+  .cart-action,
+  .checkout-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     min-height: 2rem;
     padding: 0 0.55rem;
@@ -908,7 +1337,7 @@ const faqs = [
     font-size: 0.82rem;
   }
 
-  .summary-panel button {
+  .checkout-button {
     width: 100%;
     min-height: 2.5rem;
     margin-top: 0.4rem;
@@ -1363,6 +1792,82 @@ const faqs = [
     }
   }
 
+  @keyframes prompt-type {
+    from { width: 0; }
+    to { width: 31ch; }
+  }
+
+  @keyframes prompt-caret {
+    0%, 49% { border-right-color: #171714; }
+    50%, 100% { border-right-color: transparent; }
+  }
+
+  @keyframes prompt-key-press {
+    0%, 100% {
+      background: #ffcf49;
+      transform: translateY(0);
+      box-shadow: 0 4px 0 #171714;
+    }
+    45%, 85% {
+      background: #e6b945;
+      transform: translateY(1px);
+      box-shadow: 0 3px 0 #171714;
+    }
+  }
+
+  @keyframes boot-line-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(0.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .agent-animation:not(.is-running) :is(
+    .browser-url-home,
+    .browser-url-cart,
+    .storefront-page,
+    .view-cart-button,
+    .remove-one,
+    .remove-two,
+    .remove-three,
+    .checkout-button,
+    .kery-cursor,
+    .click-burst,
+    .bug-popup,
+    .bug-summary-banner,
+    .bug-ledger li
+  ) {
+    animation: none;
+  }
+
+  .agent-animation:not(.is-running) .run-state i {
+    animation: none;
+    opacity: 1;
+  }
+
+  .agent-animation.is-running :is(
+    .browser-url-home,
+    .browser-url-cart,
+    .storefront-page,
+    .view-cart-button,
+    .remove-one,
+    .remove-two,
+    .remove-three,
+    .checkout-button,
+    .kery-cursor,
+    .click-burst,
+    .bug-popup,
+    .bug-summary-banner,
+    .bug-ledger li
+  ) {
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+  }
+
   .agent-strip {
     border-block: 1px solid var(--color-border);
     background: rgba(255, 253, 246, 0.78);
@@ -1430,7 +1935,6 @@ const faqs = [
   .two-col,
   .install-grid,
   .cloud-grid,
-  .demo-grid,
   .faq-grid,
   .final-cta-inner {
     display: grid;
@@ -1464,21 +1968,62 @@ const faqs = [
     line-height: 0.98;
   }
 
+  .problem-section {
+    background:
+      linear-gradient(180deg, rgba(255, 253, 246, 0.64), rgba(247, 241, 228, 0.72)),
+      var(--color-bg);
+  }
+
+  .problem-section .two-col {
+    align-items: stretch;
+  }
+
   .pain-grid {
     display: grid;
     gap: 0.75rem;
   }
 
   .pain-grid article,
-  .steps-grid article,
-  .capability-grid article {
+  .steps-grid article {
     padding: 1rem;
     background: rgba(255, 253, 246, 0.78);
   }
 
+  .pain-grid article {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: start;
+    gap: 0.68rem;
+    min-height: 10.25rem;
+    border-radius: 8px;
+    background: #fffdf6;
+    box-shadow: 0 5px 0 rgba(38, 33, 21, 0.07);
+  }
+
+  .pain-grid article::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), #ffcf49);
+  }
+
+  .pain-grid article > span {
+    width: fit-content;
+    padding: 0.18rem 0.42rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 42%, var(--color-border));
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-muted);
+    font-size: 0.62rem;
+    font-weight: 900;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
   .pain-grid h3,
   .steps-grid h3,
-  .capability-grid h3,
   .cloud-feature-grid h3 {
     color: var(--color-ink);
     font-size: 1rem;
@@ -1486,14 +2031,23 @@ const faqs = [
     letter-spacing: -0.01em;
   }
 
+  .pain-grid h3 {
+    max-width: 18rem;
+    font-size: 1.12rem;
+    font-weight: 850;
+  }
+
   .pain-grid p,
   .steps-grid p,
-  .capability-grid p,
   .cloud-feature-grid p {
     margin-top: 0.45rem;
     color: var(--color-text-secondary);
     font-size: 0.9rem;
     line-height: 1.65;
+  }
+
+  .pain-grid p {
+    margin-top: 0;
   }
 
   .how-section,
@@ -2120,14 +2674,18 @@ const faqs = [
   }
 
   .cloud-section {
+    --cloud-accent: #437648;
+    --cloud-accent-bright: #8bdba0;
+    --cloud-warning: #a86413;
     background:
-      radial-gradient(circle at 88% 16%, rgba(255, 207, 73, 0.18), transparent 22rem),
+      radial-gradient(circle at 88% 16%, rgba(255, 207, 73, 0.12), transparent 22rem),
+      radial-gradient(circle at 12% 80%, rgba(139, 219, 160, 0.08), transparent 24rem),
       #171714;
     color: #fff8e8;
   }
 
   .cloud-section .section-kicker,
-  .form-eyebrow {
+  .cloud-section .form-eyebrow {
     color: #ffcf49;
   }
 
@@ -2140,42 +2698,600 @@ const faqs = [
   }
 
   .cloud-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(24rem, 0.72fr);
-    align-items: start;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+    align-items: center;
   }
 
-  .cloud-feature-grid {
+  .cloud-grid > .section-copy {
+    order: -1;
+  }
+
+  .cloud-grid > .cloud-form {
+    grid-column: 1 / -1;
+  }
+
+  .cloud-ci-card {
+    --ci-loop: 15s;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 248, 232, 0.12);
+    border-radius: 14px;
+    background: #fffdf6;
+    color: #171714;
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  }
+
+  .cloud-ci-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(38, 33, 21, 0.03), transparent 34%),
+      linear-gradient(90deg, rgba(255, 248, 232, 0.58), rgba(255, 248, 232, 0));
+  }
+
+  .cloud-ci-topbar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.76rem 0.95rem;
+    border-bottom: 1px solid #ded4be;
+    background: #f7f1e4;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .cloud-ci-topbar > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: auto;
+    color: var(--cloud-accent);
+  }
+
+  .cloud-ci-topbar i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: currentColor;
+    animation: pixel-blink 1s steps(2, end) infinite;
+  }
+
+  .cloud-ci-stage {
+    position: relative;
+    z-index: 1;
+    padding: 1rem;
+    background: #fffdf6;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .ci-rail {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.65rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
+    margin-bottom: 0.78rem;
   }
 
-  .cloud-feature-grid article {
-    background: rgba(255, 248, 232, 0.06);
-    border-color: rgba(255, 248, 232, 0.13);
-    padding: 0.9rem;
+  .ci-progress-track {
+    overflow: hidden;
+    height: 0.42rem;
+    margin-bottom: 0.78rem;
+    border: 1px solid #ded4be;
+    border-radius: 999px;
+    background: #fffdf6;
   }
 
-  .cloud-feature-grid h3 {
-    color: #fff8e8;
+  .ci-progress-track span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ffcf49, var(--cloud-accent-bright));
+    transform: scaleX(0.06);
+    transform-origin: left center;
+    animation: ci-progress-fill var(--ci-loop) linear infinite;
   }
 
-  .cloud-feature-grid p {
-    color: rgba(255, 248, 232, 0.68);
+  .ci-rail span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    gap: 0.32rem;
+    min-height: 2rem;
+    padding: 0.42rem 0.3rem;
+    border: 1px solid #ded4be;
+    border-radius: 6px;
+    color: var(--color-text-muted);
+    font-size: 0.66rem;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+    background: rgba(255, 253, 246, 0.74);
+    animation-duration: var(--ci-loop);
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(1, end);
+  }
+
+  .ci-rail span:nth-child(1) { animation-name: ci-rail-github; }
+  .ci-rail span:nth-child(2) { animation-name: ci-rail-vercel; }
+  .ci-rail span:nth-child(3) { animation-name: ci-rail-kery; }
+  .ci-rail span:nth-child(4) { animation-name: ci-rail-check; }
+
+  .ci-svg {
+    display: block;
+    flex: 0 0 auto;
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .ci-svg path {
+    fill: currentColor;
+  }
+
+  .ci-pr-svg path,
+  .ci-pr-svg circle {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ci-rail span .ci-svg {
+    animation-duration: var(--ci-loop);
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(1, end);
+  }
+
+  .ci-rail span:nth-child(1) .ci-svg { animation-name: ci-rail-github-icon; }
+  .ci-rail span:nth-child(2) .ci-svg { animation-name: ci-rail-vercel-icon; }
+  .ci-rail span:nth-child(3) .ci-svg { animation-name: ci-rail-kery-icon; }
+  .ci-rail span:nth-child(4) .ci-svg { animation-name: ci-rail-check-icon; }
+
+  .ci-pr-svg,
+  .ci-comment-svg {
+    color: var(--cloud-accent);
+  }
+
+  .ci-vercel-svg {
+    color: #171714;
+  }
+
+  .ci-kery-logo {
+    display: block;
+    flex: 0 0 auto;
+    width: 1rem;
+    height: 1rem;
+    background: #171714;
+    -webkit-mask: url('/kery.png') center / contain no-repeat;
+    mask: url('/kery.png') center / contain no-repeat;
+  }
+
+  .ci-flow {
+    position: relative;
+    min-height: 24rem;
+    overflow: hidden;
+    border: 1px solid #ded4be;
+    border-radius: 10px;
+    background: #fff8e8;
+  }
+
+  .ci-platform-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: grid;
+    gap: 0.62rem;
+    width: min(100% - 2rem, 25rem);
+    padding: 1rem;
+    border: 1px solid #ded4be;
+    border-radius: 10px;
+    background: #fffdf6;
+    box-shadow: 0 8px 0 rgba(38, 33, 21, 0.08);
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(0.65rem);
+    animation-duration: var(--ci-loop);
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+  }
+
+  .ci-github-card { animation-name: ci-pr-active; }
+  .ci-vercel-card { animation-name: ci-preview-active; }
+  .ci-run-panel { animation-name: ci-run-active; }
+  .ci-result { animation-name: ci-result-active; }
+
+  .ci-platform-head,
+  .ci-run-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .ci-platform-head,
+  .ci-run-header {
+    padding-bottom: 0.52rem;
+    border-bottom: 1px solid #ded4be;
+  }
+
+  .ci-platform-head b,
+  .ci-run-header strong {
+    color: #171714;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+  }
+
+  .ci-platform-head span,
+  .ci-run-header span {
+    color: var(--color-text-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .github-pr-ui,
+  .vercel-preview-ui {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .github-pr-main {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.55rem;
+    align-items: center;
+  }
+
+  .github-pr-main > .ci-svg {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .github-pr-main > div {
+    display: grid;
+    min-width: 0;
+    gap: 0.08rem;
+  }
+
+  .github-pr-main strong,
+  .vercel-status strong,
+  .kery-run-focus strong {
+    overflow: hidden;
+    color: #171714;
+    font: inherit;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .github-pr-main span,
+  .github-pr-ui p,
+  .vercel-status span,
+  .vercel-deploy-meta span {
+    color: var(--color-text-secondary);
+    font-size: 0.7rem;
+  }
+
+  .github-pr-main em {
+    color: var(--cloud-accent);
+    font-size: 0.62rem;
+    font-style: normal;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .github-change-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.32rem;
+  }
+
+  .github-change-row span {
+    padding: 0.18rem 0.38rem;
+    border: 1px solid #ded4be;
+    border-radius: 4px;
+    background: #fffdf6;
+    color: var(--color-text-secondary);
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .vercel-status {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .vercel-status > div {
+    display: grid;
+    min-width: 0;
+    gap: 0.12rem;
+  }
+
+  .vercel-status-icon {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    width: 1.05rem;
+    height: 1.05rem;
+    border: 2px solid rgba(23, 23, 20, 0.22);
+    border-top-color: #171714;
+    border-radius: 999px;
+    animation: vercel-deploy-spinner var(--ci-loop) linear infinite;
+  }
+
+  .vercel-status-icon::after {
+    content: "";
+    position: absolute;
+    left: 0.32rem;
+    top: 0.18rem;
+    width: 0.24rem;
+    height: 0.46rem;
+    border-right: 2px solid var(--cloud-accent);
+    border-bottom: 2px solid var(--cloud-accent);
+    opacity: 0;
+    transform: rotate(45deg) scale(0.82);
+    transform-origin: center;
+    animation: vercel-deploy-check var(--ci-loop) steps(1, end) infinite;
+  }
+
+  .vercel-status strong {
+    position: relative;
+    display: block;
+    min-height: 1rem;
+    min-width: 9.6rem;
+  }
+
+  .vercel-deploying,
+  .vercel-deployed {
+    position: absolute;
+    inset: 0 auto auto 0;
+    animation-duration: var(--ci-loop);
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(1, end);
+  }
+
+  .vercel-deploying {
+    animation-name: vercel-deploying-label;
+  }
+
+  .vercel-deployed {
+    opacity: 0;
+    animation-name: vercel-deployed-label;
+  }
+
+  .vercel-url-card {
+    display: grid;
+    gap: 0.18rem;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid #ded4be;
+    border-radius: 7px;
+    background: #fffdf6;
+  }
+
+  .vercel-url-card span {
+    color: var(--color-text-muted);
+    font-size: 0.62rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .vercel-url-card code {
+    overflow: hidden;
+    color: var(--cloud-accent);
+    font: inherit;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0;
+    animation: vercel-url-reveal var(--ci-loop) steps(1, end) infinite;
+  }
+
+  .vercel-deploy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+  }
+
+  .kery-run-focus {
+    display: grid;
+    gap: 0.22rem;
+    padding: 0.56rem 0.6rem;
+    border: 1px solid #ded4be;
+    border-radius: 7px;
+    background: #fffdf6;
+  }
+
+  .kery-run-focus > span {
+    color: var(--color-text-muted);
+    font-size: 0.62rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .kery-run-focus strong {
+    font-size: 0.76rem;
+    white-space: normal;
+  }
+
+  .kery-run-focus code {
+    color: var(--cloud-accent);
+    font: inherit;
+    font-weight: 900;
+  }
+
+  .ci-run-panel ol {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.38rem;
+    margin: 0;
+  }
+
+  .ci-run-panel li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    padding: 0.46rem 0.5rem;
+    border: 1px solid #ded4be;
+    border-radius: 7px;
+    background: #fffdf6;
+    color: var(--color-text-secondary);
+  }
+
+  .ci-run-panel li span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ci-run-panel li i {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 1.16rem;
+    height: 1.16rem;
+    border: 1px solid rgba(67, 118, 72, 0.18);
+    border-radius: 999px;
+    background: rgba(67, 118, 72, 0.1);
+    color: transparent;
+    font-size: 0.76rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1;
+    animation: ci-flow-check var(--ci-loop) steps(1, end) infinite;
+  }
+
+  .ci-run-panel li i.ci-alert {
+    animation-name: ci-flow-alert;
+  }
+
+  .ci-run-panel li b {
+    margin-left: auto;
+    color: var(--cloud-warning);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: ci-issue-count var(--ci-loop) steps(1, end) infinite;
+  }
+
+  .ci-run-panel li:nth-child(2) i { animation-delay: 0.45s; }
+  .ci-run-panel li:nth-child(3) i { animation-delay: 0.9s; }
+  .ci-run-panel li:nth-child(3) b { animation-delay: 0.9s; }
+  .ci-run-panel li:nth-child(4) i { animation-delay: 1.35s; }
+
+  .github-timeline-ui {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .github-timeline-updates {
+    display: grid;
+    gap: 0.4rem;
+    padding-left: 0.53rem;
+    border-left: 2px solid #ded4be;
+  }
+
+  .github-timeline-updates div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 0.42rem;
+    color: var(--color-text-secondary);
+    font-size: 0.7rem;
+  }
+
+  .github-timeline-updates i {
+    position: absolute;
+    left: -0.72rem;
+    width: 0.38rem;
+    height: 0.38rem;
+    border: 2px solid #fffdf6;
+    border-radius: 999px;
+    background: var(--cloud-accent);
+  }
+
+  .github-timeline-updates strong {
+    color: #171714;
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+
+  .cloud-feature-list {
+    display: grid;
+    gap: 0.72rem;
+    margin-top: 1.2rem;
+  }
+
+  .cloud-feature-list li {
+    display: grid;
+    grid-template-columns: 1rem minmax(0, 1fr);
+    gap: 0.68rem;
+    align-items: start;
+    color: rgba(255, 248, 232, 0.72);
+    font-size: clamp(0.98rem, 1.1vw, 1.06rem);
+    line-height: 1.62;
+  }
+
+  .cloud-feature-list li > span {
+    width: 0.58rem;
+    height: 0.58rem;
+    margin-top: 0.55rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 68%, var(--color-border));
+    border-radius: 2px;
+    background: var(--color-accent);
+    box-shadow: 3px 3px 0 rgba(67, 118, 72, 0.16);
   }
 
   .cloud-form {
+    position: relative;
     display: grid;
-    gap: 0.7rem;
+    grid-template-columns: minmax(0, 0.78fr) minmax(22rem, 1fr);
+    gap: 1rem;
+    align-items: center;
+    overflow: hidden;
+    margin-top: 0.25rem;
     padding: 1rem;
-    background: rgba(255, 248, 232, 0.06);
+    width: 100%;
+    border: 1px solid rgba(255, 248, 232, 0.13);
+    border-radius: 14px;
     border-color: rgba(255, 248, 232, 0.13);
+    background: #12120f;
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.16),
+      inset 0 1px 0 rgba(255, 248, 232, 0.08);
+  }
+
+  .cloud-form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 84% 18%, rgba(255, 207, 73, 0.13), transparent 14rem),
+      linear-gradient(180deg, rgba(255, 248, 232, 0.045), transparent 56%);
+  }
+
+  .cloud-form > * {
+    position: relative;
+    z-index: 1;
   }
 
   .cloud-form h3 {
     color: #fff8e8;
-    font-size: 1.35rem;
+    font-size: clamp(1.45rem, 2.4vw, 2.15rem);
     line-height: 1.1;
   }
 
@@ -2185,25 +3301,40 @@ const faqs = [
     line-height: 1.55;
   }
 
-  .cloud-form label {
-    margin-top: 0.3rem;
-    color: rgba(255, 248, 232, 0.72);
-    font-size: 0.82rem;
-    font-weight: 760;
+  .cloud-form-copy {
+    display: grid;
+    gap: 0.5rem;
   }
 
-  .cloud-form > div {
+  .cloud-form-action {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .cloud-form-action > div {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.6rem;
   }
 
+  .cloud-form .button {
+    width: auto;
+    min-height: 2.95rem;
+    border: 2px solid #ffcf49;
+    border-radius: 4px;
+    background: #ffcf49;
+    box-shadow: 0 3px 0 #171714;
+    color: #171714;
+    white-space: nowrap;
+  }
+
   .cloud-form input {
     width: 100%;
-    min-height: 2.75rem;
-    border: 1px solid rgba(255, 248, 232, 0.18);
-    border-radius: 8px;
-    background: rgba(255, 248, 232, 0.94);
+    min-height: 2.95rem;
+    border: 2px solid #171714;
+    border-radius: 4px;
+    background: #fffdf6;
+    box-shadow: 0 3px 0 #171714;
     color: var(--color-ink);
     padding: 0 0.8rem;
     font: inherit;
@@ -2220,6 +3351,137 @@ const faqs = [
 
   .cloud-form p#waitlist-status.error {
     color: #ff9388;
+  }
+
+  @keyframes ci-rail-github {
+    0%, 23% { color: #171714; }
+    24%, 100% { color: var(--color-text-muted); }
+  }
+
+  @keyframes ci-progress-fill {
+    0% { transform: scaleX(0.08); }
+    24% { transform: scaleX(0.3); }
+    51% { transform: scaleX(0.58); }
+    75% { transform: scaleX(0.84); }
+    100% { transform: scaleX(1); }
+  }
+
+  @keyframes ci-rail-vercel {
+    0%, 23%, 51%, 100% { color: var(--color-text-muted); }
+    24%, 50% { color: #171714; }
+  }
+
+  @keyframes ci-rail-kery {
+    0%, 50%, 75%, 100% { color: var(--color-text-muted); }
+    51%, 74% { color: #171714; }
+  }
+
+  @keyframes ci-rail-check {
+    0%, 74% { color: var(--color-text-muted); }
+    75%, 100% { color: #171714; }
+  }
+
+  @keyframes ci-rail-github-icon {
+    0%, 23% { color: var(--cloud-accent); }
+    24%, 100% { color: var(--color-text-muted); }
+  }
+
+  @keyframes ci-rail-vercel-icon {
+    0%, 23%, 51%, 100% { color: var(--color-text-muted); }
+    24%, 50% { color: #171714; }
+  }
+
+  @keyframes ci-rail-kery-icon {
+    0%, 50%, 75%, 100% { color: var(--color-text-muted); }
+    51%, 74% { color: var(--cloud-accent); }
+  }
+
+  @keyframes ci-rail-check-icon {
+    0%, 74% { color: var(--color-text-muted); }
+    75%, 100% { color: var(--cloud-accent); }
+  }
+
+  @keyframes ci-pr-active {
+    0%, 22% { opacity: 1; transform: translate(-50%, -50%); }
+    26%, 100% { opacity: 0; transform: translate(-50%, -50%) translateY(-0.5rem); }
+  }
+
+  @keyframes ci-preview-active {
+    0%, 22% { opacity: 0; transform: translate(-50%, -50%) translateY(0.65rem); }
+    26%, 50% { opacity: 1; transform: translate(-50%, -50%); }
+    54%, 100% { opacity: 0; transform: translate(-50%, -50%) translateY(-0.5rem); }
+  }
+
+  @keyframes ci-run-active {
+    0%, 50% { opacity: 0; transform: translate(-50%, -50%) translateY(0.65rem); }
+    54%, 73% { opacity: 1; transform: translate(-50%, -50%); }
+    77%, 100% { opacity: 0; transform: translate(-50%, -50%) translateY(-0.5rem); }
+  }
+
+  @keyframes ci-result-active {
+    0%, 73% { opacity: 0; transform: translate(-50%, -50%) translateY(0.65rem); }
+    77%, 100% { opacity: 1; transform: translate(-50%, -50%); }
+  }
+
+  @keyframes vercel-deploy-spinner {
+    0%, 23% { opacity: 0; transform: rotate(0deg); border-color: rgba(23, 23, 20, 0.22); border-top-color: #171714; }
+    24%, 38% { opacity: 1; transform: rotate(360deg); border-color: rgba(23, 23, 20, 0.22); border-top-color: #171714; }
+    39%, 100% { opacity: 1; transform: rotate(360deg); border-color: var(--cloud-accent-bright); border-top-color: var(--cloud-accent-bright); }
+  }
+
+  @keyframes vercel-deploy-check {
+    0%, 38% { opacity: 0; transform: rotate(45deg) scale(0.82); }
+    39%, 100% { opacity: 1; transform: rotate(45deg) scale(1); }
+  }
+
+  @keyframes vercel-deploying-label {
+    0%, 23%, 39%, 100% { opacity: 0; }
+    24%, 38% { opacity: 1; }
+  }
+
+  @keyframes vercel-deployed-label {
+    0%, 38% { opacity: 0; }
+    39%, 100% { opacity: 1; }
+  }
+
+  @keyframes vercel-url-reveal {
+    0%, 38% { opacity: 0; }
+    39%, 100% { opacity: 1; }
+  }
+
+  @keyframes ci-flow-check {
+    0%, 51% {
+      border-color: rgba(67, 118, 72, 0.18);
+      background: rgba(67, 118, 72, 0.1);
+      color: transparent;
+      transform: scale(0.92);
+    }
+    60%, 100% {
+      border-color: var(--cloud-accent-bright);
+      background: var(--cloud-accent);
+      color: #fffdf6;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes ci-flow-alert {
+    0%, 51% {
+      border-color: rgba(212, 128, 38, 0.18);
+      background: rgba(212, 128, 38, 0.1);
+      color: transparent;
+      transform: scale(0.92);
+    }
+    60%, 100% {
+      border-color: color-mix(in srgb, var(--cloud-warning) 76%, #171714);
+      background: var(--cloud-warning);
+      color: #171714;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes ci-issue-count {
+    0%, 58% { opacity: 0; transform: translateY(0.2rem); }
+    60%, 100% { opacity: 1; transform: translateY(0); }
   }
 
   .steps-grid {
@@ -2247,53 +3509,191 @@ const faqs = [
     font-weight: 900;
   }
 
-  .demo-section {
-    background: var(--color-bg);
+  .how-video {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
   }
 
-  .demo-media {
+  .how-video-frame {
+    position: relative;
     overflow: hidden;
     border: 1px solid var(--color-border);
     border-radius: 14px;
     background: #171714;
     box-shadow: 0 20px 50px rgba(38, 33, 21, 0.14);
+    aspect-ratio: 2004 / 1080;
   }
 
-  .demo-media video {
+  .how-video video {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     object-fit: cover;
+    transform: scale(1.006);
+    transform-origin: center;
   }
 
-  .artifact-list {
+  .how-video-frame::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 34%;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.56));
+  }
+
+  .how-video-overlay {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.65rem;
-    margin-top: 1.25rem;
+    place-items: center;
+    width: clamp(3.2rem, 7vw, 5rem);
+    height: clamp(3.2rem, 7vw, 5rem);
+    border: 1px solid rgba(255, 248, 232, 0.28);
+    border-radius: 999px;
+    background: rgba(255, 248, 232, 0.92);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+    color: #171714;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: opacity 160ms ease, transform 160ms ease, background 160ms ease;
   }
 
-  .artifact-list div {
-    padding: 0.82rem;
-    background: rgba(255, 253, 246, 0.78);
+  .how-video-overlay:hover {
+    background: #ffcf49;
+    transform: translate(-50%, -50%) scale(1.04);
   }
 
-  .capability-grid {
+  .how-video-overlay svg {
+    width: 38%;
+    height: 38%;
+    margin-left: 0.18rem;
+    fill: currentColor;
+  }
+
+  .how-video.is-playing .how-video-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+
+  .how-video-controls {
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 3;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    gap: 0.55rem;
+    align-items: center;
+    min-height: 2.7rem;
+    padding: 0.44rem;
+    border: 1px solid rgba(255, 248, 232, 0.16);
+    border-radius: 9px;
+    background: rgba(18, 18, 15, 0.76);
+    box-shadow: inset 0 1px 0 rgba(255, 248, 232, 0.08);
+    backdrop-filter: blur(14px);
   }
 
-  .capability-grid article > span {
+  .how-video-button {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(255, 248, 232, 0.16);
+    border-radius: 7px;
+    background: rgba(255, 248, 232, 0.08);
+    color: #fff8e8;
+    cursor: pointer;
+    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  }
+
+  .how-video-button:hover {
+    border-color: rgba(255, 207, 73, 0.48);
+    background: #ffcf49;
+    color: #171714;
+  }
+
+  .how-video-button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .how-video-button svg path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .how-video-button .video-icon-play path,
+  .how-video-button .video-icon-pause path {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .video-icon-pause {
+    display: none;
+  }
+
+  .how-video.is-playing .video-icon-play {
+    display: none;
+  }
+
+  .how-video.is-playing .video-icon-pause {
     display: block;
-    width: 1.8rem;
-    height: 1.8rem;
-    margin-bottom: 1.1rem;
-    border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
-    border-radius: 8px;
-    background:
-      linear-gradient(135deg, rgba(255, 207, 73, 0.8), rgba(67, 118, 72, 0.18)),
-      var(--color-surface);
+  }
+
+  .how-video-seek {
+    width: 100%;
+    min-width: 0;
+    height: 0.36rem;
+    background: transparent;
+    accent-color: #ffcf49;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .how-video-seek::-webkit-slider-runnable-track {
+    height: 0.36rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ffcf49 var(--video-progress, 0%), rgba(255, 248, 232, 0.22) var(--video-progress, 0%));
+  }
+
+  .how-video-seek::-webkit-slider-thumb {
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-top: -0.27rem;
+    border: 2px solid #171714;
+    border-radius: 999px;
+    background: #ffcf49;
+    appearance: none;
+  }
+
+  .how-video-seek::-moz-range-track {
+    height: 0.36rem;
+    border-radius: 999px;
+    background: rgba(255, 248, 232, 0.22);
+  }
+
+  .how-video-seek::-moz-range-progress {
+    height: 0.36rem;
+    border-radius: 999px;
+    background: #ffcf49;
+  }
+
+  .how-video-time {
+    min-width: 3.8rem;
+    color: rgba(255, 248, 232, 0.78);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-align: center;
   }
 
   .faq-section {
@@ -2345,6 +3745,72 @@ const faqs = [
     line-height: 1.7;
   }
 
+  .community-section {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 248, 232, 0.12);
+    border-bottom: 1px solid rgba(255, 248, 232, 0.12);
+    background:
+      linear-gradient(135deg, rgba(255, 207, 73, 0.18), transparent 38%),
+      linear-gradient(180deg, #171714 0%, #24231f 100%);
+    color: #fff8e8;
+  }
+
+  .community-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 760px;
+    text-align: center;
+  }
+
+  .community-section .section-kicker {
+    color: #ffcf49;
+  }
+
+  .community-inner h2 {
+    margin: 0.65rem 0 1rem;
+    color: #fffdf6;
+    font-size: clamp(2.35rem, 4.6vw, 4.2rem);
+    font-weight: 850;
+    letter-spacing: -0.045em;
+    line-height: 0.96;
+  }
+
+  .community-inner p {
+    max-width: 39rem;
+    color: rgba(255, 248, 232, 0.74);
+    font-size: clamp(1rem, 1.25vw, 1.14rem);
+    line-height: 1.72;
+  }
+
+  .community-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.65rem;
+  }
+
+  .community-discord-button {
+    gap: 0.5rem;
+    background: #fffdf6;
+    border-color: #fffdf6;
+    color: #171714;
+  }
+
+  .community-discord-button:hover {
+    background: #ffcf49;
+    border-color: #ffcf49;
+  }
+
+  .community-discord-button svg {
+    display: block;
+    width: 1.05rem;
+    height: 1.05rem;
+    fill: currentColor;
+    flex: 0 0 auto;
+  }
+
   .final-cta {
     padding: 0 0 clamp(4rem, 7vw, 5.5rem);
     background: var(--color-bg);
@@ -2371,7 +3837,6 @@ const faqs = [
     .two-col,
     .install-grid,
     .cloud-grid,
-    .demo-grid,
     .faq-grid,
     .final-cta-inner {
       grid-template-columns: 1fr;
@@ -2382,10 +3847,6 @@ const faqs = [
       max-width: 760px;
     }
 
-    .capability-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
     .final-actions {
       justify-content: flex-start;
     }
@@ -2394,10 +3855,22 @@ const faqs = [
   @media (max-width: 820px) {
     .checkout-page,
     .cloud-feature-grid,
-    .steps-grid,
-    .artifact-list,
-    .capability-grid {
+    .steps-grid {
       grid-template-columns: 1fr;
+    }
+
+    .cloud-form {
+      grid-template-columns: 1fr;
+    }
+
+    .cloud-form .form-eyebrow,
+    .cloud-form h3,
+    .cloud-form p,
+    .cloud-form-copy,
+    .cloud-form-action,
+    .cloud-form-action > div,
+    .cloud-form p#waitlist-status {
+      grid-column: 1;
     }
   }
 
@@ -2411,7 +3884,8 @@ const faqs = [
     }
 
     .hero-actions,
-    .cloud-form > div,
+    .cloud-form-action > div,
+    .community-actions,
     .final-actions {
       display: grid;
       grid-template-columns: 1fr;
@@ -2423,6 +3897,100 @@ const faqs = [
 
     .cloud-form {
       padding: 0.75rem;
+    }
+
+    .setup-story {
+      padding: 0.62rem;
+      font-size: 0.68rem;
+    }
+
+    .story-stage {
+      min-height: 21rem;
+      border-radius: 8px;
+    }
+
+    .story-scene {
+      padding: 0.55rem;
+    }
+
+    .provider-card {
+      width: 100%;
+      padding: 0.72rem;
+      border-radius: 8px;
+    }
+
+    .story-question {
+      margin-bottom: 0.55rem;
+      font-size: 0.8rem;
+    }
+
+    .provider-options {
+      gap: 0.32rem;
+    }
+
+    .provider-option {
+      gap: 0.46rem;
+      min-height: 2.25rem;
+      padding: 0.42rem 0.48rem;
+    }
+
+    .provider-options img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .provider-options strong {
+      font-size: 0.68rem;
+    }
+
+    .provider-option em {
+      font-size: 0.58rem;
+    }
+
+    .api-key-row {
+      display: grid;
+      gap: 0.28rem;
+      margin-top: 0.5rem;
+      padding: 0.48rem;
+    }
+
+    .api-key-row code {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .selection-cursor {
+      right: 0.48rem;
+      top: 2.95rem;
+      font-size: 0.54rem;
+    }
+
+    .hero-command-row {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-enter-key {
+      width: 100%;
+    }
+
+    .how-video-controls {
+      left: 0.5rem;
+      right: 0.5rem;
+      bottom: 0.5rem;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 0.38rem;
+      min-height: 2.35rem;
+      padding: 0.35rem;
+    }
+
+    .how-video-time {
+      display: none;
+    }
+
+    .how-video-button {
+      width: 1.82rem;
+      height: 1.82rem;
     }
 
     .agent-animation {
@@ -2443,6 +4011,8 @@ const faqs = [
       transform: none;
     }
 
+    .hero-prompt-text,
+    .hero-enter-key,
     .kery-cursor,
     .click-burst,
     .bug-popup,
@@ -2464,6 +4034,20 @@ const faqs = [
     .ide-grid span,
     .service-list i,
     .story-rail span,
+    .cloud-ci-topbar i,
+    .ci-progress-track span,
+    .ci-rail span,
+    .ci-rail span .ci-svg,
+    .ci-platform-card,
+    .ci-run-panel,
+    .ci-result,
+    .vercel-status-icon,
+    .vercel-status-icon::after,
+    .vercel-deploying,
+    .vercel-deployed,
+    .vercel-url-card code,
+    .ci-run-panel li i,
+    .ci-run-panel li b,
     .browser-url-home,
     .browser-url-cart,
     .storefront-page,
@@ -2516,16 +4100,149 @@ const faqs = [
       border-color: rgba(255, 207, 73, 0.38);
     }
 
+    .ci-rail span:nth-child(4) {
+      color: #171714;
+      border-color: #ded4be;
+    }
+
+    .ci-rail span:nth-child(4) .ci-svg {
+      color: var(--cloud-accent);
+    }
+
+    .ci-progress-track span {
+      transform: scaleX(1);
+    }
+
+    .vercel-status-icon,
+    .vercel-deploying {
+      opacity: 0;
+    }
+
+    .vercel-status-icon {
+      opacity: 1;
+      border-color: #8bdba0;
+      border-top-color: #8bdba0;
+      transform: none;
+    }
+
+    .vercel-status-icon::after {
+      opacity: 1;
+      transform: rotate(45deg) scale(1);
+    }
+
+    .vercel-deployed,
+    .vercel-url-card code {
+      opacity: 1;
+    }
+
+    .ci-platform-card {
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .ci-result {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+      border-color: #ded4be;
+      background: #fffdf6;
+    }
+
+    .ci-run-panel li i {
+      border-color: var(--cloud-accent-bright);
+      background: var(--cloud-accent);
+      color: #fffdf6;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .ci-run-panel li i.ci-alert {
+      border-color: color-mix(in srgb, var(--cloud-warning) 76%, #171714);
+      background: var(--cloud-warning);
+      color: #171714;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .ci-run-panel li b {
+      opacity: 1;
+      transform: none;
+    }
+
     .bug-popup.popup-four,
     .bug-summary-banner,
     .bug-ledger li {
       opacity: 1;
       transform: none;
     }
+
+    .hero-prompt-text {
+      width: auto;
+      border-right-color: transparent;
+    }
   }
 </style>
 
 <script is:inline>
+  (() => {
+    const demo = document.querySelector('[data-agent-demo]');
+    if (!(demo instanceof HTMLElement)) return;
+
+    let resetTimer = 0;
+    let enterTimer = 0;
+    let prepareTimer = 0;
+    let runTimer = 0;
+
+    const getLoopDuration = () => {
+      const rawValue = getComputedStyle(demo).getPropertyValue('--loop').trim();
+      const value = Number.parseFloat(rawValue);
+      if (!Number.isFinite(value)) return 29000;
+      return rawValue.endsWith('ms') ? value : value * 1000;
+    };
+
+    const clearTimers = () => {
+      window.clearTimeout(resetTimer);
+      window.clearTimeout(enterTimer);
+      window.clearTimeout(prepareTimer);
+      window.clearTimeout(runTimer);
+    };
+
+    const runDemo = () => {
+      clearTimers();
+      demo.classList.remove('is-idle');
+      demo.classList.add('is-entering');
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      enterTimer = window.setTimeout(() => {
+        demo.classList.remove('is-entering');
+        demo.classList.add('is-preparing');
+
+        prepareTimer = window.setTimeout(() => {
+          demo.classList.remove('is-preparing');
+          demo.classList.remove('is-running');
+          void demo.offsetWidth;
+          demo.classList.add('is-running');
+          resetTimer = window.setTimeout(resetDemo, reducedMotion ? 2800 : getLoopDuration() + 150);
+        }, reducedMotion ? 1800 : 3000);
+      }, reducedMotion ? 450 : 520);
+    };
+
+    const scheduleRun = () => {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      runTimer = window.setTimeout(runDemo, reducedMotion ? 1200 : 3600);
+    };
+
+    const resetDemo = () => {
+      clearTimers();
+      demo.classList.remove('is-running');
+      demo.classList.remove('is-entering');
+      demo.classList.remove('is-preparing');
+      demo.classList.add('is-idle');
+      scheduleRun();
+    };
+
+    scheduleRun();
+  })();
+
   (() => {
     const form = document.getElementById('waitlist-form');
     const input = document.getElementById('waitlist-email');
@@ -2568,5 +4285,83 @@ const faqs = [
         button.textContent = 'Join waitlist';
       }
     });
+  })();
+
+  (() => {
+    const player = document.querySelector('[data-kery-player]');
+    if (!(player instanceof HTMLElement)) return;
+
+    const video = player.querySelector('video');
+    const playOverlay = player.querySelector('[data-video-play]');
+    const toggle = player.querySelector('[data-video-toggle]');
+    const fullscreen = player.querySelector('[data-video-fullscreen]');
+    const seek = player.querySelector('[data-video-seek]');
+    const time = player.querySelector('[data-video-time]');
+
+    if (
+      !(video instanceof HTMLVideoElement) ||
+      !(playOverlay instanceof HTMLButtonElement) ||
+      !(toggle instanceof HTMLButtonElement) ||
+      !(fullscreen instanceof HTMLButtonElement) ||
+      !(seek instanceof HTMLInputElement) ||
+      !(time instanceof HTMLElement)
+    ) return;
+
+    const formatTime = (seconds) => {
+      if (!Number.isFinite(seconds)) return '0:00';
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${minutes}:${remainingSeconds}`;
+    };
+
+    const syncPlaying = () => {
+      const playing = !video.paused && !video.ended;
+      player.classList.toggle('is-playing', playing);
+      toggle.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
+    };
+
+    const syncProgress = () => {
+      const progress = video.duration ? (video.currentTime / video.duration) * 100 : 0;
+      seek.value = String(progress);
+      seek.style.setProperty('--video-progress', `${progress}%`);
+      time.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+    };
+
+    const togglePlayback = async () => {
+      if (video.paused || video.ended) {
+        await video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+      syncPlaying();
+    };
+
+    playOverlay.addEventListener('click', togglePlayback);
+    toggle.addEventListener('click', togglePlayback);
+
+    video.addEventListener('play', syncPlaying);
+    video.addEventListener('pause', syncPlaying);
+    video.addEventListener('ended', syncPlaying);
+    video.addEventListener('loadedmetadata', syncProgress);
+    video.addEventListener('timeupdate', syncProgress);
+
+    seek.addEventListener('input', () => {
+      const next = Number(seek.value);
+      if (Number.isFinite(video.duration)) {
+        video.currentTime = (next / 100) * video.duration;
+      }
+      seek.style.setProperty('--video-progress', `${next}%`);
+    });
+
+    fullscreen.addEventListener('click', async () => {
+      if (!document.fullscreenElement) {
+        await player.requestFullscreen?.();
+      } else {
+        await document.exitFullscreen?.();
+      }
+    });
+
+    syncPlaying();
+    syncProgress();
   })();
 </script>
