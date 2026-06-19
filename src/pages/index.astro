@@ -1896,6 +1896,7 @@ const faqs = [
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    flex: 0 0 auto;
   }
 
   .agent-strip span {
@@ -1908,6 +1909,7 @@ const faqs = [
     border-radius: 8px;
     background: var(--color-surface);
     color: var(--color-ink);
+    line-height: 1.1;
   }
 
   .agent-strip img {
@@ -3998,7 +4000,45 @@ const faqs = [
     }
 
     .agent-strip .container {
+      display: grid;
+      gap: 0.75rem;
+      justify-content: stretch;
+      overflow: visible;
+      padding-block: 1rem;
+      white-space: normal;
+    }
+
+    .agent-strip p {
+      max-width: 21rem;
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .agent-strip .container > div {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .agent-strip span {
       justify-content: flex-start;
+      width: 100%;
+      min-width: 0;
+      min-height: 2.45rem;
+      padding: 0.42rem 0.6rem;
+      font-size: 0.76rem;
+      white-space: normal;
+    }
+
+    .agent-strip img {
+      flex: 0 0 18px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .agent-strip .container > div {
+      grid-template-columns: 1fr;
     }
   }
 
