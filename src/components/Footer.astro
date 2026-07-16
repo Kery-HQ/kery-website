@@ -30,12 +30,21 @@ import { SITE_LOGO_URL, SITE_DISCORD_URL, SITE_GITHUB_URL, SITE_TAGLINE } from '
       <a href={SITE_DISCORD_URL} target="_blank" rel="noopener noreferrer">Discord</a>
     </nav>
   </div>
+  <div class="container footer-copyright">
+    © {new Date().getFullYear()} Kery. All rights reserved.
+  </div>
 </footer>
 
 <style>
   .kery-footer {
     border-top: 1px solid var(--color-border);
     background: var(--color-surface);
+  }
+
+  .footer-copyright {
+    padding: 0 0 1.25rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #8a8a8a);
   }
 
   .footer-inner {
