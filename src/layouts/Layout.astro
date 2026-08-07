@@ -11,9 +11,9 @@ interface Props {
 }
 
 const {
-  title = `Kery - ${SITE_TAGLINE}`,
+  title = `Kery — ${SITE_TAGLINE.toLowerCase()}`,
   description =
-    "Kery sends AI agents through your web app to find real bugs — with screenshots, logs, and reproduction steps. No test scripts. Works with Claude, Cursor, and Codex via MCP.",
+    "Claude Code builds it. Kery test-drives it. Every pull request gets run in a real browser, with video of what actually happened — no tests to write.",
   ogImage = "/og.png",
   robots,
   structuredData,
@@ -50,8 +50,8 @@ const structuredDataItems = Array.isArray(structuredData)
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.site)} />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1024" />
-    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

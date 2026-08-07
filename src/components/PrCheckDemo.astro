@@ -1,0 +1,720 @@
+---
+/**
+ * Section two: a looping animation of a Kery comment landing on a GitHub PR.
+ * Rendered in GitHub's dark theme so it reads as a real screen recording, framed
+ * in browser chrome so it doesn't read as a stylesheet leak on the cream page.
+ *
+ * The final verdict frame is the default markup state; the animation plays from it.
+ * If JS or the animation never fires, visitors see the finished comment.
+ */
+---
+
+<section class="pr-demo-section" aria-label="Example: Kery checking a pull request on GitHub">
+  <div class="container pr-demo-grid">
+    <div class="pr-demo-heading">
+      <span class="pr-demo-kicker">Use case 01 · Pull request checks</span>
+      <h2>A pull request opens; <em>Kery checks it.</em></h2>
+      <p>Kery reads the diff, works out what the change claims to do, runs those claims in a real browser on the preview deployment, and posts each verdict back to the PR — with video proof.</p>
+    </div>
+
+    <div class="ghd-frame" data-pr-demo>
+      <div class="ghd-chrome" aria-hidden="true">
+        <span class="ghd-dots"><i></i><i></i><i></i></span>
+        <span class="ghd-url">github.com/acme/dashboard/pull/128</span>
+      </div>
+
+      <div class="ghd-page">
+        <header class="ghd-pr-header">
+          <h3>Tasks: create, edit, share, delete <span class="ghd-pr-number">#128</span></h3>
+          <div class="ghd-pr-meta">
+            <span class="ghd-open-badge">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354Z"/></svg>
+              Open
+            </span>
+            <span class="ghd-pr-sub">wants to merge 2 commits into <code>main</code></span>
+          </div>
+        </header>
+
+        <div class="ghd-preview-row">
+          <span class="ghd-check-ico ok" aria-hidden="true">✓</span>
+          <span><strong>Preview deployment ready</strong> — acme-dashboard-pr-128.vercel.app</span>
+        </div>
+
+        <article class="ghd-comment">
+          <img class="ghd-avatar" src="/kery.png" alt="" width="40" height="40" loading="lazy" />
+          <div class="ghd-comment-box">
+            <div class="ghd-comment-head">
+              <strong>kery-ai</strong>
+              <span class="ghd-bot-badge">bot</span>
+              <span class="ghd-head-muted">commented just now</span>
+            </div>
+            <div class="ghd-comment-body">
+              <div class="ghd-status">
+                <p class="ghd-status-running" aria-hidden="true">
+                  <i class="ghd-spinner"></i>
+                  Checking this PR…
+                  <span class="ghd-head-muted">acme-dashboard-pr-128.vercel.app</span>
+                </p>
+                <p class="ghd-status-done">
+                  <strong>4 verified · 1 contradicted</strong>
+                  <span class="ghd-sep">—</span>
+                  <a class="ghd-video-link" href="#demo">▶ video proof</a>
+                </p>
+              </div>
+
+              <ul class="ghd-checks">
+                <li class="ghd-check row-1 ok">
+                  <span class="ghd-check-ico ok" aria-hidden="true">✓</span>
+                  <span>Creating a task</span>
+                </li>
+                <li class="ghd-check row-2 ok">
+                  <span class="ghd-check-ico ok" aria-hidden="true">✓</span>
+                  <span>Editing a task</span>
+                </li>
+                <li class="ghd-check row-3 ok">
+                  <span class="ghd-check-ico ok" aria-hidden="true">✓</span>
+                  <span>Sharing a task with a teammate</span>
+                </li>
+                <li class="ghd-check row-4 bad">
+                  <span class="ghd-check-ico bad" aria-hidden="true">✕</span>
+                  <div class="ghd-check-main">
+                    <span>Deleting a task — it comes back on reload</span>
+                    <div class="ghd-evidence">
+                      <p>Deleted the task and the list updated. After reload it was back.</p>
+                      <div class="ghd-shot" role="img" aria-label="Cropped screenshot: the deleted task is still in the list after reload">
+                        <div class="ghd-shot-rows">
+                          <div class="ghd-shot-row"><i></i>Design review notes</div>
+                          <div class="ghd-shot-row is-flagged"><i></i>Quarterly report<span class="ghd-shot-tag">still present after reload</span></div>
+                          <div class="ghd-shot-row"><i></i>Team offsite plan</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="ghd-check row-5 ok">
+                  <span class="ghd-check-ico ok" aria-hidden="true">✓</span>
+                  <span>Email notification sent</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pr-demo-section {
+    padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+    border-bottom: 1px solid var(--color-border);
+    background: #fffdf6;
+  }
+
+  .pr-demo-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  .pr-demo-heading {
+    max-width: 30rem;
+  }
+
+  .pr-demo-heading p {
+    margin-top: 0.9rem;
+    color: var(--color-text-secondary);
+    font-size: clamp(1.02rem, 1.25vw, 1.16rem);
+    line-height: 1.72;
+  }
+
+  @media (max-width: 1120px) {
+    .pr-demo-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pr-demo-heading {
+      max-width: 48rem;
+    }
+  }
+
+  .pr-demo-kicker {
+    display: inline-flex;
+    width: fit-content;
+    color: var(--color-accent-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .pr-demo-heading h2 {
+    margin: 0.65rem 0 0;
+    color: var(--color-ink);
+    font-size: clamp(2.35rem, 4.8vw, 4.35rem);
+    font-weight: 850;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+  }
+
+  .pr-demo-heading h2 em {
+    font-style: normal;
+    color: var(--color-leaf);
+  }
+
+  .ghd-frame {
+    /* GitHub dark palette */
+    --gh-canvas: #0d1117;
+    --gh-subtle: #161b22;
+    --gh-border: #30363d;
+    --gh-fg: #e6edf3;
+    --gh-muted: #8b949e;
+    --gh-green: #3fb950;
+    --gh-red: #f85149;
+    --gh-blue: #4493f8;
+    --ghd-loop: 13s;
+    width: min(100%, 46rem);
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid rgba(38, 33, 21, 0.24);
+    border-radius: 14px;
+    background: var(--gh-canvas);
+    box-shadow:
+      0 30px 80px rgba(38, 33, 21, 0.22),
+      0 0 0 8px rgba(255, 253, 246, 0.6);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    color: var(--gh-fg);
+  }
+
+  .ghd-chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.68rem 0.9rem;
+    border-bottom: 1px solid var(--gh-border);
+    background: var(--gh-subtle);
+  }
+
+  .ghd-dots {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .ghd-dots i {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: #ff5f57;
+  }
+
+  .ghd-dots i:nth-child(2) { background: #febc2e; }
+  .ghd-dots i:nth-child(3) { background: #28c840; }
+
+  .ghd-url {
+    flex: 1;
+    max-width: 22rem;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0.22rem 0.85rem;
+    border: 1px solid var(--gh-border);
+    border-radius: 6px;
+    background: var(--gh-canvas);
+    color: var(--gh-muted);
+    font-size: 0.74rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ghd-page {
+    padding: clamp(1rem, 3vw, 1.6rem);
+  }
+
+  .ghd-pr-header h3 {
+    color: var(--gh-fg);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.35;
+  }
+
+  .ghd-pr-number {
+    color: var(--gh-muted);
+    font-weight: 300;
+  }
+
+  .ghd-pr-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.55rem;
+  }
+
+  .ghd-open-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    padding: 0.28rem 0.75rem;
+    border-radius: 999px;
+    background: #238636;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .ghd-open-badge svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    fill: currentColor;
+  }
+
+  .ghd-pr-sub {
+    color: var(--gh-muted);
+    font-size: 0.82rem;
+  }
+
+  .ghd-pr-sub code {
+    padding: 0.08rem 0.35rem;
+    border-radius: 6px;
+    background: rgba(110, 118, 129, 0.28);
+    color: var(--gh-blue);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .ghd-preview-row {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--gh-border);
+    border-radius: 8px;
+    background: var(--gh-subtle);
+    color: var(--gh-muted);
+    font-size: 0.82rem;
+  }
+
+  .ghd-preview-row strong {
+    color: var(--gh-fg);
+    font-weight: 600;
+  }
+
+  .ghd-comment {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.8rem;
+    margin-top: 1.1rem;
+  }
+
+  .ghd-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--gh-border);
+    border-radius: 999px;
+    background: #fff8e8;
+    object-fit: contain;
+  }
+
+  .ghd-comment-box {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--gh-border);
+    border-radius: 8px;
+    background: var(--gh-canvas);
+  }
+
+  .ghd-comment-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 0.95rem;
+    border-bottom: 1px solid var(--gh-border);
+    background: var(--gh-subtle);
+    font-size: 0.82rem;
+  }
+
+  .ghd-comment-head > strong {
+    color: var(--gh-fg);
+    font-weight: 600;
+  }
+
+  .ghd-bot-badge {
+    padding: 0.05rem 0.4rem;
+    border: 1px solid var(--gh-border);
+    border-radius: 999px;
+    color: var(--gh-muted);
+    font-size: 0.7rem;
+  }
+
+  .ghd-head-muted {
+    color: var(--gh-muted);
+  }
+
+  .ghd-comment-body {
+    padding: 0.9rem 0.95rem 1rem;
+  }
+
+  .ghd-status {
+    position: relative;
+    display: grid;
+    min-height: 1.6rem;
+    align-items: start;
+    margin-bottom: 0.65rem;
+  }
+
+  .ghd-status p {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .ghd-status-running {
+    color: var(--gh-muted);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .ghd-status-done strong {
+    color: var(--gh-fg);
+    font-weight: 700;
+  }
+
+  .ghd-sep {
+    color: var(--gh-muted);
+  }
+
+  .ghd-spinner {
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 2px solid rgba(139, 148, 158, 0.35);
+    border-top-color: var(--gh-fg);
+    border-radius: 999px;
+    flex: 0 0 auto;
+  }
+
+  .ghd-video-link {
+    color: var(--gh-blue);
+    font-weight: 700;
+    border-radius: 6px;
+  }
+
+  .ghd-video-link:hover {
+    text-decoration: underline;
+  }
+
+  .ghd-checks {
+    display: grid;
+    border-top: 1px solid var(--gh-border);
+  }
+
+  .ghd-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.72rem 0.25rem;
+    border-bottom: 1px solid var(--gh-border);
+    color: var(--gh-fg);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .ghd-check:last-child {
+    border-bottom: 0;
+    padding-bottom: 0.25rem;
+  }
+
+  .ghd-check.skip {
+    color: var(--gh-muted);
+  }
+
+  .ghd-check-main {
+    display: grid;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .ghd-check-ico {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.18rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .ghd-check-ico.ok {
+    background: rgba(63, 185, 80, 0.16);
+    color: var(--gh-green);
+  }
+
+  .ghd-check-ico.bad {
+    background: rgba(248, 81, 73, 0.16);
+    color: var(--gh-red);
+  }
+
+  .ghd-check-ico.skip {
+    border: 1px solid var(--gh-border);
+    color: var(--gh-muted);
+    font-size: 0.6rem;
+  }
+
+  .ghd-evidence {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0.15rem 0 0.35rem 0.85rem;
+    border-left: 2px solid var(--gh-border);
+  }
+
+  .ghd-evidence p {
+    color: var(--gh-muted);
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  /* Cropped "screenshot" of the app: light UI, red box on the row that should be gone */
+  .ghd-shot {
+    position: relative;
+    width: min(100%, 21rem);
+    padding: 0.6rem;
+    border: 1px solid var(--gh-border);
+    border-radius: 8px;
+    background: #f6f8fa;
+  }
+
+  .ghd-shot-rows {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .ghd-shot-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    background: #fff;
+    color: #1f2328;
+    font-size: 0.76rem;
+  }
+
+  .ghd-shot-row i {
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 1.5px solid #d0d7de;
+    border-radius: 4px;
+    flex: 0 0 auto;
+  }
+
+  .ghd-shot-row.is-flagged {
+    position: relative;
+    outline: 2px solid var(--gh-red);
+    outline-offset: 1px;
+  }
+
+  .ghd-shot-tag {
+    margin-left: auto;
+    padding: 0.12rem 0.4rem;
+    border-radius: 4px;
+    background: var(--gh-red);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ── Animation ──
+     Default state above is the final frame. When .is-animating is present the
+     13s loop plays from it: PR exists → Kery starts → checks land → verdict. */
+
+  .is-animating .ghd-preview-row {
+    animation: ghd-reveal-preview var(--ghd-loop) ease infinite both;
+  }
+
+  .is-animating .ghd-comment {
+    animation: ghd-reveal-comment var(--ghd-loop) ease infinite both;
+  }
+
+  .is-animating .ghd-status-running {
+    animation: ghd-status-running var(--ghd-loop) steps(1, end) infinite both;
+  }
+
+  .is-animating .ghd-spinner {
+    animation: ghd-spin 0.9s linear infinite;
+  }
+
+  .is-animating .ghd-status-done {
+    animation: ghd-status-done var(--ghd-loop) steps(1, end) infinite both;
+  }
+
+  .is-animating .ghd-video-link {
+    animation: ghd-video-pulse var(--ghd-loop) ease infinite both;
+  }
+
+  .is-animating .ghd-check.row-1 { animation: ghd-row-1 var(--ghd-loop) ease infinite both; }
+  .is-animating .ghd-check.row-2 { animation: ghd-row-2 var(--ghd-loop) ease infinite both; }
+  .is-animating .ghd-check.row-3 { animation: ghd-row-3 var(--ghd-loop) ease infinite both; }
+  .is-animating .ghd-check.row-4 { animation: ghd-row-4 var(--ghd-loop) ease infinite both; }
+  .is-animating .ghd-check.row-5 { animation: ghd-row-5 var(--ghd-loop) ease infinite both; }
+  .is-animating .ghd-evidence { animation: ghd-evidence var(--ghd-loop) ease infinite both; }
+
+  .is-paused .ghd-preview-row,
+  .is-paused .ghd-comment,
+  .is-paused .ghd-status-running,
+  .is-paused .ghd-spinner,
+  .is-paused .ghd-status-done,
+  .is-paused .ghd-video-link,
+  .is-paused .ghd-check,
+  .is-paused .ghd-evidence {
+    animation-play-state: paused;
+  }
+
+  /* Frame 1 → preview ready (~6%) */
+  @keyframes ghd-reveal-preview {
+    0%, 5% { opacity: 0; transform: translateY(0.4rem); }
+    8%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Frame 2 → Kery's comment appears (~12%) */
+  @keyframes ghd-reveal-comment {
+    0%, 11% { opacity: 0; transform: translateY(0.5rem); }
+    14%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* "Checking this PR…" visible until the verdict resolves at 58% */
+  @keyframes ghd-status-running {
+    0%, 11% { opacity: 0; visibility: hidden; }
+    12%, 57% { opacity: 1; visibility: visible; }
+    58%, 100% { opacity: 0; visibility: hidden; }
+  }
+
+  @keyframes ghd-status-done {
+    0%, 57% { opacity: 0; visibility: hidden; }
+    58%, 100% { opacity: 1; visibility: visible; }
+  }
+
+  @keyframes ghd-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Frame 3 → checks land one at a time; the rhythm breaks on row 4 */
+  @keyframes ghd-row-1 {
+    0%, 22% { opacity: 0; transform: translateY(0.35rem); }
+    25%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ghd-row-2 {
+    0%, 27% { opacity: 0; transform: translateY(0.35rem); }
+    30%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ghd-row-3 {
+    0%, 31% { opacity: 0; transform: translateY(0.35rem); }
+    34%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Longer pause before the contradiction, and it lands harder */
+  @keyframes ghd-row-4 {
+    0%, 42% { opacity: 0; transform: translateY(0.55rem) scale(0.99); background: transparent; }
+    44% { opacity: 1; transform: translateY(0) scale(1.008); background: rgba(248, 81, 73, 0.09); }
+    48%, 100% { opacity: 1; transform: translateY(0) scale(1); background: transparent; }
+  }
+
+  /* The not-reached row arrives quietly */
+  @keyframes ghd-row-5 {
+    0%, 50% { opacity: 0; }
+    54%, 100% { opacity: 1; }
+  }
+
+  /* Frame 4 → evidence reveals under the failed check */
+  @keyframes ghd-evidence {
+    0%, 60% { opacity: 0; transform: translateY(0.3rem); }
+    64%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* …and the video-proof link gets the final beat */
+  @keyframes ghd-video-pulse {
+    0%, 63% { box-shadow: none; }
+    66% { box-shadow: 0 0 0 5px rgba(68, 147, 248, 0.28); }
+    70%, 74% { box-shadow: none; }
+    77% { box-shadow: 0 0 0 5px rgba(68, 147, 248, 0.28); }
+    81%, 100% { box-shadow: none; }
+  }
+
+  @media (max-width: 640px) {
+    .pr-demo-grid > * {
+      min-width: 0;
+    }
+
+    .ghd-frame {
+      width: min(100%, calc(100vw - 3rem));
+      max-width: calc(100vw - 3rem);
+      min-width: 0;
+    }
+
+    .pr-demo-heading h2 {
+      max-width: 100%;
+      font-size: 2.5rem;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .ghd-page {
+      padding: 0.85rem;
+    }
+
+    .ghd-shot-tag {
+      display: none;
+    }
+
+    .ghd-comment {
+      grid-template-columns: 1fr;
+    }
+
+    .ghd-avatar {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .is-animating .ghd-preview-row,
+    .is-animating .ghd-comment,
+    .is-animating .ghd-status-running,
+    .is-animating .ghd-spinner,
+    .is-animating .ghd-status-done,
+    .is-animating .ghd-video-link,
+    .is-animating .ghd-check,
+    .is-animating .ghd-evidence {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const demo = document.querySelector('[data-pr-demo]');
+  if (demo instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    demo.classList.add('is-animating');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          demo.classList.toggle('is-paused', !entry.isIntersecting);
+        });
+      },
+      { threshold: 0.12 }
+    );
+    observer.observe(demo);
+  }
+</script>
