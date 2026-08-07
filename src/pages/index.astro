@@ -61,15 +61,15 @@ const faqs = [
         <div class="hero-copy">
           <span class="eyebrow">Video proof on every pull request</span>
           <h1>Merge without <em>wondering.</em></h1>
-          <p class="hero-rotator" aria-label="Claude Code built it. Kery checked it works.">
+          <p class="hero-rotator" aria-label="Claude Code builds it; Kery proves it works.">
             <span aria-hidden="true">
               <span class="rotator-slot">
-                <span class="rotator-item"><img src="/icons/claude.svg" alt="" width="20" height="20" loading="eager" />Claude Code</span>
-                <span class="rotator-item"><img src="/icons/codex.svg" alt="" width="20" height="20" loading="eager" />Codex</span>
-                <span class="rotator-item"><img src="/icons/cursor.svg" alt="" width="20" height="20" loading="eager" />Cursor</span>
-                <span class="rotator-item">You</span>
+                <span class="rotator-item"><img src="/icons/claude.svg" alt="" width="20" height="20" loading="eager" />Claude Code builds</span>
+                <span class="rotator-item"><img src="/icons/codex.svg" alt="" width="20" height="20" loading="eager" />Codex builds</span>
+                <span class="rotator-item"><img src="/icons/cursor.svg" alt="" width="20" height="20" loading="eager" />Cursor builds</span>
+                <span class="rotator-item">You build</span>
               </span>
-              built it. <span class="rotator-kery"><img src="/kery.png" alt="" width="20" height="20" loading="eager" />Kery</span> checked it works.
+              it; <span class="rotator-kery"><img src="/kery.png" alt="" width="20" height="20" loading="eager" />Kery</span> proves it works.
             </span>
           </p>
           <p class="hero-secondary">
@@ -530,7 +530,7 @@ const faqs = [
 
   .hero-copy h1 {
     max-width: 12ch;
-    margin: 1.15rem 0 1.15rem;
+    margin: 1.7rem 0 1.75rem;
     color: var(--color-ink);
     font-size: clamp(4rem, 8vw, 7rem);
     font-weight: 850;
@@ -552,11 +552,11 @@ const faqs = [
     line-height: 1.72;
   }
 
-  p.hero-rotator {
-    margin-top: 0.4rem;
+  .hero-copy p.hero-rotator {
+    margin-top: 0.6rem;
     color: var(--color-ink);
     font-size: clamp(1.18rem, 1.6vw, 1.42rem);
-    font-weight: 750;
+    font-weight: 760;
     line-height: 1.55;
   }
 
@@ -588,8 +588,8 @@ const faqs = [
     align-items: center;
     gap: 0.42rem;
     justify-self: start;
-    color: var(--color-ink);
-    font-weight: 800;
+    color: inherit;
+    font-weight: inherit;
     white-space: nowrap;
     opacity: 0;
     transform: translateY(0.55em);
@@ -615,7 +615,7 @@ const faqs = [
   }
 
   .hero-secondary {
-    margin-top: 0.85rem;
+    margin-top: 1.3rem;
     max-width: 33rem;
   }
 
@@ -629,6 +629,7 @@ const faqs = [
 
   .hero-actions {
     justify-content: center;
+    margin-top: 2.5rem;
   }
 
   .button {
