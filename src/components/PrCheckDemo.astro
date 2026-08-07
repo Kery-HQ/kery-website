@@ -56,7 +56,7 @@
                   <span class="ghd-head-muted">acme-dashboard-pr-128.vercel.app</span>
                 </p>
                 <p class="ghd-status-done">
-                  <strong>3 verified · 1 contradicted · 1 not reached</strong>
+                  <strong>4 verified · 1 contradicted</strong>
                   <span class="ghd-sep">—</span>
                   <a class="ghd-video-link" href="#demo">▶ video proof</a>
                 </p>
@@ -91,9 +91,9 @@
                     </div>
                   </div>
                 </li>
-                <li class="ghd-check row-5 skip">
-                  <span class="ghd-check-ico skip" aria-hidden="true">○</span>
-                  <span>Email notification — not reached</span>
+                <li class="ghd-check row-5 ok">
+                  <span class="ghd-check-ico ok" aria-hidden="true">✓</span>
+                  <span>Email notification sent</span>
                 </li>
               </ul>
             </div>
@@ -108,7 +108,7 @@
   .pr-demo-section {
     padding: clamp(3.5rem, 6vw, 5.5rem) 0;
     border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg);
+    background: #fffdf6;
   }
 
   .pr-demo-grid {
@@ -655,6 +655,23 @@
   }
 
   @media (max-width: 640px) {
+    .pr-demo-grid > * {
+      min-width: 0;
+    }
+
+    .ghd-frame {
+      width: min(100%, calc(100vw - 3rem));
+      max-width: calc(100vw - 3rem);
+      min-width: 0;
+    }
+
+    .pr-demo-heading h2 {
+      max-width: 100%;
+      font-size: 2.5rem;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
     .ghd-page {
       padding: 0.85rem;
     }

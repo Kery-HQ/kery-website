@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import PrCheckDemo from '../components/PrCheckDemo.astro';
+import NlRunDemo from '../components/NlRunDemo.astro';
 import { SITE_DISCORD_URL, SITE_GITHUB_URL, SITE_CLOUD_URL } from '../constants';
 
 const painPoints = [
@@ -10,9 +11,10 @@ const painPoints = [
 ];
 
 const steps = [
-  ['1', 'A pull request opens', 'Kery reads the diff and works out what the change claims to do.'],
-  ['2', 'It runs the claims in a real browser', 'On the preview deployment: it signs in, walks each flow, and records video.'],
-  ['3', 'Verdicts land back on the PR', 'Each check comes back verified, contradicted, or not reached — with video proof.'],
+  ['1', 'Describe the flow in plain English', 'Type what to check the way you would explain it to a teammate.'],
+  ['2', 'Kery plans the checks', 'Your sentence becomes a concrete list of verifications.'],
+  ['3', 'It runs them in a real browser', 'Opens your app, walks the flow, and records everything.'],
+  ['4', 'Every check gets a verdict', 'Pass or fail, with the recording to show why.'],
 ];
 
 const installFeatures = [
@@ -51,7 +53,7 @@ const faqs = [
 ---
 
 <Layout
-  title="Kery — merge with confidence & evidence"
+  title="Kery — see it work, before you merge"
   description="Claude Code builds it. Kery checks it works. Every pull request gets run in a real browser, with video of what actually happened — no tests to write."
 >
   <Navbar />
@@ -60,7 +62,7 @@ const faqs = [
       <div class="container hero-inner">
         <div class="hero-copy">
           <span class="eyebrow">Video proof on every pull request</span>
-          <h1>Merge with confidence <em>&amp; evidence.</em></h1>
+          <h1>See it work, <em>before you merge.</em></h1>
           <p class="hero-rotator" aria-label="Claude Code builds it; Kery checks it works.">
             <span aria-hidden="true">
               <span class="rotator-slot">
@@ -87,157 +89,11 @@ const faqs = [
 
     <section class="section how-section" id="product">
       <div class="container how-grid">
-        <div class="cloud-ci-card" id="demo" aria-label="Animated Kery pull request check flow">
-          <div class="cloud-ci-topbar">
-            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <strong>kery · pr check</strong>
-            <span><i></i> connected</span>
-          </div>
-          <div class="cloud-ci-stage">
-            <div class="ci-rail" aria-hidden="true">
-              <span>
-                <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="6" cy="6" r="2.25"></circle>
-                  <circle cx="6" cy="18" r="2.25"></circle>
-                  <circle cx="18" cy="18" r="2.25"></circle>
-                  <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
-                  <path d="m11.25 6.75-2 2.75 2 2.75"></path>
-                </svg>
-                GitHub
-              </span>
-              <span>
-                <svg class="ci-svg ci-vercel-svg" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 4 22 20H2L12 4z"></path>
-                </svg>
-                Vercel
-              </span>
-              <span>
-                <i class="ci-kery-logo" aria-hidden="true"></i>
-                Kery
-              </span>
-              <span>
-                <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
-                  <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
-                </svg>
-                GitHub
-              </span>
-            </div>
-            <div class="ci-progress-track" aria-hidden="true"><span></span></div>
-
-            <div class="ci-flow">
-              <section class="ci-platform-card ci-github-card">
-                <div class="ci-platform-head">
-                  <b>GitHub</b>
-                  <span>Pull request</span>
-                </div>
-                <div class="github-pr-ui">
-                  <div class="github-pr-main">
-                    <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
-                      <circle cx="6" cy="6" r="2.25"></circle>
-                      <circle cx="6" cy="18" r="2.25"></circle>
-                      <circle cx="18" cy="18" r="2.25"></circle>
-                      <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
-                      <path d="m11.25 6.75-2 2.75 2 2.75"></path>
-                    </svg>
-                    <div>
-                      <strong>PR #184 · Add checkout promo</strong>
-                      <span>4 commits into main</span>
-                    </div>
-                    <em>Open</em>
-                  </div>
-                  <div class="github-change-row" aria-label="Changed files">
-                    <span>checkout.tsx</span>
-                    <span>cart.tsx</span>
-                    <span>promotions.ts</span>
-                  </div>
-                  <p>Intent detected: verify the promo path through cart and checkout.</p>
-                </div>
-              </section>
-
-              <section class="ci-platform-card ci-vercel-card">
-                <div class="ci-platform-head">
-                  <b>Vercel</b>
-                  <span>Preview deployment</span>
-                </div>
-                <div class="vercel-preview-ui">
-                  <div class="vercel-status">
-                    <i class="vercel-status-icon" aria-hidden="true"></i>
-                    <div>
-                      <strong>
-                        <span class="vercel-deploying">Deploying preview</span>
-                        <span class="vercel-deployed">Deployment ready</span>
-                      </strong>
-                      <span>Preview for PR #184</span>
-                    </div>
-                  </div>
-                  <div class="vercel-url-card">
-                    <span>Preview URL</span>
-                    <code>checkout-promo.vercel.app</code>
-                  </div>
-                  <div class="vercel-deploy-meta">
-                    <span>GitHub commit 7f32c9a</span>
-                    <span>ready for browser checks</span>
-                  </div>
-                </div>
-              </section>
-
-              <section class="ci-platform-card ci-run-panel">
-                <div class="ci-run-header">
-                  <strong>Kery Cloud</strong>
-                  <span>browser checks on this PR</span>
-                </div>
-                <div class="kery-run-focus">
-                  <span>Live target</span>
-                  <strong>Running checks on <code>checkout-promo.vercel.app</code></strong>
-                </div>
-                <ol>
-                  <li><i>✓</i><span>Promo code applies in cart</span></li>
-                  <li><i>✓</i><span>Discount shows as −$10.00</span></li>
-                  <li><i class="ci-alert">✕</i><span>Total updates with promo</span><b>contradicted</b></li>
-                  <li><i class="ci-skip">○</i><span>Confirmation email</span><b class="ci-skip-label">not reached</b></li>
-                </ol>
-              </section>
-
-              <section class="ci-platform-card ci-result">
-                <div class="ci-platform-head">
-                  <b>GitHub</b>
-                  <span>PR comment</span>
-                </div>
-                <div class="github-pr-ui github-timeline-ui">
-                  <div class="github-pr-main">
-                    <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
-                      <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
-                    </svg>
-                    <div>
-                      <strong>Kery posted the check results</strong>
-                      <span>PR #184 · comment</span>
-                    </div>
-                    <em>Now</em>
-                  </div>
-                  <div class="github-timeline-updates">
-                    <div>
-                      <i aria-hidden="true"></i>
-                      <strong>2 verified · 1 contradicted · 1 not reached</strong>
-                    </div>
-                    <div>
-                      <i aria-hidden="true"></i>
-                      <span>Commented with video proof of each check</span>
-                    </div>
-                  </div>
-                  <div class="github-change-row" aria-label="Attached evidence">
-                    <span class="ci-video-chip">▶ video proof</span>
-                    <span>evidence per check</span>
-                    <span>run replay</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-        </div>
+        <NlRunDemo />
 
         <div class="section-copy">
           <span class="section-kicker">How Kery works</span>
-          <h2>Watch a pull request <em>get checked.</em></h2>
+          <h2>Turn plain English into <em>repeatable browser tests.</em></h2>
           <div class="steps-list">
             {steps.map(([number, title, copy]) => (
               <article>
@@ -386,7 +242,7 @@ const faqs = [
       </div>
     </section>
 
-    <section class="section problem-section">
+    <section class="section problem-section" hidden>
       <div class="container two-col">
         <div class="section-copy">
           <span class="section-kicker">Why this matters</span>
@@ -529,7 +385,7 @@ const faqs = [
   }
 
   .hero-copy h1 {
-    max-width: 12ch;
+    max-width: min(17ch, 100%);
     margin: 1.7rem 0 1.75rem;
     color: var(--color-ink);
     font-size: clamp(4rem, 8vw, 7rem);
@@ -834,11 +690,15 @@ const faqs = [
     margin-top: 0;
   }
 
-  .how-section,
   .install-section,
   .cloud-section {
     border-block: 1px solid var(--color-border);
     background: #fffdf6;
+  }
+
+  .how-section {
+    border-block: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
   }
 
   .how-grid {
