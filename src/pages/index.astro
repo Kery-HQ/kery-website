@@ -12,17 +12,17 @@ const painPoints = [
 
 const flowFeatures = [
   [
-    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
     'Group tests into suites',
     'Bundle sign-up, checkout, and settings into one group and run it in one go.',
   ],
   [
-    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
     'Put runs on a schedule',
     'Nightly or hourly passes over the flows you care about, results waiting for you.',
   ],
   [
-    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="18" x2="12" y2="22"/></svg>`,
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
     'Auto-scan your app',
     'Kery crawls your routes, finds the flows worth covering, and suggests the tests.',
   ],
@@ -342,7 +342,7 @@ const faqs = [
         const prev = items[index];
         prev.classList.remove('is-active');
         prev.classList.add('is-leaving');
-        window.setTimeout(() => prev.classList.remove('is-leaving'), 380);
+        window.setTimeout(() => prev.classList.remove('is-leaving'), 560);
         index = (index + 1) % items.length;
         items[index].classList.add('is-active');
         fit();
@@ -446,7 +446,7 @@ const faqs = [
     display: inline-grid;
     overflow: hidden;
     vertical-align: bottom;
-    transition: width 0.35s ease;
+    transition: width 0.3s cubic-bezier(0, 0, 0.2, 1) 0.14s;
   }
 
   .rotator-item {
@@ -459,8 +459,8 @@ const faqs = [
     font-weight: inherit;
     white-space: nowrap;
     opacity: 0;
-    transform: translateY(0.55em);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(0.65em);
+    transition: opacity 0.22s cubic-bezier(0.4, 0, 1, 1), transform 0.22s cubic-bezier(0.4, 0, 1, 1);
   }
 
   .rotator-item img {
@@ -476,9 +476,13 @@ const faqs = [
     transform: none;
   }
 
+  .rotator-item.is-active {
+    transition: opacity 0.3s cubic-bezier(0, 0, 0.2, 1) 0.14s, transform 0.3s cubic-bezier(0, 0, 0.2, 1) 0.14s;
+  }
+
   .rotator-item.is-leaving {
     opacity: 0;
-    transform: translateY(-0.55em);
+    transform: translateY(-0.65em);
   }
 
   .hero-secondary {
@@ -794,7 +798,7 @@ const faqs = [
 
   .install-feature-list li {
     display: grid;
-    grid-template-columns: 1rem minmax(0, 1fr);
+    grid-template-columns: 1.15rem minmax(0, 1fr);
     gap: 0.68rem;
     align-items: start;
     color: var(--color-text-secondary);
@@ -803,13 +807,22 @@ const faqs = [
   }
 
   .install-feature-list li > span {
-    width: 0.58rem;
-    height: 0.58rem;
-    margin-top: 0.55rem;
-    border: 1px solid color-mix(in srgb, var(--color-accent) 68%, var(--color-border));
-    border-radius: 2px;
-    background: var(--color-accent);
-    box-shadow: 3px 3px 0 rgba(67, 118, 72, 0.16);
+    display: grid;
+    place-items: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.28rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-muted);
+  }
+
+  .install-feature-list li > span::before {
+    content: "✓";
+    font-size: 0.6rem;
+    font-weight: 900;
+    line-height: 1;
   }
 
   .install-grid > .install-card {
