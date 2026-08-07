@@ -458,6 +458,32 @@ const faqs = [
   <Footer />
 </Layout>
 
+<script>
+  const slot = document.querySelector('.rotator-slot');
+  if (slot instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const items = Array.from(slot.querySelectorAll('.rotator-item'));
+    if (items.length > 1) {
+      slot.classList.add('js-run');
+      let index = 0;
+      const fit = () => {
+        slot.style.width = `${items[index].offsetWidth}px`;
+      };
+      items[index].classList.add('is-active');
+      fit();
+      window.addEventListener('load', fit);
+      window.setInterval(() => {
+        const prev = items[index];
+        prev.classList.remove('is-active');
+        prev.classList.add('is-leaving');
+        window.setTimeout(() => prev.classList.remove('is-leaving'), 380);
+        index = (index + 1) % items.length;
+        items[index].classList.add('is-active');
+        fit();
+      }, 1800);
+    }
+  }
+</script>
+
 <style>
   .site-main {
     overflow: hidden;
@@ -526,7 +552,7 @@ const faqs = [
     line-height: 1.72;
   }
 
-  .hero-rotator {
+  p.hero-rotator {
     margin-top: 0.4rem;
     color: var(--color-ink);
     font-size: clamp(1.18rem, 1.6vw, 1.42rem);
@@ -552,12 +578,8 @@ const faqs = [
     position: relative;
     display: inline-grid;
     overflow: hidden;
-    margin-right: 0.1em;
-    padding: 0.08em 0.5em;
-    border: 1.5px solid var(--color-border);
-    border-radius: 10px;
-    background: var(--color-surface);
     vertical-align: bottom;
+    transition: width 0.35s ease;
   }
 
   .rotator-item {
@@ -565,13 +587,13 @@ const faqs = [
     display: inline-flex;
     align-items: center;
     gap: 0.42rem;
-    justify-self: center;
+    justify-self: start;
     color: var(--color-ink);
     font-weight: 800;
     white-space: nowrap;
     opacity: 0;
-    transform: translateY(0.6em);
-    animation: rotator-cycle 7.2s ease infinite both;
+    transform: translateY(0.55em);
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
   .rotator-item img {
@@ -581,19 +603,15 @@ const faqs = [
     flex: 0 0 auto;
   }
 
-  .rotator-item:nth-child(1) {
+  .rotator-slot:not(.js-run) .rotator-item:first-child,
+  .rotator-item.is-active {
     opacity: 1;
     transform: none;
   }
 
-  .rotator-item:nth-child(2) { animation-delay: 1.8s; }
-  .rotator-item:nth-child(3) { animation-delay: 3.6s; }
-  .rotator-item:nth-child(4) { animation-delay: 5.4s; }
-
-  @keyframes rotator-cycle {
-    0% { opacity: 0; transform: translateY(0.6em); }
-    4%, 21% { opacity: 1; transform: translateY(0); }
-    25%, 100% { opacity: 0; transform: translateY(-0.6em); }
+  .rotator-item.is-leaving {
+    opacity: 0;
+    transform: translateY(-0.55em);
   }
 
   .hero-secondary {
@@ -824,7 +842,7 @@ const faqs = [
 
   .how-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
     gap: clamp(2rem, 5vw, 4rem);
     align-items: center;
   }
@@ -1523,13 +1541,13 @@ const faqs = [
     --cloud-warning: #a86413;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(38, 33, 21, 0.2);
+    border: 1px solid rgba(255, 248, 232, 0.14);
     border-radius: 14px;
-    background: #fffdf6;
-    color: #171714;
+    background: #171714;
+    color: #fff8e8;
     box-shadow:
-      0 26px 70px rgba(38, 33, 21, 0.16),
-      inset 0 1px 0 rgba(255, 255, 255, 0.52);
+      0 26px 70px rgba(38, 33, 21, 0.28),
+      inset 0 1px 0 rgba(255, 248, 232, 0.06);
   }
 
   .cloud-ci-card::before {
@@ -1538,8 +1556,8 @@ const faqs = [
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(180deg, rgba(38, 33, 21, 0.03), transparent 34%),
-      linear-gradient(90deg, rgba(255, 248, 232, 0.58), rgba(255, 248, 232, 0));
+      radial-gradient(circle at 82% 12%, rgba(255, 207, 73, 0.08), transparent 16rem),
+      linear-gradient(180deg, rgba(255, 248, 232, 0.03), transparent 34%);
   }
 
   .cloud-ci-topbar {
@@ -1549,9 +1567,9 @@ const faqs = [
     align-items: center;
     gap: 0.4rem;
     padding: 0.76rem 0.95rem;
-    border-bottom: 1px solid #ded4be;
-    background: #f7f1e4;
-    color: var(--color-text-muted);
+    border-bottom: 1px solid rgba(255, 248, 232, 0.1);
+    background: #12120f;
+    color: rgba(255, 248, 232, 0.6);
     font-family: var(--font-mono);
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -1562,7 +1580,7 @@ const faqs = [
     align-items: center;
     gap: 0.35rem;
     margin-left: auto;
-    color: var(--cloud-accent);
+    color: var(--cloud-accent-bright);
   }
 
   .cloud-ci-topbar i {
@@ -1576,8 +1594,8 @@ const faqs = [
   .cloud-ci-stage {
     position: relative;
     z-index: 1;
-    padding: 1rem;
-    background: #fffdf6;
+    padding: 1.15rem;
+    background: #171714;
     font-family: var(--font-mono);
     font-size: 0.78rem;
   }
@@ -1593,9 +1611,9 @@ const faqs = [
     overflow: hidden;
     height: 0.42rem;
     margin-bottom: 0.78rem;
-    border: 1px solid #ded4be;
+    border: 1px solid rgba(255, 248, 232, 0.14);
     border-radius: 999px;
-    background: #fffdf6;
+    background: rgba(255, 248, 232, 0.05);
   }
 
   .ci-progress-track span {
@@ -1617,14 +1635,14 @@ const faqs = [
     gap: 0.32rem;
     min-height: 2rem;
     padding: 0.42rem 0.3rem;
-    border: 1px solid #ded4be;
+    border: 1px solid rgba(255, 248, 232, 0.14);
     border-radius: 6px;
-    color: var(--color-text-muted);
+    color: rgba(255, 248, 232, 0.5);
     font-size: 0.66rem;
     font-weight: 900;
     text-align: center;
     text-transform: uppercase;
-    background: rgba(255, 253, 246, 0.74);
+    background: rgba(255, 248, 232, 0.04);
     animation-duration: var(--ci-loop);
     animation-iteration-count: infinite;
     animation-timing-function: steps(1, end);
@@ -1640,7 +1658,7 @@ const faqs = [
     flex: 0 0 auto;
     width: 0.9rem;
     height: 0.9rem;
-    color: var(--color-text-muted);
+    color: rgba(255, 248, 232, 0.5);
   }
 
   .ci-svg path {
@@ -1673,7 +1691,7 @@ const faqs = [
   }
 
   .ci-vercel-svg {
-    color: #171714;
+    color: #fff8e8;
   }
 
   .ci-kery-logo {
@@ -1681,18 +1699,18 @@ const faqs = [
     flex: 0 0 auto;
     width: 1rem;
     height: 1rem;
-    background: #171714;
+    background: #fff8e8;
     -webkit-mask: url('/kery.png') center / contain no-repeat;
     mask: url('/kery.png') center / contain no-repeat;
   }
 
   .ci-flow {
     position: relative;
-    min-height: 24rem;
+    min-height: 26rem;
     overflow: hidden;
-    border: 1px solid #ded4be;
+    border: 1px solid rgba(255, 248, 232, 0.12);
     border-radius: 10px;
-    background: #fff8e8;
+    background: #12120f;
   }
 
   .ci-platform-card {
@@ -1701,12 +1719,12 @@ const faqs = [
     top: 50%;
     display: grid;
     gap: 0.62rem;
-    width: min(100% - 2rem, 25rem);
-    padding: 1rem;
-    border: 1px solid #ded4be;
+    width: min(100% - 2rem, 27rem);
+    padding: 1.15rem;
+    border: 1px solid rgba(255, 248, 232, 0.14);
     border-radius: 10px;
-    background: #fffdf6;
-    box-shadow: 0 8px 0 rgba(38, 33, 21, 0.08);
+    background: #1d1b16;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
     opacity: 0;
     transform: translate(-50%, -50%) translateY(0.65rem);
     animation-duration: var(--ci-loop);
@@ -1730,19 +1748,19 @@ const faqs = [
   .ci-platform-head,
   .ci-run-header {
     padding-bottom: 0.52rem;
-    border-bottom: 1px solid #ded4be;
+    border-bottom: 1px solid rgba(255, 248, 232, 0.12);
   }
 
   .ci-platform-head b,
   .ci-run-header strong {
-    color: #171714;
+    color: #fff8e8;
     font-size: 0.78rem;
     text-transform: uppercase;
   }
 
   .ci-platform-head span,
   .ci-run-header span {
-    color: var(--color-text-muted);
+    color: rgba(255, 248, 232, 0.55);
     font-size: 0.68rem;
     font-weight: 800;
   }
@@ -1775,7 +1793,7 @@ const faqs = [
   .vercel-status strong,
   .kery-run-focus strong {
     overflow: hidden;
-    color: #171714;
+    color: #fff8e8;
     font: inherit;
     font-weight: 900;
     text-overflow: ellipsis;
@@ -1786,12 +1804,12 @@ const faqs = [
   .github-pr-ui p,
   .vercel-status span,
   .vercel-deploy-meta span {
-    color: var(--color-text-secondary);
+    color: rgba(255, 248, 232, 0.62);
     font-size: 0.7rem;
   }
 
   .github-pr-main em {
-    color: var(--cloud-accent);
+    color: var(--cloud-accent-bright);
     font-size: 0.62rem;
     font-style: normal;
     font-weight: 900;
@@ -1806,10 +1824,10 @@ const faqs = [
 
   .github-change-row span {
     padding: 0.18rem 0.38rem;
-    border: 1px solid #ded4be;
+    border: 1px solid rgba(255, 248, 232, 0.16);
     border-radius: 4px;
-    background: #fffdf6;
-    color: var(--color-text-secondary);
+    background: rgba(255, 248, 232, 0.05);
+    color: rgba(255, 248, 232, 0.66);
     font-size: 0.64rem;
     font-weight: 800;
   }
@@ -1834,8 +1852,8 @@ const faqs = [
     flex: 0 0 auto;
     width: 1.05rem;
     height: 1.05rem;
-    border: 2px solid rgba(23, 23, 20, 0.22);
-    border-top-color: #171714;
+    border: 2px solid rgba(255, 248, 232, 0.22);
+    border-top-color: #fff8e8;
     border-radius: 999px;
     animation: vercel-deploy-spinner var(--ci-loop) linear infinite;
   }
@@ -1847,8 +1865,8 @@ const faqs = [
     top: 0.18rem;
     width: 0.24rem;
     height: 0.46rem;
-    border-right: 2px solid var(--cloud-accent);
-    border-bottom: 2px solid var(--cloud-accent);
+    border-right: 2px solid var(--cloud-accent-bright);
+    border-bottom: 2px solid var(--cloud-accent-bright);
     opacity: 0;
     transform: rotate(45deg) scale(0.82);
     transform-origin: center;
@@ -1884,13 +1902,13 @@ const faqs = [
     display: grid;
     gap: 0.18rem;
     padding: 0.5rem 0.6rem;
-    border: 1px solid #ded4be;
+    border: 1px solid rgba(255, 248, 232, 0.14);
     border-radius: 7px;
-    background: #fffdf6;
+    background: rgba(255, 248, 232, 0.04);
   }
 
   .vercel-url-card span {
-    color: var(--color-text-muted);
+    color: rgba(255, 248, 232, 0.5);
     font-size: 0.62rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -1898,7 +1916,7 @@ const faqs = [
 
   .vercel-url-card code {
     overflow: hidden;
-    color: var(--cloud-accent);
+    color: var(--cloud-accent-bright);
     font: inherit;
     font-weight: 900;
     text-overflow: ellipsis;
@@ -1917,13 +1935,13 @@ const faqs = [
     display: grid;
     gap: 0.22rem;
     padding: 0.56rem 0.6rem;
-    border: 1px solid #ded4be;
+    border: 1px solid rgba(255, 248, 232, 0.14);
     border-radius: 7px;
-    background: #fffdf6;
+    background: rgba(255, 248, 232, 0.04);
   }
 
   .kery-run-focus > span {
-    color: var(--color-text-muted);
+    color: rgba(255, 248, 232, 0.5);
     font-size: 0.62rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -1935,7 +1953,7 @@ const faqs = [
   }
 
   .kery-run-focus code {
-    color: var(--cloud-accent);
+    color: var(--cloud-accent-bright);
     font: inherit;
     font-weight: 900;
   }
@@ -1953,10 +1971,10 @@ const faqs = [
     gap: 0.5rem;
     min-width: 0;
     padding: 0.46rem 0.5rem;
-    border: 1px solid #ded4be;
+    border: 1px solid rgba(255, 248, 232, 0.12);
     border-radius: 7px;
-    background: #fffdf6;
-    color: var(--color-text-secondary);
+    background: rgba(255, 248, 232, 0.04);
+    color: rgba(255, 248, 232, 0.72);
   }
 
   .ci-run-panel li span {
@@ -1992,7 +2010,7 @@ const faqs = [
 
   .ci-run-panel li b {
     margin-left: auto;
-    color: var(--cloud-warning);
+    color: #ffcf49;
     font-size: 0.62rem;
     text-transform: uppercase;
     opacity: 0;
@@ -2006,13 +2024,13 @@ const faqs = [
   .ci-run-panel li:nth-child(4) b { animation-delay: 1.35s; }
 
   .ci-run-panel li b.ci-skip-label {
-    color: var(--color-text-muted);
+    color: rgba(255, 248, 232, 0.45);
   }
 
   .ci-video-chip {
-    border-color: color-mix(in srgb, var(--cloud-accent) 45%, #ded4be) !important;
-    background: rgba(67, 118, 72, 0.1) !important;
-    color: var(--cloud-accent) !important;
+    border-color: rgba(139, 219, 160, 0.45) !important;
+    background: rgba(139, 219, 160, 0.1) !important;
+    color: var(--cloud-accent-bright) !important;
     font-weight: 900 !important;
   }
 
@@ -2025,7 +2043,7 @@ const faqs = [
     display: grid;
     gap: 0.4rem;
     padding-left: 0.53rem;
-    border-left: 2px solid #ded4be;
+    border-left: 2px solid rgba(255, 248, 232, 0.16);
   }
 
   .github-timeline-updates div {
@@ -2034,7 +2052,7 @@ const faqs = [
     align-items: center;
     min-width: 0;
     gap: 0.42rem;
-    color: var(--color-text-secondary);
+    color: rgba(255, 248, 232, 0.62);
     font-size: 0.7rem;
   }
 
@@ -2043,13 +2061,13 @@ const faqs = [
     left: -0.72rem;
     width: 0.38rem;
     height: 0.38rem;
-    border: 2px solid #fffdf6;
+    border: 2px solid #1d1b16;
     border-radius: 999px;
-    background: var(--cloud-accent);
+    background: var(--cloud-accent-bright);
   }
 
   .github-timeline-updates strong {
-    color: #171714;
+    color: #fff8e8;
     font-size: 0.72rem;
     font-weight: 900;
   }
@@ -2150,8 +2168,8 @@ const faqs = [
   }
 
   @keyframes ci-rail-github {
-    0%, 23% { color: #171714; }
-    24%, 100% { color: var(--color-text-muted); }
+    0%, 23% { color: #fff8e8; }
+    24%, 100% { color: rgba(255, 248, 232, 0.5); }
   }
 
   @keyframes ci-progress-fill {
@@ -2163,37 +2181,37 @@ const faqs = [
   }
 
   @keyframes ci-rail-vercel {
-    0%, 23%, 51%, 100% { color: var(--color-text-muted); }
-    24%, 50% { color: #171714; }
+    0%, 23%, 51%, 100% { color: rgba(255, 248, 232, 0.5); }
+    24%, 50% { color: #fff8e8; }
   }
 
   @keyframes ci-rail-kery {
-    0%, 50%, 75%, 100% { color: var(--color-text-muted); }
-    51%, 74% { color: #171714; }
+    0%, 50%, 75%, 100% { color: rgba(255, 248, 232, 0.5); }
+    51%, 74% { color: #fff8e8; }
   }
 
   @keyframes ci-rail-check {
-    0%, 74% { color: var(--color-text-muted); }
-    75%, 100% { color: #171714; }
+    0%, 74% { color: rgba(255, 248, 232, 0.5); }
+    75%, 100% { color: #fff8e8; }
   }
 
   @keyframes ci-rail-github-icon {
     0%, 23% { color: var(--cloud-accent); }
-    24%, 100% { color: var(--color-text-muted); }
+    24%, 100% { color: rgba(255, 248, 232, 0.5); }
   }
 
   @keyframes ci-rail-vercel-icon {
-    0%, 23%, 51%, 100% { color: var(--color-text-muted); }
-    24%, 50% { color: #171714; }
+    0%, 23%, 51%, 100% { color: rgba(255, 248, 232, 0.5); }
+    24%, 50% { color: #fff8e8; }
   }
 
   @keyframes ci-rail-kery-icon {
-    0%, 50%, 75%, 100% { color: var(--color-text-muted); }
+    0%, 50%, 75%, 100% { color: rgba(255, 248, 232, 0.5); }
     51%, 74% { color: var(--cloud-accent); }
   }
 
   @keyframes ci-rail-check-icon {
-    0%, 74% { color: var(--color-text-muted); }
+    0%, 74% { color: rgba(255, 248, 232, 0.5); }
     75%, 100% { color: var(--cloud-accent); }
   }
 
@@ -2220,8 +2238,8 @@ const faqs = [
   }
 
   @keyframes vercel-deploy-spinner {
-    0%, 23% { opacity: 0; transform: rotate(0deg); border-color: rgba(23, 23, 20, 0.22); border-top-color: #171714; }
-    24%, 38% { opacity: 1; transform: rotate(360deg); border-color: rgba(23, 23, 20, 0.22); border-top-color: #171714; }
+    0%, 23% { opacity: 0; transform: rotate(0deg); border-color: rgba(255, 248, 232, 0.22); border-top-color: #fff8e8; }
+    24%, 38% { opacity: 1; transform: rotate(360deg); border-color: rgba(255, 248, 232, 0.22); border-top-color: #fff8e8; }
     39%, 100% { opacity: 1; transform: rotate(360deg); border-color: var(--cloud-accent-bright); border-top-color: var(--cloud-accent-bright); }
   }
 
@@ -2268,24 +2286,24 @@ const faqs = [
       transform: scale(0.92);
     }
     60%, 100% {
-      border-color: color-mix(in srgb, var(--cloud-warning) 76%, #171714);
+      border-color: color-mix(in srgb, var(--cloud-warning) 76%, #ffcf49);
       background: var(--cloud-warning);
-      color: #171714;
+      color: #fff8e8;
       transform: scale(1);
     }
   }
 
   @keyframes ci-flow-skip {
     0%, 51% {
-      border-color: #ded4be;
-      background: rgba(38, 33, 21, 0.04);
+      border-color: rgba(255, 248, 232, 0.14);
+      background: rgba(255, 248, 232, 0.04);
       color: transparent;
       transform: scale(0.92);
     }
     60%, 100% {
-      border-color: #ded4be;
-      background: #f1ead9;
-      color: var(--color-text-muted);
+      border-color: rgba(255, 248, 232, 0.22);
+      background: rgba(255, 248, 232, 0.08);
+      color: rgba(255, 248, 232, 0.55);
       transform: scale(1);
     }
   }
@@ -2590,9 +2608,13 @@ const faqs = [
     .vercel-deployed,
     .vercel-url-card code,
     .ci-run-panel li i,
-    .ci-run-panel li b,
-    .rotator-item {
+    .ci-run-panel li b {
       animation: none;
+    }
+
+    .rotator-item,
+    .rotator-slot {
+      transition: none;
     }
 
     .story-command strong {
@@ -2620,8 +2642,8 @@ const faqs = [
     }
 
     .ci-rail span:nth-child(4) {
-      color: #171714;
-      border-color: #ded4be;
+      color: #fff8e8;
+      border-color: rgba(255, 248, 232, 0.22);
     }
 
     .ci-rail span:nth-child(4) .ci-svg {
@@ -2662,8 +2684,8 @@ const faqs = [
     .ci-result {
       opacity: 1;
       transform: translate(-50%, -50%);
-      border-color: #ded4be;
-      background: #fffdf6;
+      border-color: rgba(255, 248, 232, 0.14);
+      background: #1d1b16;
     }
 
     .ci-run-panel li i {
@@ -2675,9 +2697,9 @@ const faqs = [
     }
 
     .ci-run-panel li i.ci-alert {
-      border-color: color-mix(in srgb, var(--cloud-warning) 76%, #171714);
+      border-color: color-mix(in srgb, var(--cloud-warning) 76%, #ffcf49);
       background: var(--cloud-warning);
-      color: #171714;
+      color: #fff8e8;
       box-shadow: none;
       transform: none;
     }
@@ -2688,9 +2710,9 @@ const faqs = [
     }
 
     .ci-run-panel li i.ci-skip {
-      border-color: #ded4be;
-      background: #f1ead9;
-      color: var(--color-text-muted);
+      border-color: rgba(255, 248, 232, 0.22);
+      background: rgba(255, 248, 232, 0.08);
+      color: rgba(255, 248, 232, 0.55);
       box-shadow: none;
       transform: none;
     }

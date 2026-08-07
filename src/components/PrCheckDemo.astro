@@ -10,10 +10,11 @@
 ---
 
 <section class="pr-demo-section" aria-label="Example: Kery checking a pull request on GitHub">
-  <div class="container">
+  <div class="container pr-demo-grid">
     <div class="pr-demo-heading">
       <span class="pr-demo-kicker">On your pull request</span>
       <h2>The comment that <em>proves it.</em></h2>
+      <p>Every claim in the diff, run in a real browser, with a verdict and the recording to back it up.</p>
     </div>
 
     <div class="ghd-frame" data-pr-demo>
@@ -110,10 +111,32 @@
     background: var(--color-bg);
   }
 
+  .pr-demo-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
   .pr-demo-heading {
-    max-width: 48rem;
-    margin: 0 auto clamp(2rem, 4vw, 3rem);
-    text-align: center;
+    max-width: 30rem;
+  }
+
+  .pr-demo-heading p {
+    margin-top: 0.9rem;
+    color: var(--color-text-secondary);
+    font-size: clamp(1.02rem, 1.25vw, 1.16rem);
+    line-height: 1.72;
+  }
+
+  @media (max-width: 1120px) {
+    .pr-demo-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pr-demo-heading {
+      max-width: 48rem;
+    }
   }
 
   .pr-demo-kicker {
