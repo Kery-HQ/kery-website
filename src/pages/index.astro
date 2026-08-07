@@ -15,13 +15,6 @@ const steps = [
   ['3', 'Verdicts land back on the PR', 'Each check comes back verified, contradicted, or not reached — with video proof.'],
 ];
 
-const agentTools = [
-  ['Claude Code', '/icons/claude.svg'],
-  ['Codex', '/icons/codex.svg'],
-  ['Cursor', '/icons/cursor.svg'],
-  ['Any MCP client', '/icons/mcp.svg'],
-];
-
 const installFeatures = [
   'Open-source engine you can inspect, run, and extend locally.',
   'Runs locally with Docker.',
@@ -256,20 +249,6 @@ const faqs = [
               </article>
             ))}
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="agent-strip" aria-label="Coding agent integrations">
-      <div class="container">
-        <p>Works with the tools your team already uses to build</p>
-        <div>
-          {agentTools.map(([label, icon]) => (
-            <span>
-              <img src={icon} alt="" width="18" height="18" loading="lazy" />
-              {label}
-            </span>
-          ))}
         </div>
       </div>
     </section>
@@ -706,68 +685,6 @@ const faqs = [
   @keyframes pixel-blink {
     0%, 49% { opacity: 1; }
     50%, 100% { opacity: 0.25; }
-  }
-
-  .agent-strip {
-    border-block: 1px solid var(--color-border);
-    background: rgba(255, 253, 246, 0.78);
-  }
-
-  .agent-strip .container {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-    overflow-x: auto;
-    padding-block: 0.9rem;
-    color: var(--color-text-muted);
-    font-size: 0.82rem;
-    font-weight: 800;
-    white-space: nowrap;
-  }
-
-  .agent-strip p {
-    color: var(--color-text-secondary);
-    font-size: 0.84rem;
-    font-weight: 800;
-  }
-
-  .agent-strip .container > div {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    flex: 0 0 auto;
-  }
-
-  .agent-strip span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.42rem;
-    min-height: 2.2rem;
-    padding: 0 0.68rem;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: var(--color-surface);
-    color: var(--color-ink);
-    line-height: 1.1;
-  }
-
-  .agent-strip img {
-    width: 18px;
-    height: 18px;
-    object-fit: contain;
-  }
-
-  .agent-strip i {
-    display: grid;
-    place-items: center;
-    width: 18px;
-    height: 18px;
-    border-radius: 5px;
-    background: #8a2be2;
-    color: #fff;
-    font-size: 0.66rem;
-    font-style: normal;
   }
 
   .section {
@@ -2624,48 +2541,6 @@ const faqs = [
       right: 0.48rem;
       top: 2.95rem;
       font-size: 0.54rem;
-    }
-
-    .agent-strip .container {
-      display: grid;
-      gap: 0.75rem;
-      justify-content: stretch;
-      overflow: visible;
-      padding-block: 1rem;
-      white-space: normal;
-    }
-
-    .agent-strip p {
-      max-width: 21rem;
-      font-size: 0.88rem;
-      line-height: 1.35;
-    }
-
-    .agent-strip .container > div {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.5rem;
-      width: 100%;
-    }
-
-    .agent-strip span {
-      justify-content: flex-start;
-      width: 100%;
-      min-width: 0;
-      min-height: 2.45rem;
-      padding: 0.42rem 0.6rem;
-      font-size: 0.76rem;
-      white-space: normal;
-    }
-
-    .agent-strip img {
-      flex: 0 0 18px;
-    }
-  }
-
-  @media (max-width: 360px) {
-    .agent-strip .container > div {
-      grid-template-columns: 1fr;
     }
   }
 
