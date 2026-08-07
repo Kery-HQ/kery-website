@@ -5,7 +5,7 @@ export const SITE_DISCORD_URL = 'https://discord.gg/A3sCcxCMyq';
 
 export const SITE_ORIGIN = 'https://kery.dev';
 
-export const SITE_TAGLINE = 'Merge without wondering';
+export const SITE_TAGLINE = 'Merge with confidence & evidence';
 
 /** Kery Cloud self-serve signup. */
 export const SITE_CLOUD_URL = 'https://app.kery.dev/sign-in';
