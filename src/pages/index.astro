@@ -2,18 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_DISCORD_URL, SITE_GITHUB_URL, SITE_TAGLINE } from '../constants';
+import PrCheckDemo from '../components/PrCheckDemo.astro';
+import { SITE_DISCORD_URL, SITE_GITHUB_URL, SITE_CLOUD_URL } from '../constants';
 
 const painPoints = [
-  ['Reality 01', 'AI can open more PRs than your team can click through', 'Coding agents move implementation faster than manual smoke testing can follow. Kery gives every change a browser pass.'],
-  ['Reality 02', 'The bugs that matter hide in real flows', 'Login, checkout, forms, permissions, empty states, and mobile layouts are where releases usually break. Kery tests those paths in a real browser.'],
-  ['Reality 03', 'Fast shipping breaks when QA cannot keep up', 'The more often you merge, the easier it is for small browser regressions to reach production. Kery catches broken flows before users do.'],
+  ['Reality', 'The bugs that matter hide in real flows', 'Login, checkout, forms, permissions, empty states, and mobile layouts are where releases usually break. Kery walks those paths in a real browser.'],
 ];
 
 const steps = [
-  ['1', 'Point Kery at your app', 'Add a URL, environment, credentials, and the flow you care about.'],
-  ['2', 'It explores in a real browser', 'Kery crawls routes, plans steps, logs in, clicks through flows, and observes screenshots plus accessibility state.'],
-  ['3', 'It returns triaged issues', 'Visual, functional, and UX bugs come back with severity, screenshots, bounding boxes, logs, and repro context.'],
+  ['1', 'Open a pull request', 'Kery reads the diff and works out what the change is supposed to do.'],
+  ['2', 'It runs the change in a real browser', 'Signs in, walks the flows, records everything.'],
+  ['3', 'It posts the result to the PR', 'Each check, its verdict, and video of what actually happened.'],
 ];
 
 const agentTools = [
@@ -39,182 +38,248 @@ const supportedProviders = [
 ];
 
 const cloudFeatures = [
-  'Zero-touch QA that runs automatically on product changes.',
-  'End-to-end GitHub integration.',
-  'Vercel preview deployment testing.',
-  'PR-aware testing that understands code changes and intent.',
+  'Runs automatically on every pull request.',
+  'End-to-end GitHub integration — results land on the PR.',
+  'Vercel preview deployment support.',
+  'PR-aware checks that understand code changes and intent.',
   'Organization and team management with shared projects.',
-  'More CI and deployment integrations coming.',
 ];
 
 const faqs = [
-  ['What is Kery?', 'Kery is an AI browser testing engine. It crawls web apps, runs intent-driven tests in Playwright, and reports visual, functional, and UX bugs with reproducible evidence.'],
-  ['Do I need to write test scripts?', 'No. You can start with a URL and plain-English intent. Useful flows can later be saved and rerun.'],
-  ['Is this only for simple public sites?', 'No. Kery supports logged-in products through configured environments and credentials.'],
+  ['What is Kery?', 'Kery checks that your pull requests do what they say. It reads the diff, works out what the change claims to do, runs those flows in a real browser, and posts each check back to the PR with a verdict and video of what actually happened.'],
+  ['Do I need to write test scripts?', 'No. Kery works out what to check from the pull request itself. You can also point it at a flow in plain English, and useful flows can be saved and rerun.'],
+  ['Does it work behind authentication?', 'Yes. Kery supports logged-in products through configured environments and credentials, including form login, Clerk, and Supabase Auth. It is not limited to simple public sites.'],
   ['Which LLM providers are supported?', 'Kery supports OpenAI, Anthropic, Google Gemini, and OpenRouter. Bring your own provider keys when running locally.'],
-  ['Does it work behind authentication?', 'Yes. Kery supports logged-in flows through configured environments and credentials, including form login, Clerk, and Supabase Auth.'],
-  ['Can I run Kery in CI?', 'Yes. The open-source stack can run in your pipeline, and Kery Cloud is designed for managed PR checks, preview deployment testing, and CI gates.'],
-  ['What can I do with MCP?', 'Use Kery from MCP-compatible clients like Cursor, Claude Code, and Codex CLI to scan apps, run browser QA, inspect route coverage, and pull bug reports.'],
-  ['Does Kery get smarter over time?', 'Yes. Kery records useful navigation paths, bug patterns, and known false positives so future runs can focus faster and reduce repeated noise.'],
+  ['Can I run Kery in CI?', 'Yes. Kery Cloud runs on your pull requests today — connect the GitHub App and every PR gets checked against its preview deployment. The open-source stack can also run in your own pipeline.'],
+  ['What can I do with MCP?', 'Use Kery from MCP-compatible clients like Cursor, Claude Code, and Codex CLI to run browser checks on your app, inspect route coverage, and pull results.'],
   ['Where does my data live?', 'In the open-source setup, run artifacts live in your own environment. Kery only sends prompts and required context to the LLM provider you configure.'],
   ['Is Kery open-source?', 'Yes. The local engine is open-source, built for self-hosting, inspection, and extension. Kery Cloud adds hosted execution and team workflows.'],
-  ['Why have OSS and Cloud?', 'OSS gives developers the engine and local control. Cloud adds managed execution, team workflows, CI checks, storage, and tenancy.'],
 ];
 ---
 
 <Layout
-  title={`Kery - ${SITE_TAGLINE}`}
-  description="Kery runs AI agents through real browser flows and returns reproducible visual, functional, and UX bugs with screenshots, logs, and repro steps."
+  title="Kery — merge without wondering"
+  description="Claude Code built it. Kery checked it works. Every pull request gets run in a real browser, with video of what actually happened — no tests to write."
 >
   <Navbar />
   <main class="site-main">
     <section class="hero-section">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow">Browser QA for teams shipping with AI</span>
-          <h1>AI builds fast. Kery tests at <em>that speed.</em></h1>
-          <p>
-            Kery runs autonomous browser QA for teams shipping with AI: real flows, real evidence, reproducible bugs.
+          <span class="eyebrow">Video proof on every pull request</span>
+          <h1>Merge without <em>wondering.</em></h1>
+          <p class="hero-rotator" aria-label="Claude Code built it. Kery checked it works.">
+            <span aria-hidden="true">
+              <span class="rotator-slot">
+                <span class="rotator-item"><img src="/icons/claude.svg" alt="" width="20" height="20" loading="eager" />Claude Code</span>
+                <span class="rotator-item"><img src="/icons/codex.svg" alt="" width="20" height="20" loading="eager" />Codex</span>
+                <span class="rotator-item"><img src="/icons/cursor.svg" alt="" width="20" height="20" loading="eager" />Cursor</span>
+                <span class="rotator-item">You</span>
+              </span>
+              built it. <strong>Kery checked it works.</strong>
+            </span>
+          </p>
+          <p class="hero-secondary">
+            No tests to write. Kery reads the diff and works out what the change was supposed to do.
           </p>
           <div class="hero-actions">
-            <a href="#install" class="button button-primary">Install locally</a>
-            <a href="#cloud" class="button button-secondary">Join Cloud waitlist</a>
+            <a href={SITE_CLOUD_URL} class="button button-primary">Connect your repo</a>
+            <a href="#install" class="button button-secondary">Or run it locally</a>
           </div>
         </div>
 
-        <div class="agent-animation is-idle" data-agent-demo aria-label="Kery checkout flow animation">
-          <div class="pixel-topbar">
+        <div class="cloud-ci-card" aria-label="Animated Kery pull request check flow">
+          <div class="cloud-ci-topbar">
             <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <strong>kery run / checkout</strong>
+            <strong>kery · pr check</strong>
+            <span><i></i> connected</span>
           </div>
+          <div class="cloud-ci-stage">
+            <div class="ci-rail" aria-hidden="true">
+              <span>
+                <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="6" cy="6" r="2.25"></circle>
+                  <circle cx="6" cy="18" r="2.25"></circle>
+                  <circle cx="18" cy="18" r="2.25"></circle>
+                  <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
+                  <path d="m11.25 6.75-2 2.75 2 2.75"></path>
+                </svg>
+                GitHub
+              </span>
+              <span>
+                <svg class="ci-svg ci-vercel-svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 4 22 20H2L12 4z"></path>
+                </svg>
+                Vercel
+              </span>
+              <span>
+                <i class="ci-kery-logo" aria-hidden="true"></i>
+                Kery
+              </span>
+              <span>
+                <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
+                  <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
+                </svg>
+                GitHub
+              </span>
+            </div>
+            <div class="ci-progress-track" aria-hidden="true"><span></span></div>
 
-          <div class="pixel-stage">
-            <div class="checkout-screen">
-              <div class="browser-bar">
-                <span class="browser-url">
-                  <span class="browser-url-home">yourapp.example.com</span>
-                  <span class="browser-url-cart">yourapp.example.com/cart</span>
-                </span>
-                <span class="run-state browser-run-state"><i></i> live browser</span>
-              </div>
-              <div class="browser-viewport">
-                <section class="storefront-page" aria-hidden="true">
-                  <div class="storefront-copy">
-                    <h2>Your Shopping App</h2>
-                    <div class="storefront-actions">
-                      <span class="browse-button">Browse products</span>
-                      <span class="view-cart-button">View cart</span>
-                      <span class="click-burst burst-cart" aria-hidden="true"></span>
-                    </div>
-                  </div>
-                </section>
-
-                <div class="checkout-page">
-                  <section class="cart-panel">
-                    <div class="pixel-label">Cart</div>
-                    <div class="cart-row row-one">
-                      <span class="item-sprite mango-sprite"></span>
-                      <div>
-                        <strong>Mango Hoodie</strong>
-                        <small>$42.00</small>
-                      </div>
-                      <span class="cart-action remove-one">Remove</span>
-                      <span class="click-burst burst-one" aria-hidden="true"></span>
-                    </div>
-                    <div class="cart-row row-two">
-                      <span class="item-sprite leaf-sprite"></span>
-                      <div>
-                        <strong>Agent Sticker Pack</strong>
-                        <small>$8.00</small>
-                      </div>
-                      <span class="cart-action remove-two">Remove</span>
-                      <span class="click-burst burst-two" aria-hidden="true"></span>
-                    </div>
-                    <div class="cart-row row-three">
-                      <span class="item-sprite box-sprite"></span>
-                      <div>
-                        <strong>Debug Tote</strong>
-                        <small>$18.00</small>
-                      </div>
-                      <span class="cart-action remove-three">Remove</span>
-                      <span class="click-burst burst-three" aria-hidden="true"></span>
-                    </div>
-                  </section>
-
-                  <aside class="summary-panel">
-                    <div class="pixel-label">Summary</div>
-                    <div><span>Subtotal</span><strong>$68.00</strong></div>
-                    <div><span>Shipping</span><strong>$0.00</strong></div>
-                    <div class="total"><span>Total</span><strong>$68.00</strong></div>
-                    <span class="checkout-button">Checkout</span>
-                    <span class="click-burst burst-four" aria-hidden="true"></span>
-                  </aside>
+            <div class="ci-flow">
+              <section class="ci-platform-card ci-github-card">
+                <div class="ci-platform-head">
+                  <b>GitHub</b>
+                  <span>Pull request</span>
                 </div>
-                <div class="browser-boot-screen" aria-hidden="true">
-                  <div class="hero-boot-log">
-                    <span class="boot-line boot-line-browser"><i></i> starting browser...</span>
-                    <span class="boot-line boot-line-app"><i></i> opening your app...</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="kery-cursor" aria-hidden="true">
-              <span>Kery</span>
-            </div>
-
-            <div class="bug-popup popup-one" aria-hidden="true">
-              <strong>BUG DETECTED</strong>
-            </div>
-            <div class="bug-popup popup-two" aria-hidden="true">
-              <strong>BUG DETECTED</strong>
-            </div>
-            <div class="bug-popup popup-three" aria-hidden="true">
-              <strong>BUG DETECTED</strong>
-            </div>
-            <div class="bug-popup popup-four" aria-hidden="true">
-              <strong>CHECKOUT STUCK</strong>
-            </div>
-            <div class="bug-summary-banner" aria-hidden="true">
-              <strong>4 bugs detected</strong>
-              <span>evidence saved to triage</span>
-            </div>
-
-            <div class="hero-prompt-screen">
-              <div class="hero-prompt-box">
-                <div class="hero-prompt-window">
-                  <div class="hero-prompt-topbar">
-                    <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-                    <strong>kery prompt</strong>
-                    <span><i></i> ready</span>
-                  </div>
-                  <div class="hero-prompt-body">
-                    <span class="hero-prompt-label">Describe a flow</span>
-                    <div class="hero-command-row">
-                      <div class="hero-command-input" aria-label="Kery prompt">
-                        <span class="hero-command-prefix">›</span>
-                        <span class="hero-prompt-text">Hey kery, test my checkout flow</span>
-                      </div>
-                      <span class="hero-enter-key" aria-hidden="true">
-                        <span>Enter</span>
-                      </span>
+                <div class="github-pr-ui">
+                  <div class="github-pr-main">
+                    <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="6" cy="6" r="2.25"></circle>
+                      <circle cx="6" cy="18" r="2.25"></circle>
+                      <circle cx="18" cy="18" r="2.25"></circle>
+                      <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
+                      <path d="m11.25 6.75-2 2.75 2 2.75"></path>
+                    </svg>
+                    <div>
+                      <strong>PR #184 · Add checkout promo</strong>
+                      <span>4 commits into main</span>
                     </div>
+                    <em>Open</em>
+                  </div>
+                  <div class="github-change-row" aria-label="Changed files">
+                    <span>checkout.tsx</span>
+                    <span>cart.tsx</span>
+                    <span>promotions.ts</span>
+                  </div>
+                  <p>Intent detected: verify the promo path through cart and checkout.</p>
+                </div>
+              </section>
+
+              <section class="ci-platform-card ci-vercel-card">
+                <div class="ci-platform-head">
+                  <b>Vercel</b>
+                  <span>Preview deployment</span>
+                </div>
+                <div class="vercel-preview-ui">
+                  <div class="vercel-status">
+                    <i class="vercel-status-icon" aria-hidden="true"></i>
+                    <div>
+                      <strong>
+                        <span class="vercel-deploying">Deploying preview</span>
+                        <span class="vercel-deployed">Deployment ready</span>
+                      </strong>
+                      <span>Preview for PR #184</span>
+                    </div>
+                  </div>
+                  <div class="vercel-url-card">
+                    <span>Preview URL</span>
+                    <code>checkout-promo.vercel.app</code>
+                  </div>
+                  <div class="vercel-deploy-meta">
+                    <span>GitHub commit 7f32c9a</span>
+                    <span>ready for browser checks</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              </section>
 
-          <div class="bug-ledger">
-            <span>Collected bugs</span>
-            <ol>
-              <li>#001</li>
-              <li>#002</li>
-              <li>#003</li>
-              <li>#004</li>
-            </ol>
+              <section class="ci-platform-card ci-run-panel">
+                <div class="ci-run-header">
+                  <strong>Kery Cloud</strong>
+                  <span>browser checks on this PR</span>
+                </div>
+                <div class="kery-run-focus">
+                  <span>Live target</span>
+                  <strong>Running checks on <code>checkout-promo.vercel.app</code></strong>
+                </div>
+                <ol>
+                  <li><i>✓</i><span>Promo code applies in cart</span></li>
+                  <li><i>✓</i><span>Discount shows as −$10.00</span></li>
+                  <li><i class="ci-alert">✕</i><span>Total updates with promo</span><b>contradicted</b></li>
+                  <li><i class="ci-skip">○</i><span>Confirmation email</span><b class="ci-skip-label">not reached</b></li>
+                </ol>
+              </section>
+
+              <section class="ci-platform-card ci-result">
+                <div class="ci-platform-head">
+                  <b>GitHub</b>
+                  <span>PR comment</span>
+                </div>
+                <div class="github-pr-ui github-timeline-ui">
+                  <div class="github-pr-main">
+                    <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
+                      <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
+                    </svg>
+                    <div>
+                      <strong>Kery posted the check results</strong>
+                      <span>PR #184 · comment</span>
+                    </div>
+                    <em>Now</em>
+                  </div>
+                  <div class="github-timeline-updates">
+                    <div>
+                      <i aria-hidden="true"></i>
+                      <strong>2 verified · 1 contradicted · 1 not reached</strong>
+                    </div>
+                    <div>
+                      <i aria-hidden="true"></i>
+                      <span>Commented with video proof of each check</span>
+                    </div>
+                  </div>
+                  <div class="github-change-row" aria-label="Attached evidence">
+                    <span class="ci-video-chip">▶ video proof</span>
+                    <span>evidence per check</span>
+                    <span>run replay</span>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <PrCheckDemo />
+
+    <section class="section how-section" id="product">
+      <div class="container section-heading center">
+        <span class="section-kicker">How Kery works</span>
+        <h2>Watch a pull request <em>get checked.</em></h2>
+      </div>
+      <div class="container how-video" id="demo" data-kery-player>
+        <div class="how-video-frame">
+          <video class="how-video-el" src="/kery-no-border-web.mp4" muted loop playsinline preload="metadata"></video>
+          <button class="how-video-overlay" type="button" data-video-play aria-label="Play video">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
+            </svg>
+          </button>
+          <div class="how-video-controls" aria-label="Video controls">
+            <button class="how-video-button" type="button" data-video-toggle aria-label="Play video">
+              <svg class="video-icon-play" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
+              </svg>
+              <svg class="video-icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 5h3v14H7zM14 5h3v14h-3z"></path>
+              </svg>
+            </button>
+            <input class="how-video-seek" type="range" min="0" max="100" value="0" step="0.1" data-video-seek aria-label="Video progress" />
+            <span class="how-video-time" data-video-time>0:00</span>
+            <button class="how-video-button" type="button" data-video-fullscreen aria-label="Fullscreen">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="container steps-grid">
+        {steps.map(([number, title, copy]) => (
+          <article>
+            <span>{number}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
       </div>
     </section>
 
@@ -337,159 +402,11 @@ const faqs = [
 
     <section class="section cloud-section" id="cloud">
       <div class="container cloud-grid">
-        <div class="cloud-ci-card" aria-label="Animated Kery Cloud CI integration flow">
-          <div class="cloud-ci-topbar">
-            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <strong>kery cloud ci</strong>
-            <span><i></i> connected</span>
-          </div>
-          <div class="cloud-ci-stage">
-            <div class="ci-rail" aria-hidden="true">
-              <span>
-                <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="6" cy="6" r="2.25"></circle>
-                  <circle cx="6" cy="18" r="2.25"></circle>
-                  <circle cx="18" cy="18" r="2.25"></circle>
-                  <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
-                  <path d="m11.25 6.75-2 2.75 2 2.75"></path>
-                </svg>
-                GitHub
-              </span>
-              <span>
-                <svg class="ci-svg ci-vercel-svg" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 4 22 20H2L12 4z"></path>
-                </svg>
-                Vercel
-              </span>
-              <span>
-                <i class="ci-kery-logo" aria-hidden="true"></i>
-                Kery
-              </span>
-              <span>
-                <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
-                  <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
-                </svg>
-                GitHub
-              </span>
-            </div>
-            <div class="ci-progress-track" aria-hidden="true"><span></span></div>
-
-            <div class="ci-flow">
-              <section class="ci-platform-card ci-github-card">
-                <div class="ci-platform-head">
-                  <b>GitHub</b>
-                  <span>Pull request</span>
-                </div>
-                <div class="github-pr-ui">
-                  <div class="github-pr-main">
-                    <svg class="ci-svg ci-pr-svg" viewBox="0 0 24 24" aria-hidden="true">
-                      <circle cx="6" cy="6" r="2.25"></circle>
-                      <circle cx="6" cy="18" r="2.25"></circle>
-                      <circle cx="18" cy="18" r="2.25"></circle>
-                      <path d="M6 8.25v7.5M18 15.75V13.5a4 4 0 0 0-4-4H9.5"></path>
-                      <path d="m11.25 6.75-2 2.75 2 2.75"></path>
-                    </svg>
-                    <div>
-                      <strong>PR #184 · Add checkout promo</strong>
-                      <span>4 commits into main</span>
-                    </div>
-                    <em>Open</em>
-                  </div>
-                  <div class="github-change-row" aria-label="Changed files">
-                    <span>checkout.tsx</span>
-                    <span>cart.tsx</span>
-                    <span>promotions.ts</span>
-                  </div>
-                  <p>Intent detected: verify the promo path through cart and checkout.</p>
-                </div>
-              </section>
-
-              <section class="ci-platform-card ci-vercel-card">
-                <div class="ci-platform-head">
-                  <b>Vercel</b>
-                  <span>Preview deployment</span>
-                </div>
-                <div class="vercel-preview-ui">
-                  <div class="vercel-status">
-                    <i class="vercel-status-icon" aria-hidden="true"></i>
-                    <div>
-                      <strong>
-                        <span class="vercel-deploying">Deploying preview</span>
-                        <span class="vercel-deployed">Deployment ready</span>
-                      </strong>
-                      <span>Preview for PR #184</span>
-                    </div>
-                  </div>
-                  <div class="vercel-url-card">
-                    <span>Preview URL</span>
-                    <code>checkout-promo.vercel.app</code>
-                  </div>
-                  <div class="vercel-deploy-meta">
-                    <span>GitHub commit 7f32c9a</span>
-                    <span>ready for browser tests</span>
-                  </div>
-                </div>
-              </section>
-
-              <section class="ci-platform-card ci-run-panel">
-                <div class="ci-run-header">
-                  <strong>Kery Cloud</strong>
-                  <span>targeted browser QA</span>
-                </div>
-                <div class="kery-run-focus">
-                  <span>Live target</span>
-                  <strong>Running tests on <code>checkout-promo.vercel.app</code></strong>
-                </div>
-                <ol>
-                  <li><i>✓</i><span>Open preview</span></li>
-                  <li><i>✓</i><span>Read PR intent</span></li>
-                  <li><i class="ci-alert">!</i><span>Test cart flow</span><b>4 issues</b></li>
-                  <li><i>✓</i><span>Test checkout promo</span></li>
-                </ol>
-              </section>
-
-              <section class="ci-platform-card ci-result">
-                <div class="ci-platform-head">
-                  <b>GitHub</b>
-                  <span>Timeline update</span>
-                </div>
-                <div class="github-pr-ui github-timeline-ui">
-                  <div class="github-pr-main">
-                    <svg class="ci-svg ci-comment-svg" viewBox="0 0 512 512" aria-hidden="true">
-                      <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-80 60v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path>
-                    </svg>
-                    <div>
-                      <strong>Kery Cloud reported QA results</strong>
-                      <span>PR #184 timeline update</span>
-                    </div>
-                    <em>Now</em>
-                  </div>
-                  <div class="github-timeline-updates">
-                    <div>
-                      <i aria-hidden="true"></i>
-                      <span>Commented with screenshots and repro steps</span>
-                    </div>
-                    <div>
-                      <i aria-hidden="true"></i>
-                      <strong>2 issues created</strong>
-                    </div>
-                  </div>
-                  <div class="github-change-row" aria-label="Generated GitHub updates">
-                    <span>cart flow</span>
-                    <span>checkout promo</span>
-                    <span>repro attached</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-        </div>
-
         <div class="section-copy">
           <span class="section-kicker">Kery Cloud</span>
-          <h2>Cloud QA for teams <em>shipping continuously.</em></h2>
+          <h2>Every pull request gets <em>a real browser pass.</em></h2>
           <p>
-            Kery Cloud connects with GitHub, Vercel, and your preview environments to run browser agents on new changes, then sends screenshots, traces, and repro steps back before merge.
+            Kery Cloud watches your pull requests, runs each change in a real browser on its preview deployment, and posts the results back to the PR before you merge.
           </p>
           <ul class="cloud-feature-list">
             {cloudFeatures.map((feature) => (
@@ -500,20 +417,16 @@ const faqs = [
             ))}
           </ul>
         </div>
-        <form class="cloud-form" id="waitlist-form" novalidate>
-          <div class="cloud-form-copy">
-            <span class="form-eyebrow">Early access</span>
-            <h3>Join the Cloud waitlist</h3>
-            <p>Get updates when hosted runs, PR checks, scheduled coverage, and team review are ready.</p>
+        <div class="cloud-connect">
+          <div class="cloud-connect-copy">
+            <span class="form-eyebrow">Self-serve</span>
+            <h3>Connect a repo, get your next PR checked</h3>
+            <p>Kery Cloud runs on your pull requests today. GitHub App, one-command connect, no API keys.</p>
           </div>
-          <div class="cloud-form-action">
-            <div>
-              <input id="waitlist-email" name="email" type="email" autocomplete="email" aria-label="Email address" placeholder="you@company.com" required />
-              <button class="button button-primary" id="waitlist-button" type="submit">Join waitlist</button>
-            </div>
-            <p id="waitlist-status" aria-live="polite"></p>
+          <div class="cloud-connect-action">
+            <a href={SITE_CLOUD_URL} class="button cloud-connect-button">Connect your repo</a>
           </div>
-        </form>
+        </div>
       </div>
     </section>
 
@@ -521,7 +434,7 @@ const faqs = [
       <div class="container two-col">
         <div class="section-copy">
           <span class="section-kicker">Why this matters</span>
-          <h2>AI made shipping cheap. <em>Quality is still expensive.</em></h2>
+          <h2>AI made shipping cheap. Checking is still expensive.</h2>
           <p>
             Claude Code, Codex, Cursor, and other agents can create more product changes than a team can manually click through. The risk is not that teams stop building. The risk is that they merge faster than they can verify real user flows.
           </p>
@@ -538,54 +451,11 @@ const faqs = [
       </div>
     </section>
 
-    <section class="section how-section" id="product">
-      <div class="container section-heading center">
-        <span class="section-kicker">How Kery works</span>
-        <h2>Give it a product flow. Get back a <em>reproducible bug report.</em></h2>
-      </div>
-      <div class="container steps-grid">
-        {steps.map(([number, title, copy]) => (
-          <article>
-            <span>{number}</span>
-            <h3>{title}</h3>
-            <p>{copy}</p>
-          </article>
-        ))}
-      </div>
-      <div class="container how-video" id="demo" data-kery-player>
-        <div class="how-video-frame">
-          <video class="how-video-el" src="/kery-no-border-web.mp4" muted loop playsinline preload="metadata"></video>
-          <button class="how-video-overlay" type="button" data-video-play aria-label="Play video">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
-            </svg>
-          </button>
-          <div class="how-video-controls" aria-label="Video controls">
-            <button class="how-video-button" type="button" data-video-toggle aria-label="Play video">
-              <svg class="video-icon-play" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
-              </svg>
-              <svg class="video-icon-pause" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 5h3v14H7zM14 5h3v14h-3z"></path>
-              </svg>
-            </button>
-            <input class="how-video-seek" type="range" min="0" max="100" value="0" step="0.1" data-video-seek aria-label="Video progress" />
-            <span class="how-video-time" data-video-time>0:00</span>
-            <button class="how-video-button" type="button" data-video-fullscreen aria-label="Fullscreen">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section faq-section">
       <div class="container faq-grid">
         <div class="section-copy">
           <span class="section-kicker">FAQ</span>
-          <h2>What teams <em>usually ask first.</em></h2>
+          <h2>What teams usually ask first.</h2>
         </div>
         <div class="faq-list">
           {faqs.map(([question, answer]) => (
@@ -620,10 +490,10 @@ const faqs = [
       <div class="container final-cta-inner">
         <div>
           <span class="section-kicker">Get started</span>
-          <h2>Put an AI tester <em>inside your release loop.</em></h2>
+          <h2>Put proof in <em>every pull request.</em></h2>
         </div>
         <div class="final-actions">
-          <a href="#install" class="button button-primary">Install locally</a>
+          <a href={SITE_CLOUD_URL} class="button button-primary">Connect your repo</a>
           <a href={SITE_GITHUB_URL} class="button button-secondary" target="_blank" rel="noopener noreferrer">Star on GitHub</a>
         </div>
       </div>
@@ -693,10 +563,76 @@ const faqs = [
   .hero-copy p,
   .section-copy p,
   .section-heading p,
-  .cloud-form p {
+  .cloud-connect p {
     color: var(--color-text-secondary);
     font-size: clamp(1.02rem, 1.25vw, 1.16rem);
     line-height: 1.72;
+  }
+
+  .hero-rotator {
+    margin-top: 0.4rem;
+    color: var(--color-text-secondary);
+    font-size: clamp(1.18rem, 1.6vw, 1.42rem);
+    font-weight: 650;
+    line-height: 1.55;
+  }
+
+  .hero-rotator strong {
+    color: var(--color-ink);
+    font-weight: 800;
+  }
+
+  .rotator-slot {
+    position: relative;
+    display: inline-grid;
+    overflow: hidden;
+    margin-right: 0.1em;
+    padding: 0.08em 0.5em;
+    border: 1.5px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface);
+    vertical-align: bottom;
+  }
+
+  .rotator-item {
+    grid-area: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    justify-self: center;
+    color: var(--color-ink);
+    font-weight: 800;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(0.6em);
+    animation: rotator-cycle 7.2s ease infinite both;
+  }
+
+  .rotator-item img {
+    width: 1.25em;
+    height: 1.25em;
+    object-fit: contain;
+    flex: 0 0 auto;
+  }
+
+  .rotator-item:nth-child(1) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .rotator-item:nth-child(2) { animation-delay: 1.8s; }
+  .rotator-item:nth-child(3) { animation-delay: 3.6s; }
+  .rotator-item:nth-child(4) { animation-delay: 5.4s; }
+
+  @keyframes rotator-cycle {
+    0% { opacity: 0; transform: translateY(0.6em); }
+    4%, 21% { opacity: 1; transform: translateY(0); }
+    25%, 100% { opacity: 0; transform: translateY(-0.6em); }
+  }
+
+  .hero-secondary {
+    margin-top: 0.85rem;
+    max-width: 33rem;
   }
 
   .hero-actions,
@@ -756,30 +692,6 @@ const faqs = [
     color: var(--color-ink);
   }
 
-  .agent-animation {
-    --loop: 29s;
-    overflow: hidden;
-    border: 1px solid rgba(38, 33, 21, 0.2);
-    border-radius: 16px;
-    background: #171714;
-    box-shadow:
-      0 26px 70px rgba(38, 33, 21, 0.16),
-      0 0 0 8px rgba(255, 253, 246, 0.62);
-    image-rendering: pixelated;
-  }
-
-  .pixel-topbar {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.82rem 0.95rem;
-    border-bottom: 1px solid rgba(255, 248, 232, 0.1);
-    color: rgba(255, 248, 232, 0.62);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-  }
-
   .window-dots {
     display: flex;
     gap: 0.35rem;
@@ -800,1077 +712,19 @@ const faqs = [
     background: #63c174;
   }
 
-  .run-state {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin-left: auto;
-    color: #8bdba0;
-  }
-
-  .run-state i {
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 999px;
-    background: currentColor;
-    animation: pixel-blink 1s steps(2, end) infinite;
-  }
-
-  .pixel-stage {
-    position: relative;
-    min-height: 31.5rem;
-    overflow: hidden;
-    padding: 1rem;
-    background:
-      linear-gradient(90deg, rgba(255, 248, 232, 0.04) 1px, transparent 1px),
-      linear-gradient(rgba(255, 248, 232, 0.04) 1px, transparent 1px),
-      radial-gradient(circle at 82% 10%, rgba(255, 207, 73, 0.13), transparent 16rem),
-      #222018;
-    background-size: 18px 18px, 18px 18px, auto, auto;
-  }
-
-  .hero-prompt-screen {
-    position: absolute;
-    inset: 0;
-    z-index: 30;
-    display: grid;
-    place-items: center;
-    padding: clamp(1rem, 4vw, 2rem);
-    background:
-      linear-gradient(90deg, rgba(255, 248, 232, 0.04) 1px, transparent 1px),
-      linear-gradient(rgba(255, 248, 232, 0.04) 1px, transparent 1px),
-      radial-gradient(circle at 76% 16%, rgba(255, 207, 73, 0.18), transparent 15rem),
-      #222018;
-    background-size: 18px 18px, 18px 18px, auto, auto;
-    transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease;
-  }
-
-  .agent-animation:is(.is-preparing, .is-running) .hero-prompt-screen {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: scale(0.985);
-  }
-
-  .hero-prompt-box {
-    width: min(100%, 35rem);
-  }
-
-  .hero-prompt-window {
-    overflow: hidden;
-    border: 3px solid #171714;
-    border-radius: 10px;
-    background: #fff8e8;
-    box-shadow:
-      0 8px 0 rgba(0, 0, 0, 0.28),
-      0 0 0 6px rgba(255, 248, 232, 0.08);
-  }
-
-  .hero-prompt-topbar {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    min-height: 2.8rem;
-    padding: 0.65rem 0.78rem;
-    border-bottom: 3px solid #171714;
-    background: #171714;
-    color: rgba(255, 248, 232, 0.7);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .hero-prompt-topbar > strong {
-    color: #fff8e8;
-    font-size: 0.72rem;
-  }
-
-  .hero-prompt-topbar > span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin-left: auto;
-    color: #8bdba0;
-  }
-
-  .hero-prompt-topbar i {
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 999px;
-    background: currentColor;
-  }
-
-  .hero-prompt-body {
-    padding: clamp(1rem, 3vw, 1.35rem);
-    background:
-      linear-gradient(90deg, rgba(23, 23, 20, 0.04) 1px, transparent 1px),
-      linear-gradient(rgba(23, 23, 20, 0.04) 1px, transparent 1px),
-      #fff8e8;
-    background-size: 14px 14px;
-  }
-
-  .hero-prompt-label {
-    display: inline-flex;
-    width: fit-content;
-    margin-bottom: 0.7rem;
-    padding: 0.2rem 0.45rem;
-    border: 2px solid #171714;
-    background: #ffcf49;
-    color: #171714;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .hero-command-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.6rem;
-    align-items: stretch;
-  }
-
-  .hero-command-input {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    width: 100%;
-    min-height: clamp(3rem, 6vw, 3.5rem);
-    overflow: hidden;
-    padding: 0 0.78rem;
-    border: 2px solid #171714;
-    border-radius: 4px;
-    background: #fffdf6;
-    box-shadow: 0 4px 0 #171714;
-    color: #171714;
-    font-family: var(--font-mono);
-    font-size: clamp(0.7rem, 1.45vw, 0.9rem);
-    font-weight: 900;
-  }
-
-  .hero-command-prefix {
-    color: var(--color-accent-muted);
-    font-size: 1rem;
-    line-height: 1;
-    flex: 0 0 auto;
-  }
-
-  .hero-prompt-text {
-    display: inline-block;
-    width: 0;
-    max-width: 100%;
-    overflow: hidden;
-    border-right: 2px solid #171714;
-    line-height: 1.35;
-    white-space: nowrap;
-  }
-
-  .agent-animation.is-idle .hero-prompt-text {
-    animation:
-      prompt-type 2.35s steps(31, end) 0.2s both,
-      prompt-caret 0.85s steps(1, end) infinite;
-  }
-
-  .agent-animation:is(.is-entering, .is-preparing) .hero-prompt-text {
-    width: 31ch;
-    border-right-color: transparent;
-    animation: none;
-  }
-
-  .hero-enter-key {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: clamp(5.2rem, 11vw, 6.3rem);
-    min-height: clamp(3rem, 6vw, 3.5rem);
-    padding: 0 0.9rem;
-    border: 2px solid #171714;
-    border-radius: 4px;
-    background: #ffcf49;
-    box-shadow: 0 4px 0 #171714;
-    color: #171714;
-    font-family: var(--font-mono);
-    font-size: clamp(0.74rem, 1.45vw, 0.88rem);
-    font-weight: 950;
-    text-transform: uppercase;
-  }
-
-  .agent-animation.is-entering .hero-enter-key {
-    animation: prompt-key-press 0.44s steps(1, end) both;
-  }
-
-  .agent-animation.is-preparing .hero-enter-key {
-    background: #e6b945;
-    transform: translateY(1px);
-    box-shadow: 0 3px 0 #171714;
-  }
-
-  .browser-boot-screen {
-    position: absolute;
-    inset: 0;
-    z-index: 28;
-    display: grid;
-    place-items: center;
-    padding: 1rem;
-    background:
-      linear-gradient(90deg, rgba(23, 23, 20, 0.04) 1px, transparent 1px),
-      linear-gradient(rgba(23, 23, 20, 0.04) 1px, transparent 1px),
-      #fff8e8;
-    background-size: 14px 14px;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  .agent-animation.is-preparing .browser-boot-screen {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .hero-boot-log {
-    display: grid;
-    gap: 0.36rem;
-    width: min(100%, 22rem);
-    min-height: 3.55rem;
-    padding: 0.72rem 0.78rem;
-    border: 2px solid #171714;
-    border-radius: 4px;
-    background: #171714;
-    color: rgba(255, 248, 232, 0.72);
-    font-family: var(--font-mono);
-    font-size: clamp(0.68rem, 1.35vw, 0.8rem);
-    font-weight: 900;
-  }
-
-  .boot-line {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    opacity: 0;
-    transform: translateY(0.25rem);
-  }
-
-  .boot-line i {
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 999px;
-    background: #ffcf49;
-    flex: 0 0 auto;
-  }
-
-  .agent-animation.is-preparing .boot-line-browser {
-    animation: boot-line-reveal 0.35s steps(1, end) 0.08s both;
-  }
-
-  .agent-animation.is-preparing .boot-line-app {
-    animation: boot-line-reveal 0.35s steps(1, end) 1.35s both;
-  }
-
-  .checkout-screen {
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    border: 3px solid #171714;
-    border-radius: 10px;
-    background: #fff8e8;
-    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.26);
-  }
-
-  .browser-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.6rem 0.75rem;
-    border-bottom: 3px solid #171714;
-    background: #f1ead9;
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 800;
-  }
-
-  .browser-url,
-  .browser-run-state {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .browser-run-state {
-    flex: 0 0 auto;
-    margin-left: 0;
-    color: #4f9d64;
-  }
-
-  .browser-url {
-    position: relative;
-    display: block;
-    flex: 1 1 auto;
-    min-width: 0;
-    min-height: 0.9rem;
-  }
-
-  .browser-url-home,
-  .browser-url-cart {
-    animation-duration: var(--loop);
-    animation-iteration-count: infinite;
-    animation-timing-function: steps(1, end);
-  }
-
-  .browser-url-home {
-    animation-name: browser-url-home;
-  }
-
-  .browser-url-cart {
-    position: absolute;
-    inset: 0 auto auto 0;
-    opacity: 0;
-    animation-name: browser-url-cart;
-  }
-
-  .browser-viewport {
-    position: relative;
-  }
-
-  .storefront-page {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    display: grid;
-    place-items: center;
-    padding: 0.9rem;
-    background: #fff8e8;
-    opacity: 1;
-    animation: storefront-page var(--loop) linear infinite;
-  }
-
-  .storefront-copy {
-    display: grid;
-    justify-items: center;
-    gap: 0.82rem;
-    width: min(100%, 25rem);
-    transform: translateY(-0.75rem);
-    text-align: center;
-  }
-
-  .storefront-copy h2 {
-    color: #171714;
-    font-size: clamp(1.95rem, 4vw, 2.7rem);
-    font-weight: 850;
-    letter-spacing: 0;
-    line-height: 1;
-  }
-
-  .storefront-actions {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.55rem;
-    width: min(100%, 19rem);
-    margin-top: 0.1rem;
-  }
-
-  .storefront-actions .browse-button,
-  .storefront-actions .view-cart-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 2.38rem;
-    padding: 0 0.62rem;
-    border: 2px solid #171714;
-    border-radius: 3px;
-    background: #fffdf6;
-    box-shadow: 0 3px 0 #171714;
-    color: #171714;
-    font-size: 0.62rem;
-    font-weight: 950;
-    text-transform: uppercase;
-  }
-
-  .storefront-actions .view-cart-button {
-    background: #ffcf49;
-    animation: view-cart-press var(--loop) steps(1, end) infinite;
-  }
-
-  .checkout-page {
-    display: grid;
-    grid-template-columns: minmax(0, 1.28fr) minmax(12rem, 0.72fr);
-    gap: 0.8rem;
-    padding: 0.9rem;
-  }
-
-  .cart-panel,
-  .summary-panel,
   .pain-grid article,
   .steps-grid article,
   .cloud-feature-grid article,
   .install-card,
-  .cloud-form {
+  .cloud-connect {
     border: 1px solid var(--color-border);
     border-radius: 10px;
     background: var(--color-surface);
   }
 
-  .cart-panel,
-  .summary-panel {
-    position: relative;
-    padding: 0.75rem;
-    border-width: 2px;
-    border-radius: 6px;
-    background: #fffdf6;
-  }
-
-  .pixel-label {
-    width: fit-content;
-    margin-bottom: 0.65rem;
-    padding: 0.2rem 0.45rem;
-    border: 2px solid #171714;
-    background: #ffcf49;
-    color: #171714;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .cart-row {
-    position: relative;
-    display: grid;
-    grid-template-columns: 2.3rem minmax(0, 1fr) auto;
-    gap: 0.65rem;
-    align-items: center;
-    min-height: 4.15rem;
-    margin-top: 0.55rem;
-    padding: 0.58rem;
-    border: 2px solid #171714;
-    border-radius: 4px;
-    background: #fbf7ea;
-    box-shadow: 0 3px 0 rgba(23, 23, 20, 0.18);
-  }
-
-  .cart-row strong,
-  .cart-row small,
-  .summary-panel span,
-  .summary-panel strong {
-    display: block;
-  }
-
-  .cart-row strong {
-    color: var(--color-ink);
-    font-size: 0.82rem;
-    line-height: 1.2;
-  }
-
-  .cart-row small {
-    margin-top: 0.15rem;
-    color: var(--color-text-muted);
-    font-size: 0.72rem;
-  }
-
-  .cart-action,
-  .checkout-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    min-height: 2rem;
-    padding: 0 0.55rem;
-    border: 2px solid #171714;
-    border-radius: 3px;
-    background: #fffdf6;
-    box-shadow: 0 3px 0 #171714;
-    color: var(--color-ink);
-    font-size: 0.72rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .item-sprite {
-    width: 2rem;
-    height: 2rem;
-    border: 2px solid #171714;
-    border-radius: 3px;
-    box-shadow: inset -4px -4px 0 rgba(0, 0, 0, 0.14);
-  }
-
-  .mango-sprite {
-    background:
-      linear-gradient(135deg, #ffcf49 0 45%, #f39b1b 45% 76%, #c95f1a 76%),
-      #ffcf49;
-  }
-
-  .leaf-sprite {
-    background:
-      linear-gradient(135deg, #7caf55 0 42%, #437648 42% 72%, #244c2b 72%),
-      #7caf55;
-  }
-
-  .box-sprite {
-    background:
-      linear-gradient(135deg, #d7ad69 0 45%, #9c6413 45% 75%, #5f3b13 75%),
-      #d7ad69;
-  }
-
-  .summary-panel {
-    display: grid;
-    align-content: start;
-    gap: 0.62rem;
-  }
-
-  .summary-panel div:not(.pixel-label) {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.45rem 0;
-    border-bottom: 2px dashed #ded4be;
-  }
-
-  .summary-panel div.total {
-    border-bottom: 0;
-  }
-
-  .summary-panel span {
-    color: var(--color-text-muted);
-    font-size: 0.72rem;
-    font-weight: 800;
-  }
-
-  .summary-panel strong {
-    color: var(--color-ink);
-    font-size: 0.82rem;
-  }
-
-  .checkout-button {
-    width: 100%;
-    min-height: 2.5rem;
-    margin-top: 0.4rem;
-    background: #ffcf49;
-  }
-
-  .remove-one {
-    animation: button-fail-one var(--loop) steps(1, end) infinite;
-  }
-
-  .remove-two {
-    animation: button-fail-two var(--loop) steps(1, end) infinite;
-  }
-
-  .remove-three {
-    animation: button-fail-three var(--loop) steps(1, end) infinite;
-  }
-
-  .checkout-button {
-    animation: button-fail-four var(--loop) steps(1, end) infinite;
-  }
-
-  .kery-cursor {
-    position: absolute;
-    z-index: 8;
-    left: 21%;
-    top: 74%;
-    width: 1.55rem;
-    height: 1.55rem;
-    transform-origin: 0 0;
-    animation: kery-cursor-run var(--loop) linear infinite;
-  }
-
-  .kery-cursor::before,
-  .kery-cursor::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 1.55rem;
-    height: 1.55rem;
-    clip-path: polygon(0 0, 0 100%, 35% 74%, 53% 100%, 76% 88%, 58% 62%, 100% 62%);
-    transform: scaleX(0.95);
-    transform-origin: left top;
-  }
-
-  .kery-cursor::before {
-    background: #171714;
-    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.28));
-  }
-
-  .kery-cursor::after {
-    left: 0.16rem;
-    top: 0.16rem;
-    width: 1.13rem;
-    height: 1.13rem;
-    background: #fff8e8;
-  }
-
-  .kery-cursor span {
-    position: absolute;
-    z-index: 2;
-    left: 0.95rem;
-    top: 1.05rem;
-    padding: 0.18rem 0.42rem;
-    border: 2px solid #171714;
-    border-radius: 3px;
-    background: #ffcf49;
-    color: #171714;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .click-burst {
-    position: absolute;
-    z-index: 7;
-    width: 2.1rem;
-    height: 2.1rem;
-    border: 3px solid #ffcf49;
-    border-radius: 999px;
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(0.2);
-    animation: click-burst var(--loop) linear infinite;
-  }
-
-  .burst-one,
-  .burst-two,
-  .burst-three {
-    right: 1.4rem;
-    top: 50%;
-    margin-top: -1.05rem;
-  }
-
-  .burst-cart {
-    right: 1rem;
-    top: 50%;
-    margin-top: -1.05rem;
-    animation-name: click-burst-cart;
-  }
-
-  .burst-one {
-    animation-name: click-burst-one;
-  }
-
-  .burst-two {
-    animation-name: click-burst-two;
-  }
-
-  .burst-three {
-    animation-name: click-burst-three;
-  }
-
-  .burst-four {
-    right: 50%;
-    bottom: 0.95rem;
-    margin-right: -1.05rem;
-    animation-name: click-burst-four;
-  }
-
-  .bug-popup {
-    position: absolute;
-    z-index: 9;
-    display: grid;
-    gap: 0.18rem;
-    min-width: 9.2rem;
-    padding: 0.48rem 0.62rem;
-    border: 3px solid #171714;
-    border-radius: 4px;
-    background: #d34b3a;
-    box-shadow: 0 5px 0 #171714;
-    color: #fff8e8;
-    opacity: 0;
-    text-align: center;
-    transform: translateY(0) scale(0.84);
-    animation: bug-pop var(--loop) linear infinite;
-  }
-
-  .bug-popup strong {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .popup-one {
-    left: 42%;
-    top: 21%;
-    animation-name: bug-pop-one;
-  }
-
-  .popup-two {
-    left: 42%;
-    top: 36%;
-    animation-name: bug-pop-two;
-  }
-
-  .popup-three {
-    left: 42%;
-    top: 51%;
-    animation-name: bug-pop-three;
-  }
-
-  .popup-four {
-    right: 4%;
-    top: 43%;
-    min-width: 10.2rem;
-    animation-name: bug-pop-four;
-  }
-
-  .bug-summary-banner {
-    position: absolute;
-    z-index: 10;
-    left: 1rem;
-    right: 1rem;
-    bottom: 0.95rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.72rem 0.9rem;
-    border: 3px solid #171714;
-    border-radius: 4px;
-    background: #ffcf49;
-    box-shadow: 0 5px 0 #171714;
-    color: #171714;
-    opacity: 0;
-    transform: translateY(0.7rem);
-    animation: summary-banner var(--loop) linear infinite;
-  }
-
-  .bug-summary-banner strong {
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .bug-summary-banner span {
-    color: rgba(23, 23, 20, 0.72);
-    font-size: 0.78rem;
-    font-weight: 900;
-  }
-
-  .bug-ledger {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.85rem;
-    padding: 0.85rem 1rem;
-    border-top: 1px solid rgba(255, 248, 232, 0.1);
-    background: #171714;
-    color: rgba(255, 248, 232, 0.68);
-  }
-
-  .bug-ledger > span {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .bug-ledger ol {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.4rem;
-  }
-
-  .bug-ledger li {
-    padding: 0.26rem 0.46rem;
-    border: 2px solid #ffcf49;
-    border-radius: 3px;
-    background: rgba(255, 207, 73, 0.12);
-    color: #ffcf49;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 900;
-    opacity: 0;
-    transform: translateY(0.45rem);
-    animation: ledger-collect var(--loop) steps(1, end) infinite;
-  }
-
-  .bug-ledger li:nth-child(1) { animation-name: ledger-one; }
-  .bug-ledger li:nth-child(2) { animation-name: ledger-two; }
-  .bug-ledger li:nth-child(3) { animation-name: ledger-three; }
-  .bug-ledger li:nth-child(4) { animation-name: ledger-four; }
-
   @keyframes pixel-blink {
     0%, 49% { opacity: 1; }
     50%, 100% { opacity: 0.25; }
-  }
-
-  @keyframes browser-url-home {
-    0%, 18.793% { opacity: 1; }
-    18.966%, 100% { opacity: 0; }
-  }
-
-  @keyframes browser-url-cart {
-    0%, 18.793% { opacity: 0; }
-    18.966%, 100% { opacity: 1; }
-  }
-
-  @keyframes storefront-page {
-    0%, 17.931% { opacity: 1; visibility: visible; transform: translateX(0); }
-    18.966%, 100% { opacity: 0; visibility: hidden; transform: translateX(-0.45rem); }
-  }
-
-  @keyframes view-cart-press {
-    0%, 6.966%, 8.207%, 100% {
-      background: #ffcf49;
-      transform: translate(0, 0);
-      box-shadow: 0 3px 0 #171714;
-    }
-    7.172%, 7.69% {
-      background: #e6b945;
-      transform: translate(1px, 2px);
-      box-shadow: 0 1px 0 #171714;
-    }
-  }
-
-  @keyframes kery-cursor-run {
-    0%, 1% { left: 22%; top: 75%; transform: scale(1); }
-    3%, 16.552% { left: 58.5%; top: 48.5%; transform: scale(1); }
-    18.966%, 22.586% { left: 20%; top: 75%; transform: scale(1); }
-    23.965%, 37.759% { left: 51.8%; top: 32.5%; transform: scale(1); }
-    38.276%, 51.207% { left: 51.8%; top: 47.5%; transform: scale(1); }
-    51.724%, 64.483% { left: 51.8%; top: 62.5%; transform: scale(1); }
-    65%, 97.759% { left: 78.5%; top: 63%; transform: scale(1); }
-    7%, 25.965%, 29.414%, 32.862%, 39.414%, 42.862%, 46.31%, 52.862%, 56.31%, 59.759%, 66.311%, 69.758%, 73.207%, 76.655% { transform: scale(0.9); }
-    7.517%, 26.483%, 29.931%, 33.379%, 39.931%, 43.38%, 46.827%, 53.379%, 56.827%, 60.276%, 66.828%, 70.276%, 73.724%, 77.172% { transform: scale(1); }
-    100% { left: 22%; top: 75%; transform: scale(1); }
-  }
-
-  @keyframes click-burst-cart {
-    0%, 6.966%, 8.379%, 100% { opacity: 0; transform: scale(0.28); }
-    7.172%, 8.207% { opacity: 1; transform: scale(1.05); }
-  }
-
-  @keyframes click-burst-one {
-    0%, 25.827%, 26.862%, 29.276%, 30.31%, 32.724%, 33.758%, 100% { opacity: 0; transform: scale(0.28); }
-    25.862%, 26.828%, 29.31%, 30.276%, 32.758%, 33.724% { opacity: 1; transform: scale(1.05); }
-  }
-
-  @keyframes click-burst-two {
-    0%, 39.276%, 40.31%, 42.725%, 43.759%, 46.172%, 47.207%, 100% { opacity: 0; transform: scale(0.28); }
-    39.31%, 40.276%, 42.759%, 43.724%, 46.207%, 47.172% { opacity: 1; transform: scale(1.05); }
-  }
-
-  @keyframes click-burst-three {
-    0%, 52.724%, 53.759%, 56.172%, 57.207%, 59.621%, 60.655%, 100% { opacity: 0; transform: scale(0.28); }
-    52.759%, 53.724%, 56.207%, 57.172%, 59.655%, 60.621% { opacity: 1; transform: scale(1.05); }
-  }
-
-  @keyframes click-burst-four {
-    0%, 66.173%, 67.207%, 69.621%, 70.655%, 73.069%, 74.104%, 76.517%, 77.552%, 100% { opacity: 0; transform: scale(0.28); }
-    66.207%, 67.173%, 69.655%, 70.62%, 73.104%, 74.069%, 76.552%, 77.517% { opacity: 1; transform: scale(1.05); }
-  }
-
-  @keyframes bug-pop-one {
-    0%, 33.724%, 37.414%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
-    34.31%, 36.207% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
-    36.621%, 37.241% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
-  }
-
-  @keyframes bug-pop-two {
-    0%, 47.172%, 50.862%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
-    47.758%, 49.655% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
-    50.069%, 50.69% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
-  }
-
-  @keyframes bug-pop-three {
-    0%, 60.621%, 64.31%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
-    61.207%, 63.103% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
-    63.517%, 64.138% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
-  }
-
-  @keyframes bug-pop-four {
-    0%, 77.758%, 80.862%, 100% { opacity: 0; transform: translateY(0) scale(0.84); }
-    78.345%, 80.069% { opacity: 1; transform: translateY(-0.45rem) scale(1); }
-    80.483%, 80.69% { opacity: 1; transform: translateY(-1.35rem) scale(0.94); }
-  }
-
-  @keyframes ledger-one {
-    0%, 34.655% { opacity: 0; transform: translateY(0.45rem); }
-    35.242%, 100% { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes ledger-two {
-    0%, 48.103% { opacity: 0; transform: translateY(0.45rem); }
-    48.689%, 100% { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes ledger-three {
-    0%, 61.552% { opacity: 0; transform: translateY(0.45rem); }
-    62.138%, 100% { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes ledger-four {
-    0%, 78.62% { opacity: 0; transform: translateY(0.45rem); }
-    79.241%, 100% { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes summary-banner {
-    0%, 80.621% { opacity: 0; transform: translateY(0.7rem); }
-    81.035%, 100% { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes button-fail-one {
-    0%, 25.827%, 27.138%, 29.276%, 30.586%, 32.724%, 34.034%, 100% {
-      background: #fffdf6;
-      color: var(--color-ink);
-      transform: translateX(0);
-      box-shadow: 0 3px 0 #171714;
-    }
-    25.862%, 26.276%, 26.69%, 29.31%, 29.724%, 30.138%, 32.758%, 33.172%, 33.586% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(-1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-    26.069%, 26.483%, 26.897%, 29.517%, 29.931%, 30.345%, 32.965%, 33.379%, 33.793% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-  }
-
-  @keyframes button-fail-two {
-    0%, 39.276%, 40.586%, 42.725%, 44.035%, 46.172%, 47.483%, 100% {
-      background: #fffdf6;
-      color: var(--color-ink);
-      transform: translateX(0);
-      box-shadow: 0 3px 0 #171714;
-    }
-    39.31%, 39.724%, 40.138%, 42.759%, 43.173%, 43.586%, 46.207%, 46.621%, 47.034% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(-1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-    39.517%, 39.931%, 40.345%, 42.966%, 43.38%, 43.793%, 46.414%, 46.827%, 47.241% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-  }
-
-  @keyframes button-fail-three {
-    0%, 52.724%, 54.034%, 56.172%, 57.483%, 59.621%, 60.931%, 100% {
-      background: #fffdf6;
-      color: var(--color-ink);
-      transform: translateX(0);
-      box-shadow: 0 3px 0 #171714;
-    }
-    52.759%, 53.172%, 53.586%, 56.207%, 56.62%, 57.034%, 59.655%, 60.069%, 60.483% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(-1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-    52.966%, 53.379%, 53.793%, 56.413%, 56.827%, 57.241%, 59.862%, 60.276%, 60.69% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-  }
-
-  @keyframes button-fail-four {
-    0%, 66.173%, 67.483%, 69.621%, 70.931%, 73.069%, 74.38%, 76.517%, 77.827%, 100% {
-      background: #ffcf49;
-      color: var(--color-ink);
-      transform: translateX(0);
-      box-shadow: 0 3px 0 #171714;
-    }
-    66.207%, 66.621%, 67.035%, 69.655%, 70.069%, 70.483%, 73.104%, 73.518%, 73.931%, 76.552%, 76.965%, 77.379% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(-1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-    66.414%, 66.828%, 67.242%, 69.862%, 70.276%, 70.689%, 73.311%, 73.724%, 74.138%, 76.759%, 77.172%, 77.586% {
-      background: #d98b82;
-      color: #5d201b;
-      transform: translateX(1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-  }
-
-  @keyframes prompt-type {
-    from { width: 0; }
-    to { width: 31ch; }
-  }
-
-  @keyframes prompt-caret {
-    0%, 49% { border-right-color: #171714; }
-    50%, 100% { border-right-color: transparent; }
-  }
-
-  @keyframes prompt-key-press {
-    0%, 100% {
-      background: #ffcf49;
-      transform: translateY(0);
-      box-shadow: 0 4px 0 #171714;
-    }
-    45%, 85% {
-      background: #e6b945;
-      transform: translateY(1px);
-      box-shadow: 0 3px 0 #171714;
-    }
-  }
-
-  @keyframes boot-line-reveal {
-    from {
-      opacity: 0;
-      transform: translateY(0.25rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .agent-animation:not(.is-running) :is(
-    .browser-url-home,
-    .browser-url-cart,
-    .storefront-page,
-    .view-cart-button,
-    .remove-one,
-    .remove-two,
-    .remove-three,
-    .checkout-button,
-    .kery-cursor,
-    .click-burst,
-    .bug-popup,
-    .bug-summary-banner,
-    .bug-ledger li
-  ) {
-    animation: none;
-  }
-
-  .agent-animation:not(.is-running) .run-state i {
-    animation: none;
-    opacity: 1;
-  }
-
-  .agent-animation.is-running :is(
-    .browser-url-home,
-    .browser-url-cart,
-    .storefront-page,
-    .view-cart-button,
-    .remove-one,
-    .remove-two,
-    .remove-three,
-    .checkout-button,
-    .kery-cursor,
-    .click-burst,
-    .bug-popup,
-    .bug-summary-banner,
-    .bug-ledger li
-  ) {
-    animation-fill-mode: both;
-    animation-iteration-count: 1;
   }
 
   .agent-strip {
@@ -1982,7 +836,7 @@ const faqs = [
   }
 
   .problem-section .two-col {
-    align-items: stretch;
+    align-items: center;
   }
 
   .pain-grid {
@@ -2681,9 +1535,6 @@ const faqs = [
   }
 
   .cloud-section {
-    --cloud-accent: #437648;
-    --cloud-accent-bright: #8bdba0;
-    --cloud-warning: #a86413;
     background:
       radial-gradient(circle at 88% 16%, rgba(255, 207, 73, 0.12), transparent 22rem),
       radial-gradient(circle at 12% 80%, rgba(139, 219, 160, 0.08), transparent 24rem),
@@ -2709,24 +1560,19 @@ const faqs = [
     align-items: center;
   }
 
-  .cloud-grid > .section-copy {
-    order: -1;
-  }
-
-  .cloud-grid > .cloud-form {
-    grid-column: 1 / -1;
-  }
-
   .cloud-ci-card {
     --ci-loop: 15s;
+    --cloud-accent: #437648;
+    --cloud-accent-bright: #8bdba0;
+    --cloud-warning: #a86413;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 248, 232, 0.12);
+    border: 1px solid rgba(38, 33, 21, 0.2);
     border-radius: 14px;
     background: #fffdf6;
     color: #171714;
     box-shadow:
-      0 20px 50px rgba(0, 0, 0, 0.18),
+      0 26px 70px rgba(38, 33, 21, 0.16),
       inset 0 1px 0 rgba(255, 255, 255, 0.52);
   }
 
@@ -3184,6 +2030,10 @@ const faqs = [
     animation-name: ci-flow-alert;
   }
 
+  .ci-run-panel li i.ci-skip {
+    animation-name: ci-flow-skip;
+  }
+
   .ci-run-panel li b {
     margin-left: auto;
     color: var(--cloud-warning);
@@ -3197,6 +2047,18 @@ const faqs = [
   .ci-run-panel li:nth-child(3) i { animation-delay: 0.9s; }
   .ci-run-panel li:nth-child(3) b { animation-delay: 0.9s; }
   .ci-run-panel li:nth-child(4) i { animation-delay: 1.35s; }
+  .ci-run-panel li:nth-child(4) b { animation-delay: 1.35s; }
+
+  .ci-run-panel li b.ci-skip-label {
+    color: var(--color-text-muted);
+  }
+
+  .ci-video-chip {
+    border-color: color-mix(in srgb, var(--cloud-accent) 45%, #ded4be) !important;
+    background: rgba(67, 118, 72, 0.1) !important;
+    color: var(--cloud-accent) !important;
+    font-weight: 900 !important;
+  }
 
   .github-timeline-ui {
     display: grid;
@@ -3262,26 +2124,24 @@ const faqs = [
     box-shadow: 3px 3px 0 rgba(67, 118, 72, 0.16);
   }
 
-  .cloud-form {
+  .cloud-connect {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 0.78fr) minmax(22rem, 1fr);
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.25rem;
     align-items: center;
     overflow: hidden;
-    margin-top: 0.25rem;
-    padding: 1rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
     width: 100%;
     border: 1px solid rgba(255, 248, 232, 0.13);
     border-radius: 14px;
-    border-color: rgba(255, 248, 232, 0.13);
     background: #12120f;
     box-shadow:
       0 20px 50px rgba(0, 0, 0, 0.16),
       inset 0 1px 0 rgba(255, 248, 232, 0.08);
   }
 
-  .cloud-form::before {
+  .cloud-connect::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -3291,40 +2151,33 @@ const faqs = [
       linear-gradient(180deg, rgba(255, 248, 232, 0.045), transparent 56%);
   }
 
-  .cloud-form > * {
+  .cloud-connect > * {
     position: relative;
     z-index: 1;
   }
 
-  .cloud-form h3 {
+  .cloud-connect h3 {
     color: #fff8e8;
     font-size: clamp(1.45rem, 2.4vw, 2.15rem);
     line-height: 1.1;
   }
 
-  .cloud-form p {
+  .cloud-connect p {
     color: rgba(255, 248, 232, 0.68);
     font-size: 0.9rem;
     line-height: 1.55;
   }
 
-  .cloud-form-copy {
+  .cloud-connect-copy {
     display: grid;
     gap: 0.5rem;
   }
 
-  .cloud-form-action {
+  .cloud-connect-action {
     display: grid;
-    gap: 0.55rem;
   }
 
-  .cloud-form-action > div {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.6rem;
-  }
-
-  .cloud-form .button {
+  .cloud-connect .button {
     width: auto;
     min-height: 2.95rem;
     border: 2px solid #ffcf49;
@@ -3335,29 +2188,9 @@ const faqs = [
     white-space: nowrap;
   }
 
-  .cloud-form input {
-    width: 100%;
-    min-height: 2.95rem;
-    border: 2px solid #171714;
-    border-radius: 4px;
-    background: #fffdf6;
-    box-shadow: 0 3px 0 #171714;
-    color: var(--color-ink);
-    padding: 0 0.8rem;
-    font: inherit;
-  }
-
-  .cloud-form p#waitlist-status {
-    min-height: 1.1rem;
-    font-size: 0.8rem;
-  }
-
-  .cloud-form p#waitlist-status.success {
-    color: #8bdba0;
-  }
-
-  .cloud-form p#waitlist-status.error {
-    color: #ff9388;
+  .cloud-connect .button:hover {
+    background: #ffd970;
+    border-color: #ffd970;
   }
 
   @keyframes ci-rail-github {
@@ -3482,6 +2315,21 @@ const faqs = [
       border-color: color-mix(in srgb, var(--cloud-warning) 76%, #171714);
       background: var(--cloud-warning);
       color: #171714;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes ci-flow-skip {
+    0%, 51% {
+      border-color: #ded4be;
+      background: rgba(38, 33, 21, 0.04);
+      color: transparent;
+      transform: scale(0.92);
+    }
+    60%, 100% {
+      border-color: #ded4be;
+      background: #f1ead9;
+      color: var(--color-text-muted);
       transform: scale(1);
     }
   }
@@ -3850,7 +2698,7 @@ const faqs = [
     }
 
     .hero-copy,
-    .agent-animation {
+    .cloud-ci-card {
       max-width: 760px;
     }
 
@@ -3860,24 +2708,17 @@ const faqs = [
   }
 
   @media (max-width: 820px) {
-    .checkout-page,
     .cloud-feature-grid,
     .steps-grid {
       grid-template-columns: 1fr;
     }
 
-    .cloud-form {
-      grid-template-columns: 1fr;
+    .steps-grid article {
+      min-height: 0;
     }
 
-    .cloud-form .form-eyebrow,
-    .cloud-form h3,
-    .cloud-form p,
-    .cloud-form-copy,
-    .cloud-form-action,
-    .cloud-form-action > div,
-    .cloud-form p#waitlist-status {
-      grid-column: 1;
+    .cloud-connect {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -3891,7 +2732,6 @@ const faqs = [
     }
 
     .hero-actions,
-    .cloud-form-action > div,
     .community-actions,
     .final-actions {
       display: grid;
@@ -3902,7 +2742,7 @@ const faqs = [
       width: 100%;
     }
 
-    .cloud-form {
+    .cloud-connect {
       padding: 0.75rem;
     }
 
@@ -3973,14 +2813,6 @@ const faqs = [
       font-size: 0.54rem;
     }
 
-    .hero-command-row {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-enter-key {
-      width: 100%;
-    }
-
     .how-video-controls {
       left: 0.5rem;
       right: 0.5rem;
@@ -4000,7 +2832,7 @@ const faqs = [
       height: 1.82rem;
     }
 
-    .agent-animation {
+    .cloud-ci-card {
       display: none;
     }
 
@@ -4056,14 +2888,6 @@ const faqs = [
       transform: none;
     }
 
-    .hero-prompt-text,
-    .hero-enter-key,
-    .kery-cursor,
-    .click-burst,
-    .bug-popup,
-    .bug-summary-banner,
-    .bug-ledger li,
-    .run-state i,
     .story-scene,
     .story-command strong,
     .story-command i,
@@ -4093,32 +2917,8 @@ const faqs = [
     .vercel-url-card code,
     .ci-run-panel li i,
     .ci-run-panel li b,
-    .browser-url-home,
-    .browser-url-cart,
-    .storefront-page,
-    .view-cart-button,
-    .remove-one,
-    .remove-two,
-    .remove-three,
-    .checkout-button {
+    .rotator-item {
       animation: none;
-    }
-
-    .kery-cursor {
-      left: 78.5%;
-      top: 63%;
-    }
-
-    .storefront-page,
-    .browser-url-home {
-      opacity: 0;
-      visibility: hidden;
-      transform: none;
-    }
-
-    .browser-url-cart {
-      opacity: 1;
-      visibility: visible;
     }
 
     .story-command strong {
@@ -4213,125 +3013,17 @@ const faqs = [
       transform: none;
     }
 
-    .bug-popup.popup-four,
-    .bug-summary-banner,
-    .bug-ledger li {
-      opacity: 1;
+    .ci-run-panel li i.ci-skip {
+      border-color: #ded4be;
+      background: #f1ead9;
+      color: var(--color-text-muted);
+      box-shadow: none;
       transform: none;
-    }
-
-    .hero-prompt-text {
-      width: auto;
-      border-right-color: transparent;
     }
   }
 </style>
 
 <script is:inline>
-  (() => {
-    const demo = document.querySelector('[data-agent-demo]');
-    if (!(demo instanceof HTMLElement)) return;
-
-    let resetTimer = 0;
-    let enterTimer = 0;
-    let prepareTimer = 0;
-    let runTimer = 0;
-
-    const getLoopDuration = () => {
-      const rawValue = getComputedStyle(demo).getPropertyValue('--loop').trim();
-      const value = Number.parseFloat(rawValue);
-      if (!Number.isFinite(value)) return 29000;
-      return rawValue.endsWith('ms') ? value : value * 1000;
-    };
-
-    const clearTimers = () => {
-      window.clearTimeout(resetTimer);
-      window.clearTimeout(enterTimer);
-      window.clearTimeout(prepareTimer);
-      window.clearTimeout(runTimer);
-    };
-
-    const runDemo = () => {
-      clearTimers();
-      demo.classList.remove('is-idle');
-      demo.classList.add('is-entering');
-
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      enterTimer = window.setTimeout(() => {
-        demo.classList.remove('is-entering');
-        demo.classList.add('is-preparing');
-
-        prepareTimer = window.setTimeout(() => {
-          demo.classList.remove('is-preparing');
-          demo.classList.remove('is-running');
-          void demo.offsetWidth;
-          demo.classList.add('is-running');
-          resetTimer = window.setTimeout(resetDemo, reducedMotion ? 2800 : getLoopDuration() + 150);
-        }, reducedMotion ? 1800 : 3000);
-      }, reducedMotion ? 450 : 520);
-    };
-
-    const scheduleRun = () => {
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      runTimer = window.setTimeout(runDemo, reducedMotion ? 1200 : 3600);
-    };
-
-    const resetDemo = () => {
-      clearTimers();
-      demo.classList.remove('is-running');
-      demo.classList.remove('is-entering');
-      demo.classList.remove('is-preparing');
-      demo.classList.add('is-idle');
-      scheduleRun();
-    };
-
-    scheduleRun();
-  })();
-
-  (() => {
-    const form = document.getElementById('waitlist-form');
-    const input = document.getElementById('waitlist-email');
-    const button = document.getElementById('waitlist-button');
-    const status = document.getElementById('waitlist-status');
-
-    if (!(form instanceof HTMLFormElement) || !(input instanceof HTMLInputElement) || !(button instanceof HTMLButtonElement) || !(status instanceof HTMLParagraphElement)) return;
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const email = input.value.trim();
-      status.className = '';
-
-      if (!email || !input.validity.valid) {
-        status.textContent = 'Enter a valid email address.';
-        status.classList.add('error');
-        return;
-      }
-
-      button.disabled = true;
-      button.textContent = 'Joining...';
-      status.textContent = '';
-
-      try {
-        const response = await fetch('/api/waitlist', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || data.error) throw new Error(data.error || 'Could not join waitlist.');
-        status.textContent = data.alreadyJoined ? 'You are already on the list.' : 'You are on the list. We will reach out soon.';
-        status.classList.add('success');
-        form.reset();
-      } catch (error) {
-        status.textContent = error instanceof Error ? error.message : 'Could not join waitlist.';
-        status.classList.add('error');
-      } finally {
-        button.disabled = false;
-        button.textContent = 'Join waitlist';
-      }
-    });
-  })();
-
   (() => {
     const player = document.querySelector('[data-kery-player]');
     if (!(player instanceof HTMLElement)) return;
