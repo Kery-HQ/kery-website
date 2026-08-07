@@ -69,7 +69,7 @@ const faqs = [
                 <span class="rotator-item"><img src="/icons/cursor.svg" alt="" width="20" height="20" loading="eager" />Cursor</span>
                 <span class="rotator-item">You</span>
               </span>
-              built it. <strong>Kery checked it works.</strong>
+              built it. <span class="rotator-kery"><img src="/kery.png" alt="" width="20" height="20" loading="eager" />Kery</span> checked it works.
             </span>
           </p>
           <p class="hero-secondary">
@@ -528,15 +528,24 @@ const faqs = [
 
   .hero-rotator {
     margin-top: 0.4rem;
-    color: var(--color-text-secondary);
+    color: var(--color-ink);
     font-size: clamp(1.18rem, 1.6vw, 1.42rem);
-    font-weight: 650;
+    font-weight: 750;
     line-height: 1.55;
   }
 
-  .hero-rotator strong {
-    color: var(--color-ink);
-    font-weight: 800;
+  .rotator-kery {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    vertical-align: bottom;
+  }
+
+  .rotator-kery img {
+    width: 1.25em;
+    height: 1.25em;
+    object-fit: contain;
+    flex: 0 0 auto;
   }
 
   .rotator-slot {
