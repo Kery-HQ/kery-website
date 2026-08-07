@@ -10,9 +10,9 @@ const painPoints = [
 ];
 
 const steps = [
-  ['1', 'Open a pull request', 'Kery reads the diff and works out what the change is supposed to do.'],
-  ['2', 'It runs the change in a real browser', 'Signs in, walks the flows, records everything.'],
-  ['3', 'It posts the result to the PR', 'Each check, its verdict, and video of what actually happened.'],
+  ['1', 'A pull request opens', 'Kery reads the diff and works out what the change claims to do.'],
+  ['2', 'It runs the claims in a real browser', 'On the preview deployment: it signs in, walks each flow, and records video.'],
+  ['3', 'Verdicts land back on the PR', 'Each check comes back verified, contradicted, or not reached — with video proof.'],
 ];
 
 const agentTools = [
@@ -64,7 +64,7 @@ const faqs = [
   <Navbar />
   <main class="site-main">
     <section class="hero-section">
-      <div class="container hero-grid">
+      <div class="container hero-inner">
         <div class="hero-copy">
           <span class="eyebrow">Video proof on every pull request</span>
           <h1>Merge without <em>wondering.</em></h1>
@@ -87,8 +87,14 @@ const faqs = [
             <a href="#install" class="button button-secondary">Or run it locally</a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="cloud-ci-card" aria-label="Animated Kery pull request check flow">
+    <PrCheckDemo />
+
+    <section class="section how-section" id="product">
+      <div class="container how-grid">
+        <div class="cloud-ci-card" id="demo" aria-label="Animated Kery pull request check flow">
           <div class="cloud-ci-topbar">
             <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
             <strong>kery · pr check</strong>
@@ -235,51 +241,22 @@ const faqs = [
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <PrCheckDemo />
-
-    <section class="section how-section" id="product">
-      <div class="container section-heading center">
-        <span class="section-kicker">How Kery works</span>
-        <h2>Watch a pull request <em>get checked.</em></h2>
-      </div>
-      <div class="container how-video" id="demo" data-kery-player>
-        <div class="how-video-frame">
-          <video class="how-video-el" src="/kery-no-border-web.mp4" muted loop playsinline preload="metadata"></video>
-          <button class="how-video-overlay" type="button" data-video-play aria-label="Play video">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
-            </svg>
-          </button>
-          <div class="how-video-controls" aria-label="Video controls">
-            <button class="how-video-button" type="button" data-video-toggle aria-label="Play video">
-              <svg class="video-icon-play" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 5.5v13l10-6.5-10-6.5z"></path>
-              </svg>
-              <svg class="video-icon-pause" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 5h3v14H7zM14 5h3v14h-3z"></path>
-              </svg>
-            </button>
-            <input class="how-video-seek" type="range" min="0" max="100" value="0" step="0.1" data-video-seek aria-label="Video progress" />
-            <span class="how-video-time" data-video-time>0:00</span>
-            <button class="how-video-button" type="button" data-video-fullscreen aria-label="Fullscreen">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"></path>
-              </svg>
-            </button>
+        <div class="section-copy">
+          <span class="section-kicker">How Kery works</span>
+          <h2>Watch a pull request <em>get checked.</em></h2>
+          <div class="steps-list">
+            {steps.map(([number, title, copy]) => (
+              <article>
+                <span>{number}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
-      </div>
-      <div class="container steps-grid">
-        {steps.map(([number, title, copy]) => (
-          <article>
-            <span>{number}</span>
-            <h3>{title}</h3>
-            <p>{copy}</p>
-          </article>
-        ))}
       </div>
     </section>
 
@@ -514,15 +491,16 @@ const faqs = [
     padding: clamp(8rem, 13vw, 11rem) 0 clamp(4.5rem, 8vw, 7rem);
   }
 
-  .hero-grid {
+  .hero-inner {
     display: grid;
-    grid-template-columns: minmax(0, 0.88fr) minmax(520px, 1.12fr);
-    gap: clamp(3rem, 7vw, 6rem);
-    align-items: center;
+    justify-items: center;
+    text-align: center;
   }
 
   .hero-copy {
-    max-width: 43rem;
+    display: grid;
+    justify-items: center;
+    max-width: 54rem;
   }
 
   .eyebrow,
@@ -546,7 +524,7 @@ const faqs = [
   }
 
   .hero-copy h1 {
-    max-width: 10ch;
+    max-width: 12ch;
     margin: 1.15rem 0 1.15rem;
     color: var(--color-ink);
     font-size: clamp(4rem, 8vw, 7rem);
@@ -643,6 +621,10 @@ const faqs = [
     margin-top: 1.65rem;
   }
 
+  .hero-actions {
+    justify-content: center;
+  }
+
   .button {
     display: inline-flex;
     align-items: center;
@@ -713,7 +695,6 @@ const faqs = [
   }
 
   .pain-grid article,
-  .steps-grid article,
   .cloud-feature-grid article,
   .install-card,
   .cloud-connect {
@@ -844,8 +825,7 @@ const faqs = [
     gap: 0.75rem;
   }
 
-  .pain-grid article,
-  .steps-grid article {
+  .pain-grid article {
     padding: 1rem;
     background: rgba(255, 253, 246, 0.78);
   }
@@ -884,7 +864,6 @@ const faqs = [
   }
 
   .pain-grid h3,
-  .steps-grid h3,
   .cloud-feature-grid h3 {
     color: var(--color-ink);
     font-size: 1rem;
@@ -899,7 +878,6 @@ const faqs = [
   }
 
   .pain-grid p,
-  .steps-grid p,
   .cloud-feature-grid p {
     margin-top: 0.45rem;
     color: var(--color-text-secondary);
@@ -916,6 +894,58 @@ const faqs = [
   .cloud-section {
     border-block: 1px solid var(--color-border);
     background: #fffdf6;
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .steps-list {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.35rem;
+  }
+
+  .steps-list article {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: start;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: rgba(255, 253, 246, 0.78);
+  }
+
+  .steps-list article > span {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+    border-radius: 8px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-muted);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .steps-list h3 {
+    color: var(--color-ink);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .steps-list p {
+    margin-top: 0.35rem;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.65;
   }
 
   .install-section {
@@ -2339,218 +2369,6 @@ const faqs = [
     60%, 100% { opacity: 1; transform: translateY(0); }
   }
 
-  .steps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
-
-  .steps-grid article {
-    min-height: 17rem;
-  }
-
-  .steps-grid article > span {
-    display: grid;
-    place-items: center;
-    width: 2rem;
-    height: 2rem;
-    margin-bottom: 1.2rem;
-    border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
-    border-radius: 8px;
-    background: var(--color-accent-soft);
-    color: var(--color-accent-muted);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 900;
-  }
-
-  .how-video {
-    margin-top: clamp(1.5rem, 3vw, 2.5rem);
-  }
-
-  .how-video-frame {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    border-radius: 14px;
-    background: #171714;
-    box-shadow: 0 20px 50px rgba(38, 33, 21, 0.14);
-    aspect-ratio: 2004 / 1080;
-  }
-
-  .how-video video {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.006);
-    transform-origin: center;
-  }
-
-  .how-video-frame::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0;
-    height: 34%;
-    pointer-events: none;
-    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.56));
-  }
-
-  .how-video-overlay {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 2;
-    display: grid;
-    place-items: center;
-    width: clamp(3.2rem, 7vw, 5rem);
-    height: clamp(3.2rem, 7vw, 5rem);
-    border: 1px solid rgba(255, 248, 232, 0.28);
-    border-radius: 999px;
-    background: rgba(255, 248, 232, 0.92);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
-    color: #171714;
-    cursor: pointer;
-    transform: translate(-50%, -50%);
-    transition: opacity 160ms ease, transform 160ms ease, background 160ms ease;
-  }
-
-  .how-video-overlay:hover {
-    background: #ffcf49;
-    transform: translate(-50%, -50%) scale(1.04);
-  }
-
-  .how-video-overlay svg {
-    width: 38%;
-    height: 38%;
-    margin-left: 0.18rem;
-    fill: currentColor;
-  }
-
-  .how-video.is-playing .how-video-overlay {
-    opacity: 0;
-    pointer-events: none;
-    transform: translate(-50%, -50%) scale(0.92);
-  }
-
-  .how-video-controls {
-    position: absolute;
-    left: 0.75rem;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    z-index: 3;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
-    gap: 0.55rem;
-    align-items: center;
-    min-height: 2.7rem;
-    padding: 0.44rem;
-    border: 1px solid rgba(255, 248, 232, 0.16);
-    border-radius: 9px;
-    background: rgba(18, 18, 15, 0.76);
-    box-shadow: inset 0 1px 0 rgba(255, 248, 232, 0.08);
-    backdrop-filter: blur(14px);
-  }
-
-  .how-video-button {
-    display: grid;
-    place-items: center;
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid rgba(255, 248, 232, 0.16);
-    border-radius: 7px;
-    background: rgba(255, 248, 232, 0.08);
-    color: #fff8e8;
-    cursor: pointer;
-    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
-  }
-
-  .how-video-button:hover {
-    border-color: rgba(255, 207, 73, 0.48);
-    background: #ffcf49;
-    color: #171714;
-  }
-
-  .how-video-button svg {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .how-video-button svg path {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .how-video-button .video-icon-play path,
-  .how-video-button .video-icon-pause path {
-    fill: currentColor;
-    stroke: none;
-  }
-
-  .video-icon-pause {
-    display: none;
-  }
-
-  .how-video.is-playing .video-icon-play {
-    display: none;
-  }
-
-  .how-video.is-playing .video-icon-pause {
-    display: block;
-  }
-
-  .how-video-seek {
-    width: 100%;
-    min-width: 0;
-    height: 0.36rem;
-    background: transparent;
-    accent-color: #ffcf49;
-    appearance: none;
-    cursor: pointer;
-  }
-
-  .how-video-seek::-webkit-slider-runnable-track {
-    height: 0.36rem;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #ffcf49 var(--video-progress, 0%), rgba(255, 248, 232, 0.22) var(--video-progress, 0%));
-  }
-
-  .how-video-seek::-webkit-slider-thumb {
-    width: 0.9rem;
-    height: 0.9rem;
-    margin-top: -0.27rem;
-    border: 2px solid #171714;
-    border-radius: 999px;
-    background: #ffcf49;
-    appearance: none;
-  }
-
-  .how-video-seek::-moz-range-track {
-    height: 0.36rem;
-    border-radius: 999px;
-    background: rgba(255, 248, 232, 0.22);
-  }
-
-  .how-video-seek::-moz-range-progress {
-    height: 0.36rem;
-    border-radius: 999px;
-    background: #ffcf49;
-  }
-
-  .how-video-time {
-    min-width: 3.8rem;
-    color: rgba(255, 248, 232, 0.78);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-align: center;
-  }
-
   .faq-section {
     background: var(--color-bg);
   }
@@ -2688,10 +2506,10 @@ const faqs = [
   }
 
   @media (max-width: 1120px) {
-    .hero-grid,
     .two-col,
     .install-grid,
     .cloud-grid,
+    .how-grid,
     .faq-grid,
     .final-cta-inner {
       grid-template-columns: 1fr;
@@ -2708,13 +2526,8 @@ const faqs = [
   }
 
   @media (max-width: 820px) {
-    .cloud-feature-grid,
-    .steps-grid {
+    .cloud-feature-grid {
       grid-template-columns: 1fr;
-    }
-
-    .steps-grid article {
-      min-height: 0;
     }
 
     .cloud-connect {
@@ -2811,29 +2624,6 @@ const faqs = [
       right: 0.48rem;
       top: 2.95rem;
       font-size: 0.54rem;
-    }
-
-    .how-video-controls {
-      left: 0.5rem;
-      right: 0.5rem;
-      bottom: 0.5rem;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 0.38rem;
-      min-height: 2.35rem;
-      padding: 0.35rem;
-    }
-
-    .how-video-time {
-      display: none;
-    }
-
-    .how-video-button {
-      width: 1.82rem;
-      height: 1.82rem;
-    }
-
-    .cloud-ci-card {
-      display: none;
     }
 
     .agent-strip .container {
@@ -3022,83 +2812,3 @@ const faqs = [
     }
   }
 </style>
-
-<script is:inline>
-  (() => {
-    const player = document.querySelector('[data-kery-player]');
-    if (!(player instanceof HTMLElement)) return;
-
-    const video = player.querySelector('video');
-    const playOverlay = player.querySelector('[data-video-play]');
-    const toggle = player.querySelector('[data-video-toggle]');
-    const fullscreen = player.querySelector('[data-video-fullscreen]');
-    const seek = player.querySelector('[data-video-seek]');
-    const time = player.querySelector('[data-video-time]');
-
-    if (
-      !(video instanceof HTMLVideoElement) ||
-      !(playOverlay instanceof HTMLButtonElement) ||
-      !(toggle instanceof HTMLButtonElement) ||
-      !(fullscreen instanceof HTMLButtonElement) ||
-      !(seek instanceof HTMLInputElement) ||
-      !(time instanceof HTMLElement)
-    ) return;
-
-    const formatTime = (seconds) => {
-      if (!Number.isFinite(seconds)) return '0:00';
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, '0');
-      return `${minutes}:${remainingSeconds}`;
-    };
-
-    const syncPlaying = () => {
-      const playing = !video.paused && !video.ended;
-      player.classList.toggle('is-playing', playing);
-      toggle.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
-    };
-
-    const syncProgress = () => {
-      const progress = video.duration ? (video.currentTime / video.duration) * 100 : 0;
-      seek.value = String(progress);
-      seek.style.setProperty('--video-progress', `${progress}%`);
-      time.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
-    };
-
-    const togglePlayback = async () => {
-      if (video.paused || video.ended) {
-        await video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-      syncPlaying();
-    };
-
-    playOverlay.addEventListener('click', togglePlayback);
-    toggle.addEventListener('click', togglePlayback);
-
-    video.addEventListener('play', syncPlaying);
-    video.addEventListener('pause', syncPlaying);
-    video.addEventListener('ended', syncPlaying);
-    video.addEventListener('loadedmetadata', syncProgress);
-    video.addEventListener('timeupdate', syncProgress);
-
-    seek.addEventListener('input', () => {
-      const next = Number(seek.value);
-      if (Number.isFinite(video.duration)) {
-        video.currentTime = (next / 100) * video.duration;
-      }
-      seek.style.setProperty('--video-progress', `${next}%`);
-    });
-
-    fullscreen.addEventListener('click', async () => {
-      if (!document.fullscreenElement) {
-        await player.requestFullscreen?.();
-      } else {
-        await document.exitFullscreen?.();
-      }
-    });
-
-    syncPlaying();
-    syncProgress();
-  })();
-</script>
