@@ -1,0 +1,168 @@
+---
+/*
+ * Shared frame for the SEO landing cluster.
+ *
+ * Every page in /vs, /for and /use-cases keeps the same shell - nav, hero shape,
+ * FAQ, related links, closing CTA, footer - and supplies its own body through the
+ * default slot. The body is what makes each page worth indexing on its own; the
+ * shell is only furniture.
+ */
+import Layout from './Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_CLOUD_URL, SITE_GITHUB_URL, SITE_ORIGIN } from '../constants';
+
+export interface RelatedLink {
+  href: string;
+  title: string;
+  blurb: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  /** Allows <em> for the leaf-green accent, matching the homepage headings. */
+  heading: string;
+  lede: string;
+  primaryCta?: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
+  faqs: [string, string][];
+  faqHeading?: string;
+  related?: RelatedLink[];
+  relatedHeading?: string;
+  ctaHeading?: string;
+  ctaBody?: string;
+  /** Trail segments between the homepage and this page, e.g. [['Compare', '/alternatives']]. */
+  breadcrumb?: [string, string][];
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  heading,
+  lede,
+  primaryCta = { href: SITE_CLOUD_URL, label: 'Start free with 1k credits' },
+  secondaryCta = { href: SITE_GITHUB_URL, label: 'Run it locally' },
+  faqs,
+  faqHeading = 'Questions people ask before switching.',
+  related = [],
+  relatedHeading = 'Keep reading',
+  ctaHeading = 'Put proof in <em>every pull request.</em>',
+  ctaBody = 'Connect a repo and Kery starts checking pull requests against their preview deploys. No test scripts, no CI config.',
+  breadcrumb = [],
+} = Astro.props;
+
+const pageTitle = title;
+const trail = [['Home', '/'], ...breadcrumb, [pageTitle, Astro.url.pathname]] as [string, string][];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(([question, answer]) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: answer },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map(([name, path], index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name,
+      item: new URL(path, SITE_ORIGIN).href,
+    })),
+  },
+];
+---
+
+<Layout title={title} description={description} structuredData={structuredData}>
+  <Navbar />
+  <main class="lp-main">
+    <section class="lp-hero">
+      <div class="container lp-hero-inner">
+        <span class="lp-eyebrow">{eyebrow}</span>
+        <h1 set:html={heading} />
+        <p class="lp-lede">{lede}</p>
+        <div class="lp-actions">
+          <a href={primaryCta.href} class="lp-button lp-button-primary">{primaryCta.label}</a>
+          <a
+            href={secondaryCta.href}
+            class="lp-button lp-button-secondary"
+            {...secondaryCta.href.startsWith('http')
+              ? { target: '_blank', rel: 'noopener noreferrer' }
+              : {}}
+          >
+            {secondaryCta.label}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container lp-prose">
+      <slot />
+    </div>
+
+    <section class="lp-faq">
+      <div class="container lp-faq-grid">
+        <div>
+          <span class="lp-kicker">FAQ</span>
+          <h2>{faqHeading}</h2>
+        </div>
+        <div>
+          {faqs.map(([question, answer]) => (
+            <details>
+              <summary>{question}</summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {related.length > 0 && (
+      <section class="lp-related">
+        <div class="container">
+          <h2>{relatedHeading}</h2>
+          <div class="lp-related-grid">
+            {related.map((link) => (
+              <a href={link.href}>
+                <strong>{link.title}</strong>
+                <span>{link.blurb}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="lp-cta">
+      <div class="container lp-cta-inner">
+        <div>
+          <h2 set:html={ctaHeading} />
+          <p>{ctaBody}</p>
+        </div>
+        <div class="lp-cta-actions">
+          <a href={SITE_CLOUD_URL} class="lp-button lp-button-primary">Connect your repo</a>
+          <a
+            href={SITE_GITHUB_URL}
+            class="lp-button lp-button-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Star on GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style is:global>
+  @import '../styles/landing.css';
+</style>

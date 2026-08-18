@@ -1,0 +1,114 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "How do I automatically test every pull request in a browser?",
+    "Install the Kery GitHub App on the repository. Each pull request is picked up along with its preview deployment, the flows the diff touches get walked in a real browser, and the verdict is posted back to the PR. There is no workflow file to write.",
+  ],
+  [
+    "Does this require CI configuration?",
+    "No. Kery Cloud runs the checks itself against the preview deploy. If you would rather own the pipeline, the open-source engine runs in your existing CI with Docker.",
+  ],
+  [
+    "What actually fails the build?",
+    "Only a contradicted check — a claim the pull request made that the browser run actively disproved. Ambiguous or low-confidence findings are reported on the PR rather than enforced, so merges do not get blocked on a maybe.",
+  ],
+  [
+    "How does Kery know what to test?",
+    "From the diff. It reads what changed, infers what the change is claiming to do, and derives the flows worth walking. You can also save specific flows in plain English and have them run every time.",
+  ],
+  [
+    "Does it get noisy over time?",
+    "It gets quieter. Kery keeps a model of your app's routes and conventions and remembers findings you have marked as false positives, so repeats drop off run after run.",
+  ],
+  [
+    "What if a PR has no preview deployment?",
+    "Kery can run against a configured environment instead, or locally through the open-source engine. Preview deploys are the default because they match the change under review most closely.",
+  ],
+];
+
+const related = [
+  {
+    href: '/use-cases/authenticated-testing',
+    title: 'Testing behind a login',
+    blurb: 'Most PR checks die at the sign-in page. This one does not.',
+  },
+  {
+    href: '/vs/manual-qa',
+    title: 'Kery vs. manual QA',
+    blurb: 'What to automate and what to keep human.',
+  },
+  {
+    href: '/for/nextjs',
+    title: 'Kery for Next.js',
+    blurb: 'Running against Vercel preview deployments.',
+  },
+];
+---
+
+<SeoLanding
+  title="Automated pull request testing in a real browser | Kery"
+  description="Kery checks every pull request against its preview deployment, walks the flows the diff touched, and posts a verdict with video. No CI config."
+  eyebrow="Use case"
+  heading="Every pull request, <em>actually run.</em>"
+  lede="Code review tells you the diff is plausible. A browser pass tells you the change works. Kery adds the second one to every pull request, automatically."
+  faqs={faqs}
+  faqHeading="How PR checks work."
+  related={related}
+  breadcrumb={[['Use cases', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">What review misses</span>
+    <h2>Approving a diff is not the same as opening the app</h2>
+    <p>
+      A reviewer can catch a bad abstraction, a missing null check, or a query that will not scale.
+      What no reviewer catches by reading is that the submit button now sits behind a modal, that the
+      redirect loops for logged-out users, or that the empty state renders as a blank page.
+    </p>
+    <p>
+      Those are browser facts. They need a browser to find them, on every pull request, not on the
+      ones somebody had a spare twenty minutes for.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">The sequence</span>
+    <h2>What happens when a PR opens</h2>
+    <ul class="lp-list">
+      <li><strong>Kery reads the diff</strong> and works out what the change is claiming to do.</li>
+      <li><strong>It waits for the preview deployment</strong> built for that pull request.</li>
+      <li><strong>It signs in</strong> using the environment and credentials you configured once.</li>
+      <li><strong>It walks the flows the change touched</strong> in a real browser, recording throughout.</li>
+      <li><strong>It posts each check back to the PR</strong> with a verdict and video of what happened.</li>
+      <li><strong>Contradicted checks fail the build.</strong> Everything else is reported.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Design choices</span>
+    <h2>Why it does not block on a maybe</h2>
+    <p>
+      A gate that fires on uncertainty gets disabled within two weeks — every team that has run a
+      flaky required check knows exactly how that story ends. So the bar for failing a build is
+      deliberately high: the run has to have disproved something the pull request claimed.
+    </p>
+    <div class="lp-callout">
+      <h3>Reported vs. enforced</h3>
+      <p>
+        Everything Kery notices lands on the pull request, so a reviewer can weigh it. Only a direct
+        contradiction turns the check red. The result is a gate people leave switched on.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Evidence</span>
+    <h2>The artefact outlives the conversation</h2>
+    <p>
+      Each check carries a recording, logs, and repro context, and "watch this moment" seeks straight
+      to the step that decided the verdict. That matters a week later, when someone asks whether this
+      was already broken before the release.
+    </p>
+  </section>
+</SeoLanding>

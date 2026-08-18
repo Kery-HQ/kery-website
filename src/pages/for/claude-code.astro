@@ -1,0 +1,153 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "How do I test code that Claude Code wrote?",
+    "Let something other than Claude Code check it. Kery reads the resulting pull request, works out what the change claims to do, runs those flows in a real browser against the preview deployment, and posts a verdict with video. The agent that wrote the change has no say in whether it passed.",
+  ],
+  [
+    "Does Kery work as an MCP server in Claude Code?",
+    "Yes. Kery ships an MCP server, so you can start browser checks, inspect route coverage, and pull results back into the session you are already working in.",
+  ],
+  [
+    "Should I use Kery instead of Playwright MCP?",
+    "They solve different problems. Playwright MCP is a browser your agent can drive while building. Kery is an independent check that runs on every pull request whether or not anyone asks. Plenty of teams run both.",
+  ],
+  [
+    "Do I need to write tests or acceptance criteria first?",
+    "No. There is no script, no ticket, and no acceptance criteria to fill in. Kery infers the intent of the change from the diff itself.",
+  ],
+  [
+    "Which model providers does Kery use?",
+    "OpenAI, Anthropic, Google Gemini, and OpenRouter. Running the open-source engine locally, you bring your own provider keys.",
+  ],
+  [
+    "Will it slow down my Claude Code loop?",
+    "No, because it is not in the loop. Checks run out of process against the pull request's preview deployment while you carry on working, and the result lands on the PR.",
+  ],
+];
+
+const related = [
+  {
+    href: '/vs/claude-code-playwright',
+    title: 'Kery vs. Claude Code + Playwright MCP',
+    blurb: 'The full comparison with the DIY browser setup.',
+  },
+  {
+    href: '/for/cursor',
+    title: 'Kery for Cursor',
+    blurb: 'Same verify loop, wired into Cursor instead.',
+  },
+  {
+    href: '/use-cases/pull-request-testing',
+    title: 'Automated pull request testing',
+    blurb: 'What a check posts back, and what gates a merge.',
+  },
+];
+---
+
+<SeoLanding
+  title="Testing for Claude Code — verify what the agent ships"
+  description="Claude Code writes the change; Kery test-drives it. Every pull request runs in a real browser, with video of what actually happened."
+  eyebrow="For Claude Code"
+  heading="Claude Code builds it. <em>Kery test-drives it.</em>"
+  lede="The bottleneck in agent-assisted development stopped being how fast code gets written. It is how quickly anyone can confirm the change actually does what it says."
+  faqs={faqs}
+  faqHeading="Running Kery alongside Claude Code."
+  related={related}
+  breadcrumb={[['For', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">The problem</span>
+    <h2>Claude Code can open more pull requests than you can click through</h2>
+    <p>
+      A good session produces real work — three or four pull requests, each touching flows you have
+      not personally opened in a browser for weeks. The diff reads fine. It usually is fine. The
+      question is what happens on the tenth one, on a Friday, when you skim instead of check.
+    </p>
+    <p>
+      Asking Claude Code to verify its own change does not close that gap. It is working from the
+      same reading of the task that produced the code, which means a misunderstanding at the start
+      survives all the way through the check.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">The loop</span>
+    <h2>Write with the agent, verify with something else</h2>
+    <ul class="lp-list">
+      <li><strong>Claude Code opens the pull request</strong> the way it already does.</li>
+      <li><strong>Kery reads the diff</strong> and works out what the change is claiming — a new checkout step, a fixed validation error, a redesigned settings page.</li>
+      <li><strong>It signs into the preview deployment</strong> for that PR, including Clerk, Supabase, Auth0, Firebase, 2FA codes, magic links, and Vercel preview protection.</li>
+      <li><strong>It walks the flow in a real browser</strong> and records the whole thing.</li>
+      <li><strong>It posts each check back to the PR</strong> with a verdict and a video that seeks to the deciding step.</li>
+    </ul>
+    <p>
+      Only a contradicted check fails the build — a claim the browser run actively disproved.
+      Everything else is reported so your merges do not get blocked on a maybe.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">In the session</span>
+    <h2>Kery from inside Claude Code</h2>
+    <p>
+      If you would rather stay in the terminal, Kery works as an MCP server. Add it once and Claude
+      Code can start runs, look at route coverage, and read results without you switching context.
+    </p>
+    <div class="lp-code">
+      <span class="lp-code-comment"># in your project</span><br />
+      claude mcp add kery -- npx -y @kery/mcp<br /><br />
+      <span class="lp-code-comment"># then, in the session</span><br />
+      &gt; use kery to check the signup flow on this branch
+    </div>
+    <p>
+      Exact install commands live in the <a href="https://github.com/Kery-HQ/Kery" target="_blank" rel="noopener noreferrer">GitHub repository</a>,
+      alongside the Docker setup for running the whole engine locally.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Division of labour</span>
+    <h2>What to hand to which</h2>
+    <div class="lp-table-wrap">
+      <table class="lp-table">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Claude Code</th>
+            <th scope="col">Kery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Writing the change</th>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <th scope="row">Poking at it locally</th>
+            <td>Yes, fastest loop available</td>
+            <td>Optional, via MCP</td>
+          </tr>
+          <tr>
+            <th scope="row">Checking every PR unprompted</th>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <th scope="row">Independent verdict</th>
+            <td>No — same assumptions</td>
+            <td>Yes — separate pass</td>
+          </tr>
+          <tr>
+            <th scope="row">Durable evidence</th>
+            <td>Chat scrollback</td>
+            <td>Video and logs on the PR</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</SeoLanding>

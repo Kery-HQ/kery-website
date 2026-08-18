@@ -20,6 +20,15 @@ Kery is an open-source AI browser testing engine for web apps. It runs real brow
 ## Key pages
 
 - [Homepage](https://kery.dev/): Product overview, local install positioning, Kery Cloud waitlist, FAQ, demo video, and community link.
+- [Compare](https://kery.dev/alternatives): Hub for comparisons against Claude Code with Playwright MCP, hand-written Playwright suites, and manual QA.
+- [Kery vs. Claude Code + Playwright MCP](https://kery.dev/vs/claude-code-playwright): Why an agent driving a browser is not a merge gate, and where the DIY setup is still the right tool.
+- [Kery vs. Playwright](https://kery.dev/vs/playwright): Kery runs on Playwright; the comparison is about maintaining a suite, not the driver.
+- [Kery vs. manual QA](https://kery.dev/vs/manual-qa): What to automate and what to keep human as PR volume rises.
+- [Kery for Claude Code](https://kery.dev/for/claude-code): The write-then-verify loop, plus the Kery MCP server.
+- [Kery for Cursor](https://kery.dev/for/cursor): PR checks for Composer and background agents.
+- [Kery for Next.js](https://kery.dev/for/nextjs): Testing against Vercel preview deployments and protected previews.
+- [Pull request testing](https://kery.dev/use-cases/pull-request-testing): How a browser check reaches the PR and what fails a build.
+- [Authenticated testing](https://kery.dev/use-cases/authenticated-testing): Clerk, Supabase, Auth0, Firebase, 2FA codes, and magic links.
 - [Blog](https://kery.dev/blog): Notes on agentic testing, browser automation, MCP workflows, and product quality.
 - [Privacy policy](https://kery.dev/privacy): Privacy policy for kery.dev, open-source Kery, and future hosted services.
 - [Terms of service](https://kery.dev/terms): Website terms and open-source notices.

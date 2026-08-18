@@ -1,0 +1,158 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "Does Kery replace a QA team?",
+    "No. It replaces the repetitive part — clicking the same flows after every merge to confirm nothing obvious broke. Exploratory testing, judgement about what matters, and edge cases a human notices are still human work. Kery buys back the hours spent on regression clicking.",
+  ],
+  [
+    "How is this different from a manual smoke test checklist?",
+    "A checklist runs when someone has time. Kery runs on every pull request, against that pull request's own preview deployment, and posts the result before review. It also derives what to check from the diff rather than following a fixed list that ages.",
+  ],
+  [
+    "What happens when Kery is wrong?",
+    "You mark the finding as a false positive and Kery remembers. It keeps a model of your app's paths and conventions, so repeat noise drops over time. Only a contradicted check — one the browser run actively disproved — can fail a build.",
+  ],
+  [
+    "Can it test flows that need real data?",
+    "Yes, against a configured environment with credentials. Kery signs in as a real user and walks the flow the way a person would, including forms, permissions, and empty states.",
+  ],
+  [
+    "How long does a check take?",
+    "Runs happen in parallel with review rather than blocking it, so the verdict is typically waiting by the time a human opens the pull request.",
+  ],
+  [
+    "Do we still need a staging environment?",
+    "Not necessarily. Kery runs against the preview deployment created for each pull request, which is usually a closer match to the change under review than a shared staging box.",
+  ],
+];
+
+const related = [
+  {
+    href: '/use-cases/pull-request-testing',
+    title: 'Automated pull request testing',
+    blurb: 'What lands on the PR, and what actually blocks a merge.',
+  },
+  {
+    href: '/vs/playwright',
+    title: 'Kery vs. writing Playwright tests',
+    blurb: 'Why the maintenance cost, not the writing cost, kills suites.',
+  },
+  {
+    href: '/use-cases/authenticated-testing',
+    title: 'Testing behind a login',
+    blurb: 'The flows worth checking all start after sign-in.',
+  },
+];
+---
+
+<SeoLanding
+  title="Automate manual QA — browser checks on every pull request"
+  description="Manual smoke testing cannot keep pace with agent-authored pull requests. Kery runs the repetitive browser passes and leaves judgement to people."
+  eyebrow="Comparison"
+  heading="Manual QA does not scale <em>to agent-speed shipping.</em>"
+  lede="When one engineer opens six pull requests a day, the bottleneck stops being code review and starts being the person clicking through the app afterwards."
+  faqs={faqs}
+  faqHeading="Replacing the repetitive part, not the people."
+  related={related}
+  breadcrumb={[['Compare', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">The arithmetic</span>
+    <h2>Throughput went up; the clicking did not</h2>
+    <p>
+      Coding agents changed how much gets written, not how much gets checked. A team that used to
+      open five pull requests a week now opens five a day, and every one of them technically needs
+      somebody to open the app and confirm the thing works.
+    </p>
+    <p>
+      What happens in practice is predictable. The obvious flows get a quick look, the rest gets a
+      shrug, and the definition of "tested" quietly becomes "the diff looked fine". The regressions
+      that reach production are rarely subtle — they are usually a flow nobody had time to open.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">The split</span>
+    <h2>What to automate, what to keep human</h2>
+    <div class="lp-cards">
+      <article>
+        <h3>Worth automating</h3>
+        <p>
+          Regression passes over known flows. Sign-in, checkout, settings, permissions, empty states,
+          mobile layout. The same clicks, after every change, forever. This is where human attention
+          is worst spent and machines are most reliable.
+        </p>
+      </article>
+      <article>
+        <h3>Keep human</h3>
+        <p>
+          Exploratory testing, judgement about whether a flow feels right, accessibility review with
+          real assistive tech, and deciding which risks actually matter for this release. None of
+          that is a checklist.
+        </p>
+      </article>
+    </div>
+    <p>
+      Kery is aimed squarely at the first column. It walks the repetitive paths on every pull
+      request so the people who are good at the second column are not spending their week on the
+      first.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Side by side</span>
+    <h2>Manual smoke testing vs. Kery</h2>
+    <div class="lp-table-wrap">
+      <table class="lp-table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Manual smoke test</th>
+            <th scope="col">Kery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Coverage per PR</th>
+            <td>Whatever there was time for</td>
+            <td>Every PR, same standard</td>
+          </tr>
+          <tr>
+            <th scope="row">Consistency</th>
+            <td>Varies by person and by Friday</td>
+            <td>Same pass regardless of the day</td>
+          </tr>
+          <tr>
+            <th scope="row">Environment</th>
+            <td>Shared staging, often stale</td>
+            <td>That PR's own preview deployment</td>
+          </tr>
+          <tr>
+            <th scope="row">Evidence</th>
+            <td>"Looks good to me"</td>
+            <td>Video, logs, and repro context</td>
+          </tr>
+          <tr>
+            <th scope="row">Cost per run</th>
+            <td>Engineer or QA hours</td>
+            <td>Credits, in parallel with review</td>
+          </tr>
+          <tr>
+            <th scope="row">Catches novel UX issues</th>
+            <td>Yes — this is the human advantage</td>
+            <td>Partly; reported, not enforced</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="lp-callout">
+      <h3>Where the honesty matters</h3>
+      <p>
+        A person notices that a flow is confusing. Kery notices that a flow is broken. Both are worth
+        catching, and only one of them should cost you an afternoon per pull request.
+      </p>
+    </div>
+  </section>
+</SeoLanding>

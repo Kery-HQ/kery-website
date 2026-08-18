@@ -1,0 +1,124 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "How do I test flows that are behind a login?",
+    "Configure the environment and credentials once, and Kery signs in the way a user would before walking the flow. Form login, Clerk, Supabase Auth, Auth0, Firebase, 2FA codes, magic links, and Vercel preview protection are all supported.",
+  ],
+  [
+    "Can it handle two-factor authentication?",
+    "Yes. 2FA codes and magic-link flows are handled as part of sign-in, which is usually where automated browser checks stop.",
+  ],
+  [
+    "Does this work with Clerk?",
+    "Yes. Clerk is one of the supported providers, alongside Supabase Auth, Auth0, Firebase, and plain form login.",
+  ],
+  [
+    "Do I need to manage storage state or session fixtures?",
+    "No. There is no storage-state file to capture and re-capture every time the auth flow changes. Kery performs the sign-in as part of the run.",
+  ],
+  [
+    "Where do the credentials live?",
+    "In the environment configuration for the project. Running the open-source engine, everything stays in your own environment — Kery only sends prompts and the context a run needs to the LLM provider you configure.",
+  ],
+  [
+    "Can it test different roles or permission levels?",
+    "Yes. Configure the accounts you care about and Kery can walk the same flow as different users, which is how most permission regressions surface.",
+  ],
+];
+
+const related = [
+  {
+    href: '/use-cases/pull-request-testing',
+    title: 'Automated pull request testing',
+    blurb: 'The check that runs on every PR, unprompted.',
+  },
+  {
+    href: '/vs/claude-code-playwright',
+    title: 'Kery vs. Claude Code + Playwright MCP',
+    blurb: 'Why agent browser sessions stall at the sign-in page.',
+  },
+  {
+    href: '/for/nextjs',
+    title: 'Kery for Next.js',
+    blurb: 'Protected previews and middleware auth bounces.',
+  },
+];
+---
+
+<SeoLanding
+  title="Automated testing behind a login — Clerk, Supabase, 2FA"
+  description="The flows worth testing all start after sign-in. Kery signs in the way a user does — Clerk, Supabase, Auth0, Firebase, 2FA codes, magic links."
+  eyebrow="Use case"
+  heading="Most agents stop at the sign-in page. <em>That is where the app starts.</em>"
+  lede="Public marketing pages are the easy part. Checkout, settings, permissions, billing and dashboards all sit behind auth, which is exactly where automated browser checks tend to give up."
+  faqs={faqs}
+  faqHeading="Auth, credentials and roles."
+  related={related}
+  breadcrumb={[['Use cases', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">The wall</span>
+    <h2>Everything interesting is one login away</h2>
+    <p>
+      Ask any browser agent to check your product and watch where it ends up: a sign-in form, waiting
+      for a password it does not have, or bounced into a redirect it cannot resolve. The run
+      technically completed. It covered your landing page.
+    </p>
+    <p>
+      Meanwhile the flows that actually break — a permission that leaks, a billing page that renders
+      empty, a settings save that silently fails — are all on the other side of that form.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Supported</span>
+    <h2>Sign-in paths Kery handles</h2>
+    <div class="lp-cards">
+      <article>
+        <h3>Managed auth providers</h3>
+        <p>Clerk, Supabase Auth, Auth0, and Firebase — including the hosted redirect flows that break naive automation.</p>
+      </article>
+      <article>
+        <h3>Plain form login</h3>
+        <p>Email and password against your own auth, with the session carried through the rest of the run.</p>
+      </article>
+      <article>
+        <h3>Second factors</h3>
+        <p>2FA codes and magic links, handled as part of sign-in rather than as a reason to stop.</p>
+      </article>
+      <article>
+        <h3>Deployment protection</h3>
+        <p>Vercel preview protection, so per-PR preview URLs are reachable before your own auth even begins.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Why it is hard</span>
+    <h2>What breaks conventional setups</h2>
+    <ul class="lp-list">
+      <li><strong>Storage state goes stale.</strong> Capture a session fixture, change the auth flow, re-capture. Forever.</li>
+      <li><strong>Hosted redirects</strong> bounce across domains, which naive selector-based scripts handle badly.</li>
+      <li><strong>Second factors</strong> are treated as an unsolvable step rather than a step.</li>
+      <li><strong>Preview protection</strong> blocks the URL before the app is even reached.</li>
+      <li><strong>Role coverage</strong> gets skipped because setting up three accounts triples the fixture work.</li>
+    </ul>
+    <p>
+      Kery signs in during the run rather than replaying a captured session, so an auth change is
+      just a different sign-in, not a broken fixture.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Roles</span>
+    <h2>The same flow, as different people</h2>
+    <p>
+      Permission regressions rarely show up as an error. They show up as an admin-only button
+      appearing for a normal user, or a workspace switcher listing something it should not. Walking
+      the same flow with different configured accounts is how those get caught, and it costs nothing
+      extra once the accounts exist.
+    </p>
+  </section>
+</SeoLanding>

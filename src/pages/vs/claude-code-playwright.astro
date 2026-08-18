@@ -1,0 +1,237 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "Can Claude Code test my app with Playwright MCP?",
+    "Yes. Playwright MCP gives Claude Code a real browser it can navigate, click, and read the page from, and for exploratory work it is genuinely good. What it does not give you is a check that runs on every pull request without being asked, an independent verdict, or a recording you can rewatch a week later. Kery adds those.",
+  ],
+  [
+    "Is Kery just a wrapper around Playwright MCP?",
+    "No. Kery runs on Playwright, but the product is the layer above it: reading a diff to decide what to check, signing into your app, running the flows, judging whether the change did what it claimed, and posting that verdict to the pull request with video. Playwright is the driver, not the answer.",
+  ],
+  [
+    "Do I have to stop using Claude Code?",
+    "No, and most Kery users do not. Claude Code writes the change; Kery checks it. Kery also ships an MCP server, so you can trigger Kery runs from inside Claude Code and pull results back into the same session.",
+  ],
+  [
+    "Why not just ask Claude Code to check its own work?",
+    "Because it is grading its own homework. The model that decided what to build is also deciding whether the build is correct, working from the same assumptions that produced the bug. A separate pass that only sees the diff and the running app has no stake in the answer.",
+  ],
+  [
+    "What about the token cost of browser automation in context?",
+    "That is the practical ceiling on DIY setups. Every page snapshot, accessibility tree, and console dump lands in your context window, so long flows crowd out the code you were working on. Kery runs the browser out of process and returns a verdict plus a link, not a transcript.",
+  ],
+  [
+    "Does Kery work on pull requests without CI config?",
+    "Yes. Install the GitHub App and Kery picks up each pull request and its preview deployment. There is no workflow YAML to write and no runner to maintain.",
+  ],
+];
+
+const related = [
+  {
+    href: '/vs/playwright',
+    title: 'Kery vs. writing Playwright tests',
+    blurb: 'Kery runs on Playwright. Here is when a written test suite is still the right call.',
+  },
+  {
+    href: '/for/claude-code',
+    title: 'Kery for Claude Code',
+    blurb: 'The MCP setup, and how the write-then-verify loop fits together.',
+  },
+  {
+    href: '/use-cases/pull-request-testing',
+    title: 'Automated pull request testing',
+    blurb: 'What a Kery check posts back to a PR, and what fails a merge.',
+  },
+];
+---
+
+<SeoLanding
+  title="Claude Code + Playwright MCP vs. Kery | Browser QA"
+  description="Playwright MCP lets Claude Code drive a browser. It still cannot run on every pull request, get past your login, or give an independent verdict."
+  eyebrow="Comparison"
+  heading="Claude Code can drive a browser. <em>Keeping it honest is the hard part.</em>"
+  lede="Wiring Playwright MCP into Claude Code is a genuinely good exploratory setup — and a poor merge gate. This page is a straight account of where the DIY loop holds and where it quietly stops covering you."
+  faqs={faqs}
+  faqHeading="Claude Code, Playwright and Kery — the usual questions."
+  related={related}
+  breadcrumb={[['Compare', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">The setup in question</span>
+    <h2>What the DIY loop actually looks like</h2>
+    <p>
+      The pattern is well known by now: add Playwright MCP to Claude Code, then ask the agent to open
+      your app and try the thing it just built.
+    </p>
+    <div class="lp-code">
+      <span class="lp-code-comment"># the setup most people are running</span><br />
+      claude mcp add playwright npx @playwright/mcp@latest<br /><br />
+      <span class="lp-code-comment"># then, in the session</span><br />
+      &gt; open localhost:3000, sign in, and check the new checkout step works
+    </div>
+    <p>
+      This works. Claude Code will navigate, click, read the accessibility tree, and tell you what it
+      saw. For poking at a page while you build, it is the fastest feedback loop available, and
+      nothing below is an argument for dropping it.
+    </p>
+    <p>
+      The problems start when you try to make it the thing that protects your main branch.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Where it holds up</span>
+    <h2>Keep the MCP setup for this</h2>
+    <ul class="lp-list">
+      <li><strong>Exploratory checks while you build.</strong> You are already in the session, the app is already running, and you want an answer in ten seconds.</li>
+      <li><strong>One-off reproductions.</strong> Walking a reported bug to see it happen is exactly what an agent with a browser is good at.</li>
+      <li><strong>Scraping and research tasks.</strong> Not testing, but the same tool solves it well.</li>
+      <li><strong>Local-only apps</strong> with no preview deployment and no auth, where the whole flow is three clicks deep.</li>
+    </ul>
+    <p>
+      If that describes your entire QA surface, you do not need Kery yet. Come back when the app has
+      a login.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Where it breaks</span>
+    <h2>Six things the DIY loop <em>cannot</em> do</h2>
+
+    <div class="lp-cards">
+      <article>
+        <h3>1. It grades its own homework</h3>
+        <p>
+          The model that decided what to build is the one deciding whether the build is correct,
+          carrying the same misreading of the ticket that caused the bug. Independent verification
+          means a pass that did not write the code.
+        </p>
+      </article>
+      <article>
+        <h3>2. It only runs when asked</h3>
+        <p>
+          Every check depends on someone remembering to request it, in a session, before merging.
+          The pull requests that break production are the ones nobody thought to check.
+        </p>
+      </article>
+      <article>
+        <h3>3. Auth is where it stops</h3>
+        <p>
+          Clerk, Supabase, Auth0, Firebase, magic links, 2FA codes, Vercel preview protection. Most
+          agent browser sessions die at the sign-in page, which is also where the flows worth testing
+          begin.
+        </p>
+      </article>
+      <article>
+        <h3>4. The evidence evaporates</h3>
+        <p>
+          When the context window closes, so does your proof. There is no recording to rewatch, no
+          artifact to link in review, nothing to hand a teammate three days later.
+        </p>
+      </article>
+      <article>
+        <h3>5. Browser transcripts eat your context</h3>
+        <p>
+          Page snapshots and accessibility dumps are verbose. A long flow crowds out the code you
+          were actually working on, and quality degrades right when the flow gets interesting.
+        </p>
+      </article>
+      <article>
+        <h3>6. There is no gate</h3>
+        <p>
+          A chat message is not a status check. Nothing blocks the merge, nothing shows up red on
+          the PR, and nothing stops the change at 6pm on a Friday.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Side by side</span>
+    <h2>The comparison, without the marketing</h2>
+    <div class="lp-table-wrap">
+      <table class="lp-table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Claude Code + Playwright MCP</th>
+            <th scope="col">Kery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Runs on every PR</th>
+            <td>No — you ask, in a session</td>
+            <td>Yes, via the GitHub App</td>
+          </tr>
+          <tr>
+            <th scope="row">Decides what to check</th>
+            <td>You describe it each time</td>
+            <td>Reads the diff and infers the claim</td>
+          </tr>
+          <tr>
+            <th scope="row">Who judges the result</th>
+            <td>The agent that wrote the code</td>
+            <td>A separate pass with no stake</td>
+          </tr>
+          <tr>
+            <th scope="row">Authenticated flows</th>
+            <td>Manual, fragile, often blocked</td>
+            <td>Clerk, Supabase, Auth0, Firebase, 2FA, magic links</td>
+          </tr>
+          <tr>
+            <th scope="row">Evidence afterwards</th>
+            <td>Chat scrollback</td>
+            <td>Video, logs, and repro context on the PR</td>
+          </tr>
+          <tr>
+            <th scope="row">Merge gate</th>
+            <td>None</td>
+            <td>Contradicted checks fail the build</td>
+          </tr>
+          <tr>
+            <th scope="row">Context cost</th>
+            <td>Snapshots fill your window</td>
+            <td>Runs out of process; returns a verdict</td>
+          </tr>
+          <tr>
+            <th scope="row">Setup</th>
+            <td>One MCP command</td>
+            <td>Install the GitHub App, or Docker locally</td>
+          </tr>
+          <tr>
+            <th scope="row">Open source</th>
+            <td>Yes (Playwright MCP)</td>
+            <td>Yes (the engine)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="lp-callout">
+      <h3>The honest summary</h3>
+      <p>
+        Playwright MCP is a browser for your agent. Kery is a reviewer for your pull requests. They
+        answer different questions, and the DIY setup only looks like a substitute until the first
+        time something merges unchecked.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Not either/or</span>
+    <h2>Kery speaks MCP too</h2>
+    <p>
+      You do not have to choose a workflow. Kery ships an MCP server, so Claude Code, Cursor and
+      Codex CLI can trigger Kery runs directly and read the results back into the session you are
+      already working in.
+    </p>
+    <p>
+      The practical arrangement most teams land on: Claude Code writes the change and pokes at it
+      locally, Kery independently checks the pull request against its preview deploy and posts the
+      verdict. One loop for building, one for proving. See <a href="/for/claude-code">Kery for Claude
+      Code</a> for the setup.
+    </p>
+  </section>
+</SeoLanding>

@@ -1,0 +1,85 @@
+---
+import SeoLanding from '../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "What is the best alternative to writing Playwright tests?",
+    "It depends on what you are trying to protect. For critical paths that must never regress, a written suite is still the right tool. For the long tail of flows nobody had time to cover, a derived check that reads each pull request and walks the affected flows costs nothing to maintain.",
+  ],
+  [
+    "Is Kery an alternative to Playwright MCP in Claude Code or Cursor?",
+    "Partly. Playwright MCP gives your agent a browser while it builds. Kery is an independent check that runs on every pull request whether or not anyone asks, and posts a verdict with video. Many teams run both.",
+  ],
+  [
+    "How is Kery different from hosted QA services?",
+    "The engine is open source and can run locally with Docker, run artifacts stay in your environment, and there is no suite for anyone to author on your behalf. Checks are derived from the diff rather than maintained as a script library.",
+  ],
+  [
+    "Can Kery replace our QA engineer?",
+    "No, and it is not built to. It removes the repetitive regression clicking after every merge. Exploratory testing and judgement about what actually matters remain human work.",
+  ],
+];
+---
+
+<SeoLanding
+  title="Kery compared — alternatives for AI browser testing and QA"
+  description="Honest comparisons between Kery and the setups teams use today: Claude Code with Playwright MCP, hand-written Playwright suites, and manual smoke testing."
+  eyebrow="Compare"
+  heading="How Kery compares to <em>what you run today.</em>"
+  lede="Straight comparisons, including where the alternative is the better call. Pick the page closest to your current setup."
+  faqs={faqs}
+  faqHeading="Choosing between the options."
+>
+  <section>
+    <span class="lp-kicker">Head to head</span>
+    <h2>Comparisons</h2>
+    <div class="lp-related-grid">
+      <a href="/vs/claude-code-playwright">
+        <strong>Kery vs. Claude Code + Playwright MCP</strong>
+        <span>The DIY agent-drives-a-browser setup: where it holds up, and the six things it cannot do.</span>
+      </a>
+      <a href="/vs/playwright">
+        <strong>Kery vs. hand-written Playwright</strong>
+        <span>Kery runs on Playwright. The argument is about maintaining a suite, not about the driver.</span>
+      </a>
+      <a href="/vs/manual-qa">
+        <strong>Kery vs. manual QA</strong>
+        <span>What to automate, what to keep human, and why smoke testing stopped keeping pace.</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">By stack</span>
+    <h2>If you build with</h2>
+    <div class="lp-related-grid">
+      <a href="/for/claude-code">
+        <strong>Claude Code</strong>
+        <span>Write with the agent, verify with something that did not write the code.</span>
+      </a>
+      <a href="/for/cursor">
+        <strong>Cursor</strong>
+        <span>Background agents open pull requests nobody watched. Kery opens the app.</span>
+      </a>
+      <a href="/for/nextjs">
+        <strong>Next.js</strong>
+        <span>Every Vercel preview deployment, signed into and actually walked.</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">By job</span>
+    <h2>If you are trying to</h2>
+    <div class="lp-related-grid">
+      <a href="/use-cases/pull-request-testing">
+        <strong>Test every pull request</strong>
+        <span>What a check posts back to the PR, and the deliberately high bar for failing a build.</span>
+      </a>
+      <a href="/use-cases/authenticated-testing">
+        <strong>Test flows behind a login</strong>
+        <span>Clerk, Supabase, Auth0, Firebase, 2FA and magic links — no storage-state fixtures.</span>
+      </a>
+    </div>
+  </section>
+</SeoLanding>

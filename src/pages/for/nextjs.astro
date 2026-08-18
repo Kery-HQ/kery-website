@@ -1,0 +1,124 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "How do I run end-to-end tests on a Next.js app without writing them?",
+    "Point Kery at the app and connect the repo. It reads each pull request, works out which flows the change touches, and walks them in a real browser against that PR's preview deployment. There is no spec file, no fixture, and no selector to maintain.",
+  ],
+  [
+    "Does Kery work with Vercel preview deployments?",
+    "Yes — that is the default target. Each pull request gets its own preview URL, and Kery runs against that rather than a shared staging environment, so the check matches the change under review.",
+  ],
+  [
+    "Can it get past Vercel deployment protection?",
+    "Yes. Protected previews are supported, along with form login, Clerk, Supabase, Auth0, Firebase, 2FA codes, and magic links.",
+  ],
+  [
+    "Does it handle the App Router and Server Components?",
+    "Kery drives a real browser, so it sees whatever the user sees — streamed segments, client transitions, loading states, and route handlers included. It does not need to know how the page was rendered.",
+  ],
+  [
+    "What about middleware redirects?",
+    "Those are exercised the same way a user would hit them. Redirect loops and auth bounces show up as a real browser navigating, which is usually how they get noticed in production too.",
+  ],
+  [
+    "Can I run it locally against next dev?",
+    "Yes. The open-source engine runs with Docker and can point at your local app, which is useful for building out flows before wiring up the PR checks.",
+  ],
+];
+
+const related = [
+  {
+    href: '/use-cases/authenticated-testing',
+    title: 'Testing behind a login',
+    blurb: 'Clerk and Supabase Auth flows, without storage-state fixtures.',
+  },
+  {
+    href: '/use-cases/pull-request-testing',
+    title: 'Automated pull request testing',
+    blurb: 'How a check reaches the PR and what gates a merge.',
+  },
+  {
+    href: '/vs/playwright',
+    title: 'Kery vs. writing Playwright tests',
+    blurb: 'Keep the critical-path suite; skip the long tail.',
+  },
+];
+---
+
+<SeoLanding
+  title="Next.js end-to-end testing on every preview deploy"
+  description="Kery tests Next.js pull requests in a real browser against their Vercel preview deployment — App Router, protected previews, Clerk and Supabase auth."
+  eyebrow="For Next.js"
+  heading="Every preview deploy, <em>actually opened.</em>"
+  lede="Vercel already builds a preview for each pull request. Kery is the part that signs in, walks the flows the change touched, and tells you whether they still work."
+  faqs={faqs}
+  faqHeading="Next.js specifics."
+  related={related}
+  breadcrumb={[['For', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">The setup you already have</span>
+    <h2>A preview URL nobody opens</h2>
+    <p>
+      The Vercel bot comments a preview link on every pull request. In theory somebody clicks it and
+      walks the flow. In practice the link gets opened for visual changes and skipped for everything
+      else, which is a shame, because it is the most accurate representation of the change that will
+      ever exist.
+    </p>
+    <p>
+      Kery treats that preview as the thing to test against. Not staging, not a mock, not a local
+      build — the deployment produced by this specific pull request.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Next.js in particular</span>
+    <h2>Where Next.js apps tend to break in the browser</h2>
+    <ul class="lp-list">
+      <li><strong>Middleware auth bounces.</strong> A redirect rule that works logged in and loops logged out, or vice versa.</li>
+      <li><strong>Client transitions.</strong> The page renders on hard load and breaks on soft navigation, or the other way round.</li>
+      <li><strong>Streamed segments and loading states</strong> that never resolve on a slower connection.</li>
+      <li><strong>Server action failures</strong> that surface as a form that simply does nothing.</li>
+      <li><strong>Layout shifts from next/image</strong> and font swaps, which only show up at real viewport sizes.</li>
+      <li><strong>Env drift between preview and production</strong>, where the build is fine and the runtime is not.</li>
+    </ul>
+    <p>
+      None of these are visible in a diff. All of them are obvious within seconds of a browser
+      actually walking the flow.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Auth</span>
+    <h2>Protected previews are the normal case</h2>
+    <p>
+      Most real Next.js apps put the interesting flows behind two layers: Vercel deployment
+      protection on the preview itself, then your own auth inside the app. Agents that drive browsers
+      typically stop at the first and give up at the second.
+    </p>
+    <div class="lp-callout">
+      <h3>Supported out of the box</h3>
+      <p>
+        Vercel preview protection, form login, Clerk, Supabase Auth, Auth0, Firebase, 2FA codes, and
+        magic links. Configure the environment and credentials once per project.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Getting started</span>
+    <h2>What connecting looks like</h2>
+    <ul class="lp-list">
+      <li><strong>Install the GitHub App</strong> on the repository. No workflow YAML.</li>
+      <li><strong>Point Kery at the environment</strong> — preview URL pattern and test credentials.</li>
+      <li><strong>Open a pull request.</strong> Kery picks up the preview deployment and runs the flows the diff touches.</li>
+      <li><strong>Read the verdict on the PR</strong>, with video seeking to the deciding step.</li>
+    </ul>
+    <p>
+      Prefer to run it yourself? The engine is open source and runs locally with Docker against
+      <code>next dev</code>.
+    </p>
+  </section>
+</SeoLanding>

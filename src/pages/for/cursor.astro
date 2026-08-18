@@ -1,0 +1,112 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "How do I add Kery to Cursor?",
+    "Kery ships an MCP server, which Cursor picks up from your project's .cursor/mcp.json or from Cursor's MCP settings. Once it is connected, you can ask Cursor to run a Kery check on a flow and read the result back in the same conversation.",
+  ],
+  [
+    "Does this replace Cursor's own browser tools?",
+    "No. In-editor browser access is useful while you build. Kery is the pass that runs on the pull request afterwards, without being asked, and posts a verdict the whole team can see.",
+  ],
+  [
+    "Can I use Kery with Cursor background agents?",
+    "Yes, and it is a good fit. Background agents open pull requests you were not watching, which is exactly when an automatic browser check earns its keep.",
+  ],
+  [
+    "Do I need to configure anything per repository?",
+    "Connect the GitHub App and point Kery at your environment and credentials once. After that, each pull request is picked up along with its preview deployment.",
+  ],
+  [
+    "Does Kery need my provider keys?",
+    "Running the open-source engine locally, yes — bring your own OpenAI, Anthropic, Gemini, or OpenRouter key. Kery Cloud handles execution for you.",
+  ],
+  [
+    "Where do run artifacts live?",
+    "In the open-source setup, in your own environment. Kery only sends prompts and the context a run needs to the provider you configured.",
+  ],
+];
+
+const related = [
+  {
+    href: '/for/claude-code',
+    title: 'Kery for Claude Code',
+    blurb: 'The same verify loop from the terminal.',
+  },
+  {
+    href: '/vs/claude-code-playwright',
+    title: 'Kery vs. agent-driven Playwright',
+    blurb: 'Why an in-editor browser is not a merge gate.',
+  },
+  {
+    href: '/for/nextjs',
+    title: 'Kery for Next.js',
+    blurb: 'Preview deploys, App Router flows, protection bypass.',
+  },
+];
+---
+
+<SeoLanding
+  title="Cursor end-to-end testing — check what the agent ships"
+  description="Cursor writes the change; Kery runs it in a real browser on every pull request and posts video of what happened. No test scripts, no CI config."
+  eyebrow="For Cursor"
+  heading="Cursor ships fast. <em>Kery checks it shipped right.</em>"
+  lede="Composer and background agents open pull requests faster than anyone can open the app and click through them. Kery closes that gap without adding a suite to maintain."
+  faqs={faqs}
+  faqHeading="Running Kery alongside Cursor."
+  related={related}
+  breadcrumb={[['For', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">The gap</span>
+    <h2>Background agents open PRs nobody watched happen</h2>
+    <p>
+      The whole point of a background agent is that you were doing something else. That also means
+      nobody sat with the change, nobody opened the app, and the first human contact with the work is
+      a code review of a diff.
+    </p>
+    <p>
+      Reading a diff tells you the code is plausible. It does not tell you the sign-in still works,
+      the form still submits, or the mobile layout did not collapse.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Setup</span>
+    <h2>Two ways to wire it in</h2>
+    <div class="lp-cards">
+      <article>
+        <h3>Automatic, on every PR</h3>
+        <p>
+          Install the GitHub App and connect the repo. Kery picks up each pull request with its
+          preview deployment, runs the flows the diff touches, and posts the verdict. No workflow
+          YAML, no runner.
+        </p>
+      </article>
+      <article>
+        <h3>On demand, from Cursor</h3>
+        <p>
+          Add the Kery MCP server to <code>.cursor/mcp.json</code>. Ask Cursor to run a check on a
+          flow in plain English and read the result without leaving the conversation.
+        </p>
+      </article>
+    </div>
+    <div class="lp-code">
+      <span class="lp-code-comment">// .cursor/mcp.json</span><br />
+      &#123; "mcpServers": &#123; "kery": &#123; "command": "npx", "args": ["-y", "@kery/mcp"] &#125; &#125; &#125;
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">What you get back</span>
+    <h2>A verdict, not a transcript</h2>
+    <ul class="lp-list">
+      <li><strong>Video of the moment it broke</strong>, seeking straight to the deciding step rather than making you scrub.</li>
+      <li><strong>Signed-in coverage</strong> — Clerk, Supabase, Auth0, Firebase, 2FA codes, magic links, Vercel preview protection.</li>
+      <li><strong>Merges that are not blocked on a maybe.</strong> Only a contradicted check fails the build.</li>
+      <li><strong>Less noise every run</strong>, as Kery learns your app's paths and the findings you have dismissed.</li>
+      <li><strong>Plain-English flows</strong> you can save, group into suites, and put on a schedule.</li>
+    </ul>
+  </section>
+</SeoLanding>

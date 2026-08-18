@@ -1,0 +1,166 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "Is Kery a replacement for Playwright?",
+    "No, and it is built on Playwright. Kery replaces the work of writing and maintaining a suite for flows you were never going to get around to covering. Deterministic critical-path tests that you already own and trust are worth keeping.",
+  ],
+  [
+    "Why not just write more Playwright tests?",
+    "Because the cost is not writing them, it is maintaining them. Selectors drift, flows change, and a suite that goes red for the wrong reason gets muted within a month. Kery re-derives what to check from the diff each run, so there is nothing to keep in sync.",
+  ],
+  [
+    "Do I need to remove my existing test suite?",
+    "No. Most teams keep Playwright for the handful of flows that must never regress and let Kery cover the long tail — the settings page, the empty state, the mobile layout, the flow someone added last sprint.",
+  ],
+  [
+    "How does Kery handle flakiness?",
+    "Kery only fails a build on a contradicted check — a claim in the diff that the browser run actively disproved. Everything else is reported rather than enforced, so an ambiguous result does not block a merge.",
+  ],
+  [
+    "Can Kery run in my existing CI pipeline?",
+    "Yes. The open-source engine runs in your own pipeline with Docker, and Kery Cloud runs pull request checks against preview deployments without any workflow configuration.",
+  ],
+  [
+    "Which browsers does Kery run?",
+    "Real Chromium browser sessions driven through Playwright, including mobile viewports.",
+  ],
+];
+
+const related = [
+  {
+    href: '/vs/claude-code-playwright',
+    title: 'Kery vs. Claude Code + Playwright MCP',
+    blurb: 'Why the agent-drives-a-browser setup is not a merge gate.',
+  },
+  {
+    href: '/use-cases/authenticated-testing',
+    title: 'Testing behind a login',
+    blurb: 'Clerk, Supabase, Auth0, 2FA and magic links, without a fixture file.',
+  },
+  {
+    href: '/for/nextjs',
+    title: 'Kery for Next.js',
+    blurb: 'App Router flows, preview deploys, and protection bypass.',
+  },
+];
+---
+
+<SeoLanding
+  title="Playwright alternative with no suite to maintain | Kery"
+  description="Kery runs on Playwright, but there is nothing to write. It reads each pull request and checks the flows the change touched in a real browser."
+  eyebrow="Comparison"
+  heading="Playwright is a great driver. <em>The suite is the expensive part.</em>"
+  lede="Kery uses Playwright under the hood, so this is not a case against it. It is a case against maintaining hundreds of selectors for flows that change every sprint."
+  faqs={faqs}
+  faqHeading="Playwright and Kery, side by side."
+  related={related}
+  breadcrumb={[['Compare', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">The real cost</span>
+    <h2>Nobody abandons a suite because writing it was hard</h2>
+    <p>
+      The first twenty tests are fine. The problem arrives in month four, when a redesign moves half
+      the selectors, three tests start failing for reasons unrelated to the change that triggered
+      them, and somebody adds <code>test.skip</code> to unblock a release.
+    </p>
+    <p>
+      From there it is a familiar slide: the suite is red more often than it is right, people stop
+      reading it, and the coverage you paid for stops meaning anything. The flows that actually break
+      in production are usually the ones that were never covered — settings, permissions, empty
+      states, the mobile layout, the feature added last sprint.
+    </p>
+    <div class="lp-callout">
+      <h3>The gap Kery fills</h3>
+      <p>
+        Not the tests you wrote. The tests you meant to write, for the change you shipped on Tuesday,
+        which nobody had time to cover.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">How it works instead</span>
+    <h2>Derived from the diff, not from a fixture file</h2>
+    <ul class="lp-list">
+      <li><strong>It reads the pull request.</strong> The diff, the title, the description — enough to infer what the change is claiming to do.</li>
+      <li><strong>It signs in.</strong> Form login, Clerk, Supabase, Auth0, Firebase, 2FA codes, magic links, Vercel preview protection.</li>
+      <li><strong>It walks the flow in a real browser</strong> on the preview deployment for that PR.</li>
+      <li><strong>It posts a verdict with video</strong>, seeking straight to the moment that decided the result.</li>
+      <li><strong>It gets quieter over time</strong>, remembering your app's paths, conventions, and the findings you have called false positives.</li>
+    </ul>
+    <p>
+      Nothing to keep in sync, because nothing was written down. When the flow changes, the next run
+      reads the new flow.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Side by side</span>
+    <h2>Written suite vs. derived checks</h2>
+    <div class="lp-table-wrap">
+      <table class="lp-table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Hand-written Playwright</th>
+            <th scope="col">Kery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Time to first check</th>
+            <td>Hours to days per flow</td>
+            <td>Minutes — connect the repo</td>
+          </tr>
+          <tr>
+            <th scope="row">Maintenance</th>
+            <td>Selectors, fixtures, waits</td>
+            <td>None — re-derived each run</td>
+          </tr>
+          <tr>
+            <th scope="row">Coverage</th>
+            <td>What you had time to write</td>
+            <td>Whatever the diff touches</td>
+          </tr>
+          <tr>
+            <th scope="row">Determinism</th>
+            <td>High — same steps every run</td>
+            <td>Lower, so only contradictions gate merges</td>
+          </tr>
+          <tr>
+            <th scope="row">Auth setup</th>
+            <td>Storage state, fixtures, secrets</td>
+            <td>Configured once per environment</td>
+          </tr>
+          <tr>
+            <th scope="row">Failure output</th>
+            <td>Trace and stack</td>
+            <td>Video, logs, and repro context on the PR</td>
+          </tr>
+          <tr>
+            <th scope="row">Best at</th>
+            <td>Critical paths that must never regress</td>
+            <td>The long tail nobody covered</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Straight answer</span>
+    <h2>When you should keep writing Playwright</h2>
+    <p>
+      A deterministic suite still wins where the check must be identical every time: payment
+      authorisation, a signup funnel with revenue attached, a compliance path, anything you would
+      want to bisect across a hundred commits. Written tests are also faster and cheaper per run.
+    </p>
+    <p>
+      Run both. Playwright pins the handful of flows that must never move; Kery covers everything
+      else, on every pull request, with no suite to keep alive.
+    </p>
+  </section>
+</SeoLanding>
