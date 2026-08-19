@@ -1,0 +1,225 @@
+---
+import SeoLanding from '../../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "How do I set up Playwright MCP with Claude Code?",
+    "Add the server once with `claude mcp add playwright npx @playwright/mcp@latest`, then start a session in your project. Claude Code can navigate, click, fill forms, and read the accessibility tree of any URL you give it, including a pull request's preview deployment.",
+  ],
+  [
+    "Can Claude Code review a pull request in a browser?",
+    "Yes, if you give it three things: the diff, the preview URL, and a prompt that tells it to verify rather than summarise. The walkthrough on this page covers all three. What it will not do is run unprompted on every pull request.",
+  ],
+  [
+    "How do I give Claude Code the diff for a PR?",
+    "Pipe it in from the GitHub CLI. `gh pr diff 123` gives the patch and `gh pr view 123 --json title,body` gives the stated intent, which is what tells the agent what the change is supposed to do.",
+  ],
+  [
+    "Can I run this in CI instead of locally?",
+    "You can run Claude Code headlessly with `claude -p` on a runner that has the CLI and an API key. Budget for it: browser transcripts are token-heavy, runs are non-deterministic, and you will need to decide what a failure even means before you gate a merge on it.",
+  ],
+  [
+    "How do I handle login?",
+    "This is the step that breaks most setups. You can script a form login in the prompt, but hosted providers, magic links, 2FA, and preview protection are where an ad hoc browser session usually stalls. See the auth section below for what works and what does not.",
+  ],
+  [
+    "When should I stop doing this manually?",
+    "When you want the check to happen whether or not somebody remembers to ask, and you want a durable artifact on the pull request afterwards. That is the point where a purpose-built runner earns its place over a session prompt.",
+  ],
+];
+
+const related = [
+  {
+    href: '/vs/claude-code-playwright',
+    title: 'Where this setup runs out',
+    blurb: 'The honest comparison: six things the DIY loop cannot do, and when it is still the right tool.',
+  },
+  {
+    href: '/for/claude-code',
+    title: 'Kery for Claude Code',
+    blurb: 'The same verification, running on every PR without being asked.',
+  },
+  {
+    href: '/use-cases/pull-request-testing',
+    title: 'Automated pull request testing',
+    blurb: 'What a browser check posts back to a PR, and what gates a merge.',
+  },
+];
+---
+
+<SeoLanding
+  title="Claude Code + Playwright MCP: check your PRs in a browser"
+  description="A working setup for browser-checking pull requests with Claude Code and Playwright MCP — the diff, the preview URL, the verify prompt, and auth."
+  eyebrow="Setup guide"
+  heading="Claude Code + Playwright MCP, <em>pointed at your pull request.</em>"
+  lede="A complete walkthrough for wiring an agent-driven browser check into your PR review — what to install, what to feed it, and the prompt that makes it verify rather than summarise."
+  faqs={faqs}
+  faqHeading="Setup questions."
+  related={related}
+  breadcrumb={[['Guides', '/alternatives']]}
+>
+  <section>
+    <span class="lp-kicker">What you are building</span>
+    <h2>The loop, end to end</h2>
+    <p>
+      By the end of this you will be able to hand Claude Code a pull request number and get back a
+      browser-verified answer to "does this change actually do what it says". Four inputs make it
+      work, and skipping any one of them is why most attempts return a confident summary of the diff
+      instead of a real check.
+    </p>
+    <ul class="lp-list">
+      <li><strong>A browser</strong> the agent can drive — Playwright MCP.</li>
+      <li><strong>The diff</strong>, so it knows what changed.</li>
+      <li><strong>The stated intent</strong> — the PR title and body — so it knows what to hold the change against.</li>
+      <li><strong>A running instance</strong> to click through, ideally that PR's own preview deployment.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Step 1</span>
+    <h2>Install Playwright MCP</h2>
+    <p>Once per machine. This gives Claude Code a real browser rather than a fetch tool.</p>
+    <div class="lp-code">
+      claude mcp add playwright npx @playwright/mcp@latest<br /><br />
+      <span class="lp-code-comment"># confirm it registered</span><br />
+      claude mcp list
+    </div>
+    <p>
+      Start a session from inside your project directory so the agent has the code alongside the
+      browser. Reading the implementation is half of how it works out what a change was meant to do.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Step 2</span>
+    <h2>Collect the context the agent needs</h2>
+    <p>
+      The GitHub CLI gives you the diff and the stated intent. The preview URL usually comes from
+      your host's bot comment on the PR.
+    </p>
+    <div class="lp-code">
+      <span class="lp-code-comment"># what changed</span><br />
+      gh pr diff 123 &gt; /tmp/pr-123.diff<br /><br />
+      <span class="lp-code-comment"># what it claims to do</span><br />
+      gh pr view 123 --json title,body,headRefName<br /><br />
+      <span class="lp-code-comment"># where it is deployed</span><br />
+      gh pr view 123 --json comments --jq '.comments[].body' | grep -o 'https://[^ ]*vercel.app'
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Step 3</span>
+    <h2>The prompt that makes it verify</h2>
+    <p>
+      This is where most setups go wrong. Asked to "test the PR", an agent will read the diff, decide
+      it looks correct, open one page, and agree with itself. You have to force the order of
+      operations: derive the claim first, then go and try to break it.
+    </p>
+    <div class="lp-code">
+      &gt; Read /tmp/pr-123.diff and the PR description below.<br />
+      &nbsp;&nbsp;1. Write down, in one sentence, what a user should now be able to do<br />
+      &nbsp;&nbsp;&nbsp;&nbsp; that they could not before. Do not look at the browser yet.<br />
+      &nbsp;&nbsp;2. Open &lt;preview-url&gt; and attempt exactly that, as a user would.<br />
+      &nbsp;&nbsp;3. Report PASS only if you observed it working end to end.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp; Report FAIL with the step that broke and what you saw instead.<br />
+      &nbsp;&nbsp;4. If you could not reach the flow at all, say BLOCKED — do not guess.
+    </div>
+    <div class="lp-callout">
+      <h3>Why step 1 matters</h3>
+      <p>
+        Writing the claim down before opening the browser stops the agent from working backwards
+        from what it observes. Without it, whatever the page happens to do becomes the expected
+        behaviour, and the check passes by construction.
+      </p>
+    </div>
+    <p>
+      The explicit BLOCKED verdict matters just as much. An agent with no way to say "I could not get
+      there" will report a pass on the login screen.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Step 4</span>
+    <h2>Auth, which is where this gets hard</h2>
+    <p>
+      If your product has a login, this step decides whether the whole setup is useful or decorative.
+      Roughly in order of how well it holds up:
+    </p>
+    <div class="lp-cards">
+      <article>
+        <h3>Usually fine</h3>
+        <p>
+          A plain email-and-password form on a test account. Put the credentials in the prompt or an
+          env var and the agent will fill and submit it like any other form.
+        </p>
+      </article>
+      <article>
+        <h3>Fragile</h3>
+        <p>
+          Hosted sign-in from Clerk, Supabase, Auth0 or Firebase. The cross-domain redirect and the
+          bot-detection heuristics on those pages make the run inconsistent between attempts.
+        </p>
+      </article>
+      <article>
+        <h3>Generally blocked</h3>
+        <p>
+          Magic links and 2FA codes — the agent has no inbox and no authenticator. Preview protection
+          stops it before your app is even reached.
+        </p>
+      </article>
+    </div>
+    <p>
+      A common workaround is a bypass token or a seeded session cookie for non-production
+      environments. That is real work to set up and maintain, and it is worth knowing that going in
+      rather than discovering it at step 4.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Step 5</span>
+    <h2>Running it without a human in the loop</h2>
+    <p>
+      Claude Code runs non-interactively with <code>-p</code>, so you can put the whole thing on a
+      runner. Install the CLI, provide an API key, and pass the prompt in.
+    </p>
+    <div class="lp-code">
+      npm install -g @anthropic-ai/claude-code<br /><br />
+      gh pr diff "$PR" &gt; /tmp/pr.diff<br />
+      claude -p "$(cat ./verify-prompt.txt)" &gt; result.txt
+    </div>
+    <p>
+      Check <code>claude --help</code> for the current tool-permission flags before you wire this
+      into CI — headless runs need tool use pre-authorised, and the exact flag names move between
+      releases.
+    </p>
+    <div class="lp-callout">
+      <h3>Before you gate a merge on this</h3>
+      <p>
+        Decide what a FAIL means when the same commit passes on a rerun. Non-determinism is the
+        normal case here, not an edge case, and a required check that goes red at random gets
+        switched off within a fortnight.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Honestly</span>
+    <h2>What this setup will not give you</h2>
+    <p>
+      Everything above is worth doing, and for a solo project it may be all you need. Four things
+      stay out of reach, and they are all structural rather than fixable with a better prompt.
+    </p>
+    <ul class="lp-list">
+      <li><strong>It runs when asked.</strong> The pull requests that break production are the ones nobody thought to check.</li>
+      <li><strong>The evidence disappears</strong> when the session closes. There is no recording to link in review.</li>
+      <li><strong>Context fills up.</strong> Page snapshots are verbose, and long flows crowd out the code the agent was reasoning about.</li>
+      <li><strong>Nothing gates the merge.</strong> A terminal verdict is not a status check.</li>
+    </ul>
+    <p>
+      <a href="/vs/claude-code-playwright">The full comparison</a> goes through those in detail,
+      including the cases where the DIY loop is genuinely the better choice. If you would rather this
+      just happened on every pull request, with video and a verdict on the PR itself, that is what
+      <a href="/for/claude-code">Kery for Claude Code</a> does.
+    </p>
+  </section>
+</SeoLanding>

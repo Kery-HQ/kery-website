@@ -6,7 +6,7 @@
  * index needs to list them alongside published notes.
  */
 
-export type GuideCategory = 'Comparison' | 'Your stack' | 'Use case';
+export type GuideCategory = 'Setup' | 'Comparison' | 'Your stack' | 'Use case';
 
 export interface Guide {
   href: string;
@@ -16,6 +16,13 @@ export interface Guide {
 }
 
 export const GUIDES: Guide[] = [
+  {
+    href: '/guides/claude-code-playwright-pr-checks',
+    title: 'Claude Code + Playwright MCP for your PRs',
+    blurb:
+      'A working setup: what to install, the four inputs it needs, the prompt that makes it verify rather than summarise, and the auth step that stops most attempts.',
+    category: 'Setup',
+  },
   {
     href: '/vs/claude-code-playwright',
     title: 'Claude Code + Playwright MCP vs. Kery',
