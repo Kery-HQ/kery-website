@@ -3,24 +3,39 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { formatPostDate, getAllPosts, getPostUrl } from '../../lib/sanity';
+import { GUIDES } from '../../lib/guides';
 
 const posts = await getAllPosts();
 const featuredPost = posts[0];
 const otherPosts = posts.slice(1);
 const blogUrl = new URL('/blog/', Astro.site).toString();
-const description = 'Notes from the Kery team on agentic testing, browser automation, MCP workflows, and product quality.';
+const description =
+  'Notes and guides from the Kery team on agentic testing, browser automation, MCP workflows, and keeping product quality visible as teams ship faster.';
 ---
 
 <Layout
   title="Blog - Kery"
   description={description}
-  structuredData={{
-    '@context': 'https://schema.org',
-    '@type': 'Blog',
-    name: 'Kery Blog',
-    url: blogUrl,
-    description,
-  }}
+  structuredData={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      name: 'Kery Blog',
+      url: blogUrl,
+      description,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Kery guides',
+      itemListElement: GUIDES.map((guide, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: guide.title,
+        url: new URL(guide.href, Astro.site).toString(),
+      })),
+    },
+  ]}
 >
   <Navbar />
   <main class="blog-page">
@@ -29,22 +44,27 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
         <span class="section-badge">Blog</span>
         <h1>Notes on browser QA for AI-speed teams.</h1>
         <p>
-          Practical writing on agentic testing, MCP workflows, browser automation, and keeping product quality visible as teams ship faster.
+          Practical writing on agentic testing, MCP workflows, browser automation, and keeping
+          product quality visible as teams ship faster.
         </p>
       </div>
     </section>
 
-    {featuredPost ? (
+    {featuredPost && (
       <section class="blog-featured">
         <div class="container">
           <a href={getPostUrl(featuredPost)} class="featured-post">
-            {featuredPost.mainImage?.asset?.url && (
+            {featuredPost.mainImage?.asset?.url ? (
               <img
                 src={featuredPost.mainImage.asset.url}
                 alt={featuredPost.mainImage.alt || ''}
                 loading="eager"
                 decoding="async"
               />
+            ) : (
+              <span class="card-cover card-cover-featured" aria-hidden="true">
+                <span>Note</span>
+              </span>
             )}
             <div class="featured-copy">
               <span>{formatPostDate(featuredPost.publishedAt)}</span>
@@ -55,40 +75,80 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
           </a>
         </div>
       </section>
-    ) : (
-      <section class="blog-empty">
-        <div class="container empty-inner">
-          <h2>No published notes yet.</h2>
-          <p>When the first Sanity post is published, it will appear here automatically.</p>
-        </div>
-      </section>
     )}
 
     {otherPosts.length > 0 && (
       <section class="blog-list-section">
-        <div class="container blog-list">
-          {otherPosts.map((post) => (
+        <div class="container">
+          <div class="section-head">
+            <h2>More notes</h2>
+          </div>
+          <div class="blog-list">
+            {otherPosts.map((post) => (
+              <article class="post-card">
+                <a href={getPostUrl(post)}>
+                  {post.mainImage?.asset?.url ? (
+                    <img
+                      src={post.mainImage.asset.url}
+                      alt={post.mainImage.alt || ''}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <span class="card-cover" aria-hidden="true"><span>Note</span></span>
+                  )}
+                  <div>
+                    <span>{formatPostDate(post.publishedAt)}</span>
+                    <h3>{post.title}</h3>
+                    {post.excerpt && <p>{post.excerpt}</p>}
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {!featuredPost && (
+      <section class="blog-empty">
+        <div class="container empty-inner">
+          <h2>No published notes yet.</h2>
+          <p>
+            When the first Sanity post is published it will appear here automatically. In the
+            meantime, the guides below cover the ground people ask about most.
+          </p>
+        </div>
+      </section>
+    )}
+
+    <section class="blog-list-section guides-section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Guides</h2>
+            <p>
+              Longer, evergreen pieces on how Kery fits next to the tools you already run.
+            </p>
+          </div>
+          <a href="/alternatives" class="section-head-link">All comparisons</a>
+        </div>
+        <div class="blog-list">
+          {GUIDES.map((guide) => (
             <article class="post-card">
-              <a href={getPostUrl(post)}>
-                {post.mainImage?.asset?.url && (
-                  <img
-                    src={post.mainImage.asset.url}
-                    alt={post.mainImage.alt || ''}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                )}
+              <a href={guide.href}>
+                <span class="card-cover" aria-hidden="true"><span>Guide</span></span>
                 <div>
-                  <span>{formatPostDate(post.publishedAt)}</span>
-                  <h2>{post.title}</h2>
-                  {post.excerpt && <p>{post.excerpt}</p>}
+                  <span>{guide.category}</span>
+                  <h3>{guide.title}</h3>
+                  <p>{guide.blurb}</p>
                 </div>
               </a>
             </article>
           ))}
         </div>
-      </section>
-    )}
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>
@@ -124,6 +184,44 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
     padding-bottom: clamp(3rem, 7vw, 6rem);
   }
 
+  .guides-section {
+    border-top: 1px solid var(--color-border);
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  /* ===== SECTION HEADINGS ===== */
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    letter-spacing: -0.03em;
+  }
+
+  .section-head p {
+    margin-top: 0.45rem;
+    max-width: 42rem;
+    font-size: 0.98rem;
+  }
+
+  .section-head-link {
+    flex: 0 0 auto;
+    padding-bottom: 0.2rem;
+    color: var(--color-accent-muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .section-head-link:hover {
+    color: var(--color-ink);
+  }
+
   .featured-post {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
@@ -151,6 +249,34 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
     background: var(--color-bg-alt);
   }
 
+  /* Stand-in cover so cards without artwork keep the same rhythm as ones with it. */
+  .card-cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background:
+      radial-gradient(circle at 70% 25%, rgba(255, 207, 73, 0.35), transparent 60%),
+      var(--color-bg-alt);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .card-cover-featured {
+    aspect-ratio: auto;
+    min-height: 360px;
+    border-bottom: none;
+  }
+
+  .card-cover > span {
+    color: var(--color-accent-muted);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
   .featured-copy {
     display: flex;
     flex-direction: column;
@@ -158,8 +284,8 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
     padding: clamp(1.5rem, 4vw, 3rem);
   }
 
-  .featured-copy span,
-  .post-card span {
+  .featured-copy > span,
+  .post-card div > span {
     margin-bottom: 0.8rem;
     color: var(--color-accent-muted);
     font-family: var(--font-mono);
@@ -184,9 +310,11 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
     font-size: 0.95rem;
   }
 
+  /* auto-fill keeps one or two cards at a readable width instead of stretching
+     them across a hard-coded three-column track. */
   .blog-list {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
     gap: 1rem;
   }
 
@@ -208,13 +336,15 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
     background: var(--color-bg-alt);
   }
 
-  .post-card div {
+  .post-card > a > div {
     padding: 1.25rem;
   }
 
-  .post-card h2 {
+  .post-card h3 {
     margin-bottom: 0.65rem;
-    font-size: 1.35rem;
+    color: var(--color-ink);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
   }
 
   .post-card p {
@@ -235,14 +365,19 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
   }
 
   @media (max-width: 840px) {
-    .featured-post,
-    .blog-list {
+    .featured-post {
       grid-template-columns: 1fr;
     }
 
     .featured-post img {
       min-height: 260px;
       aspect-ratio: 16 / 9;
+    }
+
+    .card-cover-featured {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+      border-bottom: 1px solid var(--color-border);
     }
   }
 
@@ -253,6 +388,12 @@ const description = 'Notes from the Kery team on agentic testing, browser automa
 
     .blog-hero {
       padding-top: 3rem;
+    }
+
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.6rem;
     }
 
     .featured-copy,
