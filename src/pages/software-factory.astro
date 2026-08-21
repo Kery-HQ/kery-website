@@ -1,0 +1,193 @@
+---
+import SeoLanding from '../layouts/SeoLanding.astro';
+
+const faqs: [string, string][] = [
+  [
+    "What is a software factory?",
+    "A delivery setup where shipping software is an industrialised, repeatable pipeline rather than a series of hand-built releases. The term is borrowed from manufacturing and has been used in enterprise and defence delivery for years. It has been revived because coding agents finally made the production line real: code now arrives faster than any team can hand-inspect it.",
+  ],
+  [
+    "What is a verification layer?",
+    "The stage that answers whether a change actually does what it claims, by observing the running software rather than reading the source. It is distinct from review, which inspects intent, and from tests, which check the properties someone thought to write down in advance.",
+  ],
+  [
+    "Isn't code review the verification layer?",
+    "Review verifies the code. It cannot verify the product. A reviewer reading a diff has no way to know that the submit button now sits behind a modal, that the redirect loops for signed-out users, or that the empty state renders blank. Those are facts about a running browser, and they need one.",
+  ],
+  [
+    "Don't unit and integration tests already cover this?",
+    "They cover the assertions someone wrote in advance, which is exactly the thing that does not scale with agent output. When a factory produces changes faster than people can author tests, coverage drifts further behind every week. A verification layer derives what to check from the change itself.",
+  ],
+  [
+    "Does this replace a QA function?",
+    "No. It replaces the repetitive regression pass after every merge. Exploratory testing, risk judgement, and deciding what actually matters for a release stay human — they are the parts that were always underserved when QA time went on clicking through the same flows.",
+  ],
+  [
+    "How does a verification layer avoid becoming a flaky gate?",
+    "By setting a deliberately high bar for stopping a release. Kery fails a build only on a contradicted check — a claim the run actively disproved. Everything else is reported for a human to weigh. A gate that fires on uncertainty gets switched off, which leaves you with no layer at all.",
+  ],
+];
+
+const related = [
+  {
+    href: '/use-cases/pull-request-testing',
+    title: 'Verification on every pull request',
+    blurb: 'What the layer looks like in practice: what posts back to a PR, and what gates a merge.',
+  },
+  {
+    href: '/vs/manual-qa',
+    title: 'What to automate, what to keep human',
+    blurb: 'The split between the repetitive pass and the judgement work.',
+  },
+  {
+    href: '/for/claude-code',
+    title: 'Verifying agent-authored changes',
+    blurb: 'Why the agent that wrote the change cannot be the one that clears it.',
+  },
+];
+---
+
+<SeoLanding
+  title="The verification layer for your software factory | Kery"
+  description="Coding agents industrialised production but not proof. What a verification layer is, and why code review and test suites cannot cover it."
+  eyebrow="Perspective"
+  heading="Your factory industrialised production. <em>Proof stayed artisanal.</em>"
+  lede="Agents turned software delivery into a production line. The part that confirms the output actually works is still a person opening the app when they have a spare twenty minutes."
+  faqs={faqs}
+  faqHeading="Software factories and verification."
+  related={related}
+  ctaHeading="Put a verification layer <em>in the line.</em>"
+  ctaBody="Connect a repo and every pull request gets checked against its preview deployment, with video of what actually happened."
+>
+  <section>
+    <span class="lp-kicker">The shift</span>
+    <h2>The bottleneck moved, and nobody moved with it</h2>
+    <p>
+      For twenty years the constraint on shipping was how fast people could write code. Every tool
+      worth buying attacked that constraint — frameworks, CI, platform teams, and finally agents that
+      write the change for you.
+    </p>
+    <p>
+      It worked. The constraint moved. A team that used to open five pull requests a week now opens
+      five a day, and the thing standing between those changes and production is the same thing it
+      was in 2015: a reviewer reading a diff, and somebody clicking through the app if there is time.
+    </p>
+    <p>
+      That is the shape of the problem. Production got industrialised. Proof did not.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">The model</span>
+    <h2>Four layers, and the one that is missing</h2>
+    <p>
+      It helps to be precise about which layer does what, because the argument for a verification
+      layer is that the other three structurally cannot cover it.
+    </p>
+    <div class="lp-table-wrap">
+      <table class="lp-table">
+        <thead>
+          <tr>
+            <th scope="col">Layer</th>
+            <th scope="col">Question it answers</th>
+            <th scope="col">Status in most factories</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Generation</th>
+            <td>Can we produce the change?</td>
+            <td>Solved, and then some</td>
+          </tr>
+          <tr>
+            <th scope="row">Review</th>
+            <td>Is the code sound?</td>
+            <td>Automated and human, working</td>
+          </tr>
+          <tr>
+            <th scope="row">Verification</th>
+            <td>Does the product do what the change claimed?</td>
+            <td>Manual, sampled, or absent</td>
+          </tr>
+          <tr>
+            <th scope="row">Release</th>
+            <td>Can we ship it safely?</td>
+            <td>Solved — flags, canaries, rollback</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Three of those scale with volume because they are machine work. Verification is the one still
+      priced in human attention, which is why it is the first thing dropped when the line speeds up.
+    </p>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Why the gap persists</span>
+    <h2>The two things that look like verification</h2>
+    <div class="lp-cards">
+      <article>
+        <h3>Review inspects intent</h3>
+        <p>
+          A reviewer reads what the code says it will do. That catches bad abstractions and unsafe
+          queries. It cannot catch a flow that breaks in a browser, because the diff does not contain
+          that information — no amount of reviewer skill extracts it.
+        </p>
+      </article>
+      <article>
+        <h3>Tests encode foresight</h3>
+        <p>
+          A suite checks the properties somebody predicted mattered, at the time they wrote it down.
+          That is valuable and worth keeping. It is also a fixed asset depreciating against a
+          codebase that now changes faster than the suite is maintained.
+        </p>
+      </article>
+    </div>
+    <div class="lp-callout">
+      <h3>The distinction that matters</h3>
+      <p>
+        Review and tests both work from a description of the software. Verification works from the
+        software. When output volume rises, only the second one scales, because it does not require
+        anyone to have anticipated the change.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Requirements</span>
+    <h2>What the layer has to be</h2>
+    <p>
+      Not every automated check qualifies. A verification layer that fails any of these degrades into
+      noise, and a noisy gate is worse than none — teams disable it and lose the signal entirely.
+    </p>
+    <ul class="lp-list">
+      <li><strong>Independent.</strong> Whatever produced the change cannot be what clears it, or a misread requirement survives the whole pipeline intact.</li>
+      <li><strong>Unprompted.</strong> It runs on every change, not when someone remembers. Coverage that depends on discipline is not a layer, it is a habit.</li>
+      <li><strong>Derived, not authored.</strong> If a human has to write the check, the layer inherits the bottleneck it was meant to remove.</li>
+      <li><strong>Evidentiary.</strong> The output has to outlive the run — a recording and repro context, not a claim in a log.</li>
+      <li><strong>Calibrated.</strong> It stops the line only on a contradiction, and reports everything else. Certainty is the price of being allowed to block.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="lp-kicker">Where Kery sits</span>
+    <h2>A pass that did not write the code</h2>
+    <p>
+      Kery occupies exactly that layer. It reads a pull request, works out what the change is
+      claiming to do, signs into the preview deployment built for it, walks those flows in a real
+      browser, and posts a verdict with video of what actually happened.
+    </p>
+    <p>
+      It does not need a suite, because the checks come from the diff. It does not need CI
+      configuration, because it runs off the GitHub App. And it fails a build only on a contradicted
+      check, so it stays switched on — which is the property that decides whether a verification
+      layer exists in six months or was quietly disabled in week three.
+    </p>
+    <p>
+      The practical starting point is one repository and one pull request. See
+      <a href="/use-cases/pull-request-testing">what a check posts back</a>, or
+      <a href="/alternatives">how this compares</a> to what you run today.
+    </p>
+  </section>
+</SeoLanding>

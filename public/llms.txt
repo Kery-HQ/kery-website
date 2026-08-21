@@ -20,6 +20,7 @@ Kery is an open-source AI browser testing engine for web apps. It runs real brow
 ## Key pages
 
 - [Homepage](https://kery.dev/): Product overview, local install positioning, Kery Cloud waitlist, FAQ, demo video, and community link.
+- [Verification layer for your software factory](https://kery.dev/software-factory): Kery's category framing - the four layers of an AI-era delivery pipeline and why verification is the missing one.
 - [Compare](https://kery.dev/alternatives): Hub for comparisons against Claude Code with Playwright MCP, hand-written Playwright suites, and manual QA.
 - [Kery vs. Claude Code + Playwright MCP](https://kery.dev/vs/claude-code-playwright): Why an agent driving a browser is not a merge gate, and where the DIY setup is still the right tool.
 - [Claude Code + Playwright MCP setup guide](https://kery.dev/guides/claude-code-playwright-pr-checks): DIY walkthrough for browser-checking pull requests with Claude Code, including where the setup runs out.

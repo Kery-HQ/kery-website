@@ -6,7 +6,7 @@
  * index needs to list them alongside published notes.
  */
 
-export type GuideCategory = 'Setup' | 'Comparison' | 'Your stack' | 'Use case';
+export type GuideCategory = 'Setup' | 'Comparison' | 'Your stack' | 'Use case' | 'Perspective';
 
 export interface Guide {
   href: string;
@@ -16,6 +16,13 @@ export interface Guide {
 }
 
 export const GUIDES: Guide[] = [
+  {
+    href: '/software-factory',
+    title: 'The verification layer for your software factory',
+    blurb:
+      'Agents industrialised production but not proof. Four layers of a delivery pipeline, why review and tests structurally cannot cover the third, and what the missing one has to be.',
+    category: 'Perspective',
+  },
   {
     href: '/guides/claude-code-playwright-pr-checks',
     title: 'Claude Code + Playwright MCP for your PRs',
