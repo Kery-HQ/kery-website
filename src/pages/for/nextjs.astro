@@ -23,8 +23,8 @@ const faqs: [string, string][] = [
     "Those are exercised the same way a user would hit them. Redirect loops and auth bounces show up as a real browser navigating, which is usually how they get noticed in production too.",
   ],
   [
-    "Can I run it locally against next dev?",
-    "Yes. The engine runs with Docker and can point at your local app, which is useful for building out flows before wiring up the PR checks.",
+    "How does Kery test Next.js changes?",
+    "Kery Cloud checks each pull request against its preview deployment, so results reflect the exact change being reviewed.",
   ],
 ];
 
@@ -117,8 +117,7 @@ const related = [
       <li><strong>Read the verdict on the PR</strong>, with video seeking to the deciding step.</li>
     </ul>
     <p>
-      Prefer to run it yourself? The engine runs locally with Docker against
-      <code>next dev</code>.
+      Kery Cloud checks the preview deployment for each pull request, so your team can review the result before merging.
     </p>
   </section>
 </SeoLanding>

@@ -2,12 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_GITHUB_URL } from '../constants';
+import { SITE_DISCORD_URL } from '../constants';
 ---
 
 <Layout
   title="Terms of Service - Kery"
-  description="Terms of use for kery.dev and the Kery software."
+  description="Terms of use for kery.dev and Kery Cloud."
 >
   <Navbar />
   <main class="legal-page">
@@ -21,23 +21,23 @@ import { SITE_GITHUB_URL } from '../constants';
         Site.
       </p>
 
-      <h2>2. Software license</h2>
+      <h2>2. Kery Cloud</h2>
       <p>
-        The Kery software is distributed under the <strong>Apache License, Version 2.0</strong>. Your use, reproduction,
-        and distribution of the code are governed by that license, not by these Terms. A copy of the license ships
-        with the repository at <a href={SITE_GITHUB_URL}>GitHub</a>.
+        Your use of Kery Cloud is subject to these Terms and any additional terms presented when you create or use
+        your account. You are responsible for the content and systems you connect to the service and for ensuring
+        you have permission to test them.
       </p>
 
       <h2>3. Site content</h2>
       <p>
-        Marketing copy, branding, and design assets on the Site are owned by the Kery project or its contributors
-        and are provided for informational purposes. You may link to the Site; do not misrepresent affiliation or
+        Marketing copy, branding, and design assets on the Site are owned by Kery and are provided for informational
+        purposes. You may link to the Site; do not misrepresent affiliation or
         endorsements.
       </p>
 
       <h2>4. No warranty</h2>
       <p>
-        THE SITE AND ANY DOCUMENTATION ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+        THE SITE AND KERY CLOUD ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
         INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
         NON-INFRINGEMENT. AI-assisted testing can miss issues or report false positives; you remain responsible for
         your release process.
@@ -45,17 +45,16 @@ import { SITE_GITHUB_URL } from '../constants';
 
       <h2>5. Limitation of liability</h2>
       <p>
-        TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+        TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL KERY BE LIABLE FOR
         ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, OR
-        GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF THE SITE OR THE SOFTWARE, WHETHER BASED IN CONTRACT,
+        GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF THE SITE OR KERY CLOUD, WHETHER BASED IN CONTRACT,
         TORT, OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
       </p>
 
-      <h2>6. Future hosted services</h2>
+      <h2>6. Changes to the service</h2>
       <p>
-        If Kery offers a managed cloud product, it will be subject to separate terms of service and, where applicable,
-        a commercial agreement. These Site terms apply only to the marketing website and general OSS distribution
-        unless otherwise stated.
+        We may modify or suspend parts of Kery Cloud as the service evolves. Any paid plans, billing terms, or
+        service-specific conditions will be presented in the product when applicable.
       </p>
 
       <h2>7. Changes</h2>
@@ -66,8 +65,7 @@ import { SITE_GITHUB_URL } from '../constants';
 
       <h2>8. Contact</h2>
       <p>
-        Reach the maintainers via the
-        <a href={SITE_GITHUB_URL}>Kery GitHub repository</a>.
+        Contact us through the <a href={SITE_DISCORD_URL}>Kery community</a>.
       </p>
     </div>
   </main>

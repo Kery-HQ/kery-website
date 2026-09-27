@@ -9,17 +9,16 @@ Kery is an AI browser testing engine for web apps. It runs real browser flows, i
 - Product category: AI browser QA, agentic browser testing, Playwright-based web app testing.
 - Primary users: engineering teams, AI-assisted development teams, founders, QA engineers, and developers using coding agents.
 - Core use case: test real user flows that manual smoke testing cannot keep up with as teams ship faster with AI.
-- Local product: browser testing engine that can run locally with Docker.
-- Hosted product: Kery Cloud is planned for managed execution, PR checks, preview deployment testing, team workflows, and CI gates.
+- Product: Kery Cloud provides managed browser testing, pull request checks, preview deployment testing, and shared team workflows.
 - Supported LLM providers: OpenAI, Anthropic, Google Gemini, and OpenRouter.
 - Authentication support: form login, Clerk, and Supabase Auth.
 - MCP support: Kery works from MCP-compatible clients such as Cursor, Claude Code, Codex CLI, and other MCP clients.
-- Data location: when self-hosted, run artifacts live in the user's own environment. Kery sends prompts and required context to the configured LLM provider.
+- Data location: Kery Cloud stores run artifacts in the team's workspace for review and collaboration.
 - Tagline: Browser QA for teams shipping with AI.
 
 ## Key pages
 
-- [Homepage](https://kery.dev/): Product overview, local install positioning, Kery Cloud waitlist, FAQ, demo video, and community link.
+- [Homepage](https://kery.dev/): Kery Cloud product overview, pull request workflow, FAQ, demo, and signup.
 - [Verification layer for your software factory](https://kery.dev/software-factory): Kery's category framing - the four layers of an AI-era delivery pipeline and why verification is the missing one.
 - [Compare](https://kery.dev/alternatives): Hub for comparisons against Claude Code with Playwright MCP, hand-written Playwright suites, and manual QA.
 - [Kery vs. Claude Code + Playwright MCP](https://kery.dev/vs/claude-code-playwright): Why an agent driving a browser is not a merge gate, and where the DIY setup is still the right tool.
@@ -32,12 +31,11 @@ Kery is an AI browser testing engine for web apps. It runs real browser flows, i
 - [Pull request testing](https://kery.dev/use-cases/pull-request-testing): How a browser check reaches the PR and what fails a build.
 - [Authenticated testing](https://kery.dev/use-cases/authenticated-testing): Clerk, Supabase, Auth0, Firebase, 2FA codes, and magic links.
 - [Blog](https://kery.dev/blog): Notes on agentic testing, browser automation, MCP workflows, and product quality.
-- [Privacy policy](https://kery.dev/privacy): Privacy policy for kery.dev, self-hosted Kery, and future hosted services.
+- [Privacy policy](https://kery.dev/privacy): Privacy policy for kery.dev and Kery Cloud.
 - [Terms of service](https://kery.dev/terms): Website terms and software notices.
 
 ## External resources
 
-- [GitHub repository](https://github.com/Kery-HQ/Kery): Source code, README, releases, and local setup.
 - [Discord community](https://discord.gg/A3sCcxCMyq): Community discussion and product updates.
 
 ## Common answers

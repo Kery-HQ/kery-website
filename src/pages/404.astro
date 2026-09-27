@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_GITHUB_URL } from '../constants';
 ---
 
 <Layout
@@ -28,7 +27,6 @@ import { SITE_GITHUB_URL } from '../constants';
         </p>
         <div class="not-found-actions">
           <a href="/" class="not-found-button primary">Back to home</a>
-          <a href={SITE_GITHUB_URL} class="not-found-button secondary" target="_blank" rel="noopener noreferrer">Open GitHub</a>
         </div>
       </div>
     </section>
