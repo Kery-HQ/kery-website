@@ -203,7 +203,9 @@ export function portableTextToHtml(blocks: PortableTextBlock[] = []): string {
     html += `<${tag}>${children}</${tag}>`;
   }
 
-  return html;
+  return html
+    .replace(/The engine is open[ -]?source:\s*/gi, 'Run the engine locally: ')
+    .replace(/Kery is open[ -]?source at\s*/gi, 'Kery is available at ');
 }
 
 function isListBlock(block: PortableTextBlock): boolean {

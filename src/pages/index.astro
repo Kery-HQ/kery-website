@@ -29,7 +29,7 @@ const flowFeatures = [
 ];
 
 const installFeatures = [
-  'Open-source engine you can inspect, run, and extend locally.',
+  'Run the browser testing engine locally with Docker.',
   'Runs locally with Docker.',
   'Installs MCP into Cursor, Claude Code, and Codex CLI.',
   'Point Kery at your app running locally and start testing it.',
@@ -57,10 +57,9 @@ const faqs = [
   ['Do I need to write test scripts?', 'No. Kery works out what to check from the pull request itself. You can also point it at a flow in plain English, and useful flows can be saved and rerun.'],
   ['Does it work behind authentication?', 'Yes. Kery supports logged-in products through configured environments and credentials, including form login, Clerk, and Supabase Auth. It is not limited to simple public sites.'],
   ['Which LLM providers are supported?', 'Kery supports OpenAI, Anthropic, Google Gemini, and OpenRouter. Bring your own provider keys when running locally.'],
-  ['Can I run Kery in CI?', 'Yes. Kery Cloud runs on your pull requests today — connect the GitHub App and every PR gets checked against its preview deployment. The open-source stack can also run in your own pipeline.'],
+  ['Can I run Kery in CI?', 'Yes. Kery Cloud runs on your pull requests today — connect the GitHub App and every PR gets checked against its preview deployment. You can also run Kery in your own pipeline.'],
   ['What can I do with MCP?', 'Use Kery from MCP-compatible clients like Cursor, Claude Code, and Codex CLI to run browser checks on your app, inspect route coverage, and pull results.'],
-  ['Where does my data live?', 'In the open-source setup, run artifacts live in your own environment. Kery only sends prompts and required context to the LLM provider you configure.'],
-  ['Is Kery open-source?', 'Yes. The local engine is open-source, built for self-hosting, inspection, and extension. Kery Cloud adds hosted execution and team workflows.'],
+  ['Where does my data live?', 'When you run Kery in your own environment, run artifacts stay there. Kery only sends prompts and required context to the LLM provider you configure.'],
 ];
 ---
 
@@ -124,7 +123,7 @@ const faqs = [
     <section class="section install-section" id="install">
       <div class="container install-grid">
         <div class="section-copy">
-          <span class="section-kicker">Use case 03 · Local &amp; open source</span>
+          <span class="section-kicker">Use case 03 · Run locally</span>
           <h2>Run the whole stack <em>on your machine.</em></h2>
           <ul class="install-feature-list">
             {installFeatures.map((feature) => (

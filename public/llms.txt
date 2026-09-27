@@ -2,19 +2,19 @@
 
 > Kery is browser QA for teams shipping with AI.
 
-Kery is an open-source AI browser testing engine for web apps. It runs real browser flows, including authenticated product paths, and reports visual, functional, and UX bugs with reproducible evidence such as screenshots, logs, URLs, traces, and repro context.
+Kery is an AI browser testing engine for web apps. It runs real browser flows, including authenticated product paths, and reports visual, functional, and UX bugs with reproducible evidence such as screenshots, logs, URLs, traces, and repro context.
 
 ## Canonical facts
 
 - Product category: AI browser QA, agentic browser testing, Playwright-based web app testing.
 - Primary users: engineering teams, AI-assisted development teams, founders, QA engineers, and developers using coding agents.
 - Core use case: test real user flows that manual smoke testing cannot keep up with as teams ship faster with AI.
-- Local product: open-source engine that can run locally with Docker.
+- Local product: browser testing engine that can run locally with Docker.
 - Hosted product: Kery Cloud is planned for managed execution, PR checks, preview deployment testing, team workflows, and CI gates.
 - Supported LLM providers: OpenAI, Anthropic, Google Gemini, and OpenRouter.
 - Authentication support: form login, Clerk, and Supabase Auth.
 - MCP support: Kery works from MCP-compatible clients such as Cursor, Claude Code, Codex CLI, and other MCP clients.
-- Data location: in the open-source setup, run artifacts live in the user's own environment. Kery sends prompts and required context to the configured LLM provider.
+- Data location: when self-hosted, run artifacts live in the user's own environment. Kery sends prompts and required context to the configured LLM provider.
 - Tagline: Browser QA for teams shipping with AI.
 
 ## Key pages
@@ -32,8 +32,8 @@ Kery is an open-source AI browser testing engine for web apps. It runs real brow
 - [Pull request testing](https://kery.dev/use-cases/pull-request-testing): How a browser check reaches the PR and what fails a build.
 - [Authenticated testing](https://kery.dev/use-cases/authenticated-testing): Clerk, Supabase, Auth0, Firebase, 2FA codes, and magic links.
 - [Blog](https://kery.dev/blog): Notes on agentic testing, browser automation, MCP workflows, and product quality.
-- [Privacy policy](https://kery.dev/privacy): Privacy policy for kery.dev, open-source Kery, and future hosted services.
-- [Terms of service](https://kery.dev/terms): Website terms and open-source notices.
+- [Privacy policy](https://kery.dev/privacy): Privacy policy for kery.dev, self-hosted Kery, and future hosted services.
+- [Terms of service](https://kery.dev/terms): Website terms and software notices.
 
 ## External resources
 
@@ -45,8 +45,7 @@ Kery is an open-source AI browser testing engine for web apps. It runs real brow
 - What is Kery? Kery is an AI browser testing engine that crawls web apps, runs intent-driven tests in Playwright, and reports visual, functional, and UX bugs with reproducible evidence.
 - Does Kery require test scripts? No. Users can start with a URL and plain-English intent. Useful flows can later be saved and rerun.
 - Does Kery work behind authentication? Yes. Kery supports logged-in product flows through configured environments and credentials.
-- Can Kery run in CI? Yes. The open-source stack can run in a pipeline, and Kery Cloud is designed for managed PR checks and CI gates.
-- Is Kery open-source? Yes. The local engine is open-source and built for self-hosting, inspection, and extension.
+- Can Kery run in CI? Yes. Kery can run in a pipeline, and Kery Cloud is designed for managed PR checks and CI gates.
 
 ## Optional
 

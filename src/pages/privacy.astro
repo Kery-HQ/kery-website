@@ -2,12 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_GITHUB_URL } from '../constants';
 ---
 
 <Layout
   title="Privacy Policy - Kery"
-  description="Privacy policy for kery.dev and Kery open-source and future hosted services."
+  description="Privacy policy for kery.dev and Kery's self-hosted and future hosted services."
 >
   <Navbar />
   <main class="legal-page">
@@ -17,7 +16,7 @@ import { SITE_GITHUB_URL } from '../constants';
 
       <h2>1. Who we are</h2>
       <p>
-        “Kery” refers to the open-source software project and this website (<strong>kery.dev</strong>). This policy
+        “Kery” refers to the Kery software and this website (<strong>kery.dev</strong>). This policy
         describes how we handle information in connection with the marketing site and how we expect deployments
         of the software to behave by default.
       </p>
@@ -36,11 +35,11 @@ import { SITE_GITHUB_URL } from '../constants';
         use website analytics to collect product credentials or self-hosted Kery run artifacts.
       </p>
 
-      <h2>3. Self-hosted Kery (open source)</h2>
+      <h2>3. Self-hosted Kery</h2>
       <p>
         When you run Kery yourself, you control the infrastructure. Test artifacts, credentials, LLM prompts,
-        database contents, and logs reside in <strong>your</strong> environment. The open-source project does not
-        phone home by default; review the repository and your configuration for any optional integrations you enable.
+        database contents, and logs reside in <strong>your</strong> environment. Kery does not phone home by default;
+        review your configuration for any optional integrations you enable.
       </p>
 
       <h2>4. Future hosted Kery (“Kery Cloud”)</h2>
@@ -61,8 +60,8 @@ import { SITE_GITHUB_URL } from '../constants';
       <p>
         Depending on where you live, you may have rights to access, correct, delete, or restrict certain personal
         data. For data processed only on your self-hosted deployment, exercise those rights with your own
-        organization. For data we process as a controller through this site or a future hosted product, contact us
-        using the channels listed on <a href={SITE_GITHUB_URL}>GitHub</a> once published.
+        organization. For data we process as a controller through this site or a future hosted product, use the contact
+        channels published on this site.
       </p>
 
       <h2>7. Changes</h2>
@@ -73,8 +72,7 @@ import { SITE_GITHUB_URL } from '../constants';
 
       <h2>8. Contact</h2>
       <p>
-        Questions about this policy can be opened as a discussion or issue on the
-        <a href={SITE_GITHUB_URL}>Kery GitHub repository</a>.
+        Questions about this policy can be sent through the contact channels published on this site.
       </p>
     </div>
   </main>
