@@ -44,14 +44,9 @@ export default function SavingsCalculator() {
   const highPct = (savings.monthlyHigh / spend) * 100;
 
   return (
-    <Card className="gap-0 overflow-hidden p-0 shadow-xl">
+    <Card className="gap-0 overflow-hidden p-0">
       <CardContent className="grid grid-cols-1 p-0 md:grid-cols-2">
         <div className="grid min-w-0 content-start gap-6 p-6 sm:p-8">
-          <div>
-            <h2 className="text-3xl font-semibold tracking-tight">{calculator.heading}</h2>
-            <p className="mt-2 text-muted-foreground">{calculator.intro}</p>
-          </div>
-
           <div className="grid gap-3">
             <Label htmlFor="monthly-spend">{calculator.spendLabel}</Label>
             <Input
@@ -96,17 +91,17 @@ export default function SavingsCalculator() {
           </fieldset>
         </div>
 
-        <div className="grid min-w-0 content-start gap-6 bg-accent p-6 text-accent-foreground sm:p-8">
+        <div className="grid min-w-0 content-start gap-6 border-t bg-muted p-6 sm:p-8 md:border-t-0 md:border-l">
           <div aria-live="polite">
             <p className="text-sm font-medium">{calculator.resultLabel}</p>
-            <p className="mt-2 font-heading text-[1.75rem] leading-tight font-semibold tracking-tight sm:text-4xl">
+            <p className="mt-2 font-mono text-[1.6rem] leading-tight font-medium tracking-tighter sm:text-4xl">
               <span className="whitespace-nowrap">
                 {dollars.format(savings.monthlyLow)}–{dollars.format(savings.monthlyHigh)}
               </span>
               <wbr />
-              <span className="text-xl font-medium">/month</span>
+              <span className="font-sans text-lg font-normal text-muted-foreground">/month</span>
             </p>
-            <p className="mt-1 text-lg">
+            <p className="mt-1 font-mono text-muted-foreground">
               ({formatCompact(savings.annualLow)}–{formatCompact(savings.annualHigh)}/year)
             </p>
           </div>
@@ -118,7 +113,7 @@ export default function SavingsCalculator() {
               <span className="font-medium">{dollars.format(spend)}</span>
             </p>
             <div className="flex h-5 overflow-hidden rounded-sm bg-background">
-              <div className="grow bg-primary" />
+              <div className="grow bg-muted-foreground/40" />
               <div
                 className="bg-hatch text-savings motion-safe:transition-[width]"
                 style={{ width: `${highPct - lowPct}%` }}
@@ -133,9 +128,9 @@ export default function SavingsCalculator() {
             </p>
           </div>
 
-          <Separator className="bg-foreground/15" />
+          <Separator />
 
-          <p className="text-sm">{calculator.disclaimer}</p>
+          <p className="text-sm text-muted-foreground">{calculator.disclaimer}</p>
           <Button asChild size="lg" className="w-full sm:w-fit">
             <a href="#book">{calculator.cta}</a>
           </Button>

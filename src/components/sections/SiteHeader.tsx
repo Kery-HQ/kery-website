@@ -3,9 +3,9 @@ import { SITE_NAME, booking } from '@/config/site';
 
 export default function SiteHeader() {
   return (
-    <header className="border-b">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-        <a href="/" className="font-heading text-lg font-bold tracking-tight">
+    <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+        <a href="/" className="text-lg font-semibold tracking-tighter">
           {SITE_NAME}
         </a>
         <Button asChild size="sm">

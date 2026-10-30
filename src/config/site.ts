@@ -45,6 +45,41 @@ export const calculator = {
   cta: 'Get my real number',
 };
 
+/** Sample data only: these are not customer results. Keep the labels below on screen. */
+export const preview = {
+  sampleLabel: 'Sample data',
+  note: 'Illustrative example, not a customer result.',
+  dashboard: {
+    title: 'Savings dashboard',
+    stats: [
+      { label: 'Baseline', value: '$48,200/mo' },
+      { label: 'Current', value: '$34,700/mo' },
+      { label: 'Saved', value: '$13,500/mo' },
+    ],
+    columns: ['Feature', 'Team', 'Spend', 'Change'],
+    rows: [
+      { feature: 'Support agent', team: 'Customer', spend: '$14,100', change: '-31%' },
+      { feature: 'Doc summarizer', team: 'Platform', spend: '$9,250', change: '-24%' },
+      { feature: 'Code review', team: 'Engineering', spend: '$7,600', change: '-29%' },
+      { feature: 'Search answers', team: 'Product', spend: '$3,750', change: '-22%' },
+    ],
+    alert: 'Cost alert: dev traffic on Support agent up 12% this week',
+  },
+  pullRequest: {
+    heading: 'Every change arrives as a pull request',
+    body: 'You review the diff and the evidence, then merge it like any other change.',
+    title: 'Route ticket tagging to a smaller model',
+    removed: 'model: "large-model"',
+    added: 'model: "small-model"',
+    columns: ['Check', 'Before', 'After'],
+    rows: [
+      { check: 'Cost per 1k calls', before: '$4.20', after: '$0.90' },
+      { check: 'Quality eval', before: '96.1%', after: '96.0%' },
+      { check: 'p95 latency', before: '2.4s', after: '0.8s' },
+    ],
+  },
+};
+
 export const levers = {
   heading: 'Where we cut costs',
   items: [

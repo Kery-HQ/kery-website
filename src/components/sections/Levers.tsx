@@ -14,16 +14,16 @@ const icons = {
 
 export default function Levers() {
   return (
-    <section>
-      <div className="mx-auto max-w-5xl px-4 py-16 sm:py-24">
-        <h2 className="text-4xl font-semibold tracking-tight">{levers.heading}</h2>
-        <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-8 lg:grid-cols-4">
+    <section className="border-t">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+        <h2 className="text-4xl sm:text-5xl">{levers.heading}</h2>
+        <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border lg:grid-cols-4">
           {levers.items.map((item) => {
             const Icon = icons[item.icon as keyof typeof icons];
             return (
-              <li key={item.title} className="border-t-2 border-primary pt-4">
-                <Icon aria-hidden="true" className="size-5 text-primary" />
-                <h3 className="mt-3 text-lg font-semibold">{item.title}</h3>
+              <li key={item.title} className="bg-background p-4 sm:p-6">
+                <Icon aria-hidden="true" className="size-5 text-savings" />
+                <h3 className="mt-4 font-medium">{item.title}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{item.body}</p>
               </li>
             );

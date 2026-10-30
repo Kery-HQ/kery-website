@@ -1,11 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
   --color-savings: var(--savings);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -56,25 +58,38 @@
 }
 
 .dark {
-  --savings: #34c79a;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* Brand tokens: the site always runs in this theme. Change these to rebrand. */
+  --savings: #f5b544;
+  --background: #0c1017;
+  --foreground: #f2f4f8;
+  --card: #131822;
+  --card-foreground: #f2f4f8;
+  --popover: #131822;
+  --popover-foreground: #f2f4f8;
+  --primary: #f2f4f8;
+  --primary-foreground: #0c1017;
+  --secondary: #1d2430;
+  --secondary-foreground: #f2f4f8;
+  --muted: #1a202b;
+  --muted-foreground: #a3adbd;
+  --accent: #1d2430;
+  --accent-foreground: #f2f4f8;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: #262e3b;
+  --input: #333c4b;
+  --ring: #f5b544;
+}
+
+/* Dots for the bill chart: a mask turns solid columns into a dot grid. */
+@utility mask-dots {
+  mask-image: radial-gradient(circle, #000 1.7px, transparent 2.1px);
+  mask-size: 8px 8px;
+}
+
+@keyframes column-rise {
+  from {
+    transform: scaleY(0);
+  }
 }
 
 @layer base {
@@ -88,9 +103,8 @@
     @apply bg-background text-foreground antialiased;
   }
   h1,
-  h2,
-  h3 {
-    font-family: var(--font-heading);
+  h2 {
+    @apply font-medium tracking-tighter text-balance;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
