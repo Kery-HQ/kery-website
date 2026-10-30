@@ -1,9 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "@fontsource-variable/bricolage-grotesque";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-heading: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-savings: var(--savings);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -30,27 +33,30 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #ffffff;
+  --foreground: #141b34;
+  --card: #ffffff;
+  --card-foreground: #141b34;
+  --popover: #ffffff;
+  --popover-foreground: #141b34;
+  --primary: #2747d6;
+  --primary-foreground: #ffffff;
+  --secondary: #e7ecfb;
+  --secondary-foreground: #141b34;
+  --muted: #f4f6fb;
+  --muted-foreground: #566079;
+  --accent: #e7ecfb;
+  --accent-foreground: #141b34;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: #dfe4f0;
+  --input: #c9d1e4;
+  --ring: #2747d6;
+  /* Brand tokens: change these to rebrand. --savings colours the estimator meter. */
+  --savings: #0e8f6a;
 }
 
 .dark {
+  --savings: #34c79a;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -81,9 +87,19 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+  }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
   }
+}
+
+/* Diagonal "cut" hatching shared by the hero and the savings meter. */
+@utility bg-hatch {
+  background-image: repeating-linear-gradient(135deg, currentColor 0 2px, transparent 2px 9px);
 }

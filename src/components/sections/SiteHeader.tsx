@@ -5,7 +5,7 @@ export default function SiteHeader() {
   return (
     <header className="border-b">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-        <a href="/" className="font-semibold tracking-tight">
+        <a href="/" className="font-heading text-lg font-bold tracking-tight">
           {SITE_NAME}
         </a>
         <Button asChild size="sm">

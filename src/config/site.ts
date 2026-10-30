@@ -38,6 +38,9 @@ export const calculator = {
     { id: 'multi-model', label: 'We use more than one model' },
   ],
   resultLabel: 'Estimated savings',
+  meterLabel: 'Your monthly bill',
+  meterKeep: 'Stays',
+  meterCut: 'Estimated cut',
   disclaimer: 'Estimate only. Actual savings depend on your workload. The free audit gives you real numbers.',
   cta: 'Get my real number',
 };
@@ -45,14 +48,14 @@ export const calculator = {
 export const levers = {
   heading: 'Where we cut costs',
   items: [
-    { title: 'Right-size models', body: 'Small models where they do the job just as well.' },
-    { title: 'Prompt caching', body: 'Stop paying full price for the same context on every call.' },
-    { title: 'Batch processing', body: "50% off for work that doesn't need an instant answer." },
-    { title: 'Trim prompts and context', body: 'Oversized system prompts, RAG chunks, chat history, tool definitions.' },
-    { title: 'Control output and reasoning', body: 'Sensible limits and reasoning effort per route.' },
-    { title: 'Kill waste', body: 'Retries, duplicate calls, runaway agent loops, dev/test traffic on expensive models.' },
-    { title: 'Faster responses', body: 'Smaller models, caching and shorter prompts cut latency, not just cost.' },
-    { title: 'Stay ahead of changes', body: 'Model retirements and price hikes caught before they hit you.' },
+    { icon: 'models', title: 'Right-size models', body: 'Small models where they do the job just as well.' },
+    { icon: 'caching', title: 'Prompt caching', body: 'Stop paying full price for the same context on every call.' },
+    { icon: 'batch', title: 'Batch processing', body: "50% off for work that doesn't need an instant answer." },
+    { icon: 'trim', title: 'Trim prompts and context', body: 'Oversized system prompts, RAG chunks, chat history, tool definitions.' },
+    { icon: 'limits', title: 'Control output and reasoning', body: 'Sensible limits and reasoning effort per route.' },
+    { icon: 'waste', title: 'Kill waste', body: 'Retries, duplicate calls, runaway agent loops, dev/test traffic on expensive models.' },
+    { icon: 'speed', title: 'Faster responses', body: 'Smaller models, caching and shorter prompts cut latency, not just cost.' },
+    { icon: 'alerts', title: 'Stay ahead of changes', body: 'Model retirements and price hikes caught before they hit you.' },
   ],
 };
 
@@ -78,9 +81,9 @@ export const process = {
   ],
   trustHeading: 'Built to be trusted',
   trustItems: [
-    'Read-only access to start',
-    'Never sits in your request path',
-    'Replays run in your cloud, on your API keys',
+    { icon: 'readOnly', text: 'Read-only access to start' },
+    { icon: 'path', text: 'Never sits in your request path' },
+    { icon: 'cloud', text: 'Replays run in your cloud, on your API keys' },
   ],
 };
 

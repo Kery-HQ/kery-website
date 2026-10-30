@@ -40,65 +40,102 @@ export default function SavingsCalculator() {
   const spend = clampSpend(Number(spendText) || 0);
   const savings = estimateSavings(spend, checked.length);
 
+  const lowPct = (savings.monthlyLow / spend) * 100;
+  const highPct = (savings.monthlyHigh / spend) * 100;
+
   return (
-    <Card>
-      <CardContent className="grid gap-6">
-        <div className="grid gap-3">
-          <Label htmlFor="monthly-spend">{calculator.spendLabel}</Label>
-          <Input
-            id="monthly-spend"
-            type="number"
-            inputMode="numeric"
-            min={minSpend}
-            max={maxSpend}
-            step={stepSpend}
-            value={spendText}
-            onChange={(event) => setSpendText(event.target.value)}
-            onBlur={() => setSpendText(String(spend))}
-          />
-          <Slider
-            aria-label={calculator.spendLabel}
-            min={minSpend}
-            max={maxSpend}
-            step={stepSpend}
-            value={[spend]}
-            onValueChange={([value]) => setSpendText(String(value))}
-          />
+    <Card className="gap-0 overflow-hidden p-0 shadow-xl">
+      <CardContent className="grid grid-cols-1 p-0 md:grid-cols-2">
+        <div className="grid min-w-0 content-start gap-6 p-6 sm:p-8">
+          <div>
+            <h2 className="text-3xl font-semibold tracking-tight">{calculator.heading}</h2>
+            <p className="mt-2 text-muted-foreground">{calculator.intro}</p>
+          </div>
+
+          <div className="grid gap-3">
+            <Label htmlFor="monthly-spend">{calculator.spendLabel}</Label>
+            <Input
+              id="monthly-spend"
+              type="number"
+              inputMode="numeric"
+              min={minSpend}
+              max={maxSpend}
+              step={stepSpend}
+              value={spendText}
+              onChange={(event) => setSpendText(event.target.value)}
+              onBlur={() => setSpendText(String(spend))}
+            />
+            <Slider
+              aria-label={calculator.spendLabel}
+              min={minSpend}
+              max={maxSpend}
+              step={stepSpend}
+              value={[spend]}
+              onValueChange={([value]) => setSpendText(String(value))}
+            />
+          </div>
+
+          <fieldset className="grid gap-3">
+            <legend className="mb-3 text-sm font-medium">{calculator.optionsLabel}</legend>
+            {calculator.options.map((option) => (
+              <div key={option.id} className="flex items-center gap-2">
+                <Checkbox
+                  id={option.id}
+                  checked={checked.includes(option.id)}
+                  onCheckedChange={(isChecked) =>
+                    setChecked((current) =>
+                      isChecked ? [...current, option.id] : current.filter((id) => id !== option.id),
+                    )
+                  }
+                />
+                <Label htmlFor={option.id} className="font-normal">
+                  {option.label}
+                </Label>
+              </div>
+            ))}
+          </fieldset>
         </div>
 
-        <fieldset className="grid gap-3">
-          <legend className="mb-3 text-sm font-medium">{calculator.optionsLabel}</legend>
-          {calculator.options.map((option) => (
-            <div key={option.id} className="flex items-center gap-2">
-              <Checkbox
-                id={option.id}
-                checked={checked.includes(option.id)}
-                onCheckedChange={(isChecked) =>
-                  setChecked((current) =>
-                    isChecked ? [...current, option.id] : current.filter((id) => id !== option.id),
-                  )
-                }
-              />
-              <Label htmlFor={option.id} className="font-normal">
-                {option.label}
-              </Label>
-            </div>
-          ))}
-        </fieldset>
-
-        <Separator />
-
-        <div className="grid gap-4">
+        <div className="grid min-w-0 content-start gap-6 bg-accent p-6 text-accent-foreground sm:p-8">
           <div aria-live="polite">
-            <p className="text-sm text-muted-foreground">{calculator.resultLabel}</p>
-            <p className="mt-1 text-2xl font-semibold tracking-tight">
-              {dollars.format(savings.monthlyLow)}–{dollars.format(savings.monthlyHigh)}/month
+            <p className="text-sm font-medium">{calculator.resultLabel}</p>
+            <p className="mt-2 font-heading text-[1.75rem] leading-tight font-semibold tracking-tight sm:text-4xl">
+              <span className="whitespace-nowrap">
+                {dollars.format(savings.monthlyLow)}–{dollars.format(savings.monthlyHigh)}
+              </span>
+              <wbr />
+              <span className="text-xl font-medium">/month</span>
             </p>
-            <p className="text-muted-foreground">
+            <p className="mt-1 text-lg">
               ({formatCompact(savings.annualLow)}–{formatCompact(savings.annualHigh)}/year)
             </p>
           </div>
-          <p className="text-sm text-muted-foreground">{calculator.disclaimer}</p>
+
+          {/* The whole bar is the bill; the right end shows the estimated cut. */}
+          <div aria-hidden="true">
+            <p className="mb-2 flex justify-between text-sm">
+              <span>{calculator.meterLabel}</span>
+              <span className="font-medium">{dollars.format(spend)}</span>
+            </p>
+            <div className="flex h-5 overflow-hidden rounded-sm bg-background">
+              <div className="grow bg-primary" />
+              <div
+                className="bg-hatch text-savings motion-safe:transition-[width]"
+                style={{ width: `${highPct - lowPct}%` }}
+              />
+              <div className="bg-savings motion-safe:transition-[width]" style={{ width: `${lowPct}%` }} />
+            </div>
+            <p className="mt-2 flex justify-between text-sm">
+              <span>{calculator.meterKeep}</span>
+              <span>
+                {calculator.meterCut}: {Math.round(lowPct)}–{Math.round(highPct)}%
+              </span>
+            </p>
+          </div>
+
+          <Separator className="bg-foreground/15" />
+
+          <p className="text-sm">{calculator.disclaimer}</p>
           <Button asChild size="lg" className="w-full sm:w-fit">
             <a href="#book">{calculator.cta}</a>
           </Button>
