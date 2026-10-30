@@ -1,19 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_DISCORD_URL } from '../constants';
+import Layout from '@/layouts/Layout.astro';
+import SiteHeader from '@/components/sections/SiteHeader';
+import SiteFooter from '@/components/sections/SiteFooter';
+import { CONTACT_EMAIL } from '@/config/site';
 ---
 
 <Layout
   title="Terms of Service - Kery"
-  description="Terms of use for kery.dev and Kery Cloud."
+  description="Terms of use for kery.dev and the Kery service."
 >
-  <Navbar />
-  <main class="legal-page">
-    <div class="container legal-inner">
+  <SiteHeader />
+  <main class="mx-auto max-w-2xl px-4 py-12 [&_a]:underline [&_a]:underline-offset-4 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:tracking-tight [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:font-semibold [&_p]:mb-3 [&_p]:leading-7">
+    <div>
       <h1>Terms of Service</h1>
-      <p class="legal-updated">Last updated: April 4, 2026</p>
+      <p class="text-sm text-muted-foreground">Last updated: October 30, 2026</p>
 
       <h2>1. Agreement</h2>
       <p>
@@ -21,11 +21,11 @@ import { SITE_DISCORD_URL } from '../constants';
         Site.
       </p>
 
-      <h2>2. Kery Cloud</h2>
+      <h2>2. The Kery service</h2>
       <p>
-        Your use of Kery Cloud is subject to these Terms and any additional terms presented when you create or use
+        Your use of the Kery service is subject to these Terms and any additional terms presented when you create or use
         your account. You are responsible for the content and systems you connect to the service and for ensuring
-        you have permission to test them.
+        you have permission to connect them.
       </p>
 
       <h2>3. Site content</h2>
@@ -37,23 +37,23 @@ import { SITE_DISCORD_URL } from '../constants';
 
       <h2>4. No warranty</h2>
       <p>
-        THE SITE AND KERY CLOUD ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+        THE SITE AND THE KERY SERVICE ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
         INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
-        NON-INFRINGEMENT. AI-assisted testing can miss issues or report false positives; you remain responsible for
-        your release process.
+        NON-INFRINGEMENT. Savings estimates are not guarantees; you remain responsible for your
+        production systems and release process.
       </p>
 
       <h2>5. Limitation of liability</h2>
       <p>
         TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL KERY BE LIABLE FOR
         ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, OR
-        GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF THE SITE OR KERY CLOUD, WHETHER BASED IN CONTRACT,
+        GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF THE SITE OR THE KERY SERVICE, WHETHER BASED IN CONTRACT,
         TORT, OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
       </p>
 
       <h2>6. Changes to the service</h2>
       <p>
-        We may modify or suspend parts of Kery Cloud as the service evolves. Any paid plans, billing terms, or
+        We may modify or suspend parts of the Kery service as the service evolves. Any paid plans, billing terms, or
         service-specific conditions will be presented in the product when applicable.
       </p>
 
@@ -65,56 +65,10 @@ import { SITE_DISCORD_URL } from '../constants';
 
       <h2>8. Contact</h2>
       <p>
-        Contact us through the <a href={SITE_DISCORD_URL}>Kery community</a>.
+        Contact us at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
     </div>
   </main>
-  <Footer />
+  <SiteFooter />
 </Layout>
 
-<style>
-  .legal-page {
-    padding-top: 6rem;
-    padding-bottom: var(--space-2xl);
-    min-height: 60vh;
-  }
-
-  .legal-inner {
-    max-width: 720px;
-  }
-
-  .legal-inner h1 {
-    margin-bottom: 0.5rem;
-  }
-
-  .legal-updated {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-lg);
-  }
-
-  .legal-inner h2 {
-    font-family: var(--font-sans);
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-sm);
-    color: var(--color-text);
-  }
-
-  .legal-inner p {
-    margin-bottom: var(--space-sm);
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  .legal-inner a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .legal-inner a:hover {
-    color: var(--color-accent-hover);
-  }
-</style>

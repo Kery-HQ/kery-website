@@ -1,6 +1,7 @@
 ---
-import Analytics from '../components/Analytics.astro';
-import { SITE_TAGLINE } from '../constants';
+import Analytics from '@/components/Analytics.astro';
+import { seo } from '@/config/site';
+import '@/styles/global.css';
 
 interface Props {
   title?: string;
@@ -10,14 +11,7 @@ interface Props {
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const {
-  title = `Kery — ${SITE_TAGLINE.toLowerCase()}`,
-  description =
-    "Claude Code builds it. Kery test-drives it. Every pull request gets run in a real browser, with video of what actually happened — no tests to write.",
-  ogImage = "/og.png",
-  robots,
-  structuredData,
-} = Astro.props;
+const { title = seo.title, description = seo.description, ogImage = '/og.png', robots, structuredData } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const structuredDataItems = Array.isArray(structuredData)
@@ -36,12 +30,8 @@ const structuredDataItems = Array.isArray(structuredData)
     {robots && <meta name="robots" content={robots} />}
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Canonical -->
     <link rel="canonical" href={canonicalURL} />
-
-    <!-- Favicon & app icon -->
-    <link rel="icon" type="image/png" href="/kery.png" />
-    <link rel="apple-touch-icon" href="/kery.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -65,49 +55,9 @@ const structuredDataItems = Array.isArray(structuredData)
 
     <Analytics />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Lora:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-
     <title>{title}</title>
   </head>
   <body>
     <slot />
-
-    <script>
-      // JS fallback for browsers without CSS scroll-driven animations (Safari, Firefox)
-      // Chrome/Edge use pure CSS animation-timeline: view() - no JS needed.
-      if (!CSS.supports('animation-timeline: view()')) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0, rootMargin: '0px 0px -10% 0px' }
-        );
-
-        // Show elements already in viewport, observe the rest
-        document.querySelectorAll('.reveal').forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < window.innerHeight * 1.1) {
-            el.classList.add('visible');
-          } else {
-            observer.observe(el);
-          }
-        });
-      }
-    </script>
   </body>
 </html>
-
-<style is:global>
-  @import '../styles/global.css';
-</style>
