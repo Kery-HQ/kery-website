@@ -3,8 +3,10 @@ import Layout from '@/layouts/Layout.astro';
 import SiteHeader from '@/components/sections/SiteHeader';
 import SiteFooter from '@/components/sections/SiteFooter';
 import Hero from '@/components/sections/Hero';
-import Levers from '@/components/sections/Levers';
-import Process from '@/components/sections/Process';
+import Leaks from '@/components/sections/Leaks';
+import Changes from '@/components/sections/Changes';
+import Proof from '@/components/sections/Proof';
+import HowItRuns from '@/components/sections/HowItRuns';
 import Booking from '@/components/sections/Booking';
 import SavingsCalculator from '@/components/SavingsCalculator';
 import { CONTACT_EMAIL, SITE_NAME, SITE_ORIGIN, calculator, seo } from '@/config/site';
@@ -31,6 +33,10 @@ const structuredData = [
   <SiteHeader />
   <main>
     <Hero />
+    <Leaks />
+    <Changes />
+    <Proof />
+    <HowItRuns />
     <section id="savings" class="scroll-mt-16 border-t">
       <div class="mx-auto max-w-6xl px-4 py-20 sm:py-28">
         <h2 class="text-4xl sm:text-5xl">{calculator.heading}</h2>
@@ -40,8 +46,6 @@ const structuredData = [
         </div>
       </div>
     </section>
-    <Levers />
-    <Process />
     <Booking />
   </main>
   <SiteFooter />

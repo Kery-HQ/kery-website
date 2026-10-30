@@ -24,7 +24,7 @@ export const hero = {
 };
 
 export const calculator = {
-  heading: 'AI savings potential',
+  heading: 'See your savings potential',
   intro: 'Enter your monthly LLM API spend for a rough estimate.',
   spendLabel: 'Monthly LLM API spend (USD)',
   defaultSpend: 25_000,
@@ -45,80 +45,81 @@ export const calculator = {
   cta: 'Get my real number',
 };
 
-/** Sample data only: these are not customer results. Keep the labels below on screen. */
-export const preview = {
-  sampleLabel: 'Sample data',
-  note: 'Illustrative example, not a customer result.',
-  dashboard: {
-    title: 'Savings dashboard',
-    stats: [
-      { label: 'Baseline', value: '$48,200/mo' },
-      { label: 'Current', value: '$34,700/mo' },
-      { label: 'Saved', value: '$13,500/mo' },
-    ],
-    columns: ['Feature', 'Team', 'Spend', 'Change'],
-    rows: [
-      { feature: 'Support agent', team: 'Customer', spend: '$14,100', change: '-31%' },
-      { feature: 'Doc summarizer', team: 'Platform', spend: '$9,250', change: '-24%' },
-      { feature: 'Code review', team: 'Engineering', spend: '$7,600', change: '-29%' },
-      { feature: 'Search answers', team: 'Product', spend: '$3,750', change: '-22%' },
-    ],
-    alert: 'Cost alert: dev traffic on Support agent up 12% this week',
-  },
+/** One example request carries the page's story. Token counts are illustrative, not customer data. */
+export const request = {
+  exampleLabel: 'Example request',
+  note: 'Illustrative example, not customer data.',
+  tokensLabel: 'input tokens',
+  rows: [
+    { label: 'System prompt', before: 6200, after: 6200, leak: 'Same text on every call, never cached', fix: 'Cached, so repeat reads cost a fraction' },
+    { label: 'Tool definitions', before: 4100, after: 450, leak: '40 tools sent, 3 ever used on this route', fix: 'Only the 3 tools this route calls' },
+    { label: 'Retrieved context', before: 4800, after: 800, leak: '12 chunks retrieved, 2 cited', fix: 'Fewer, better-ranked chunks' },
+    { label: 'Chat history', before: 2600, after: 400, leak: 'Every past turn resent', fix: 'Older turns summarized' },
+    { label: 'The actual question', before: 60, after: 60, leak: 'The only part the user wrote', fix: 'Unchanged' },
+  ],
+};
+
+export const leaks = {
+  heading: 'Your bill is mostly context, not questions.',
+  body: 'Most of a typical request is material the model never needed. Here is one call, taken apart.',
+  modelBefore: 'Model: frontier, sorting tickets into five labels',
+  elsewhereHeading: 'And the waste outside the request',
+  elsewhere: [
+    'Nightly evals and backfills paying real-time prices',
+    'Agents retrying the same failed tool call until they hit a limit',
+    'Staging traffic running on your production model',
+  ],
+};
+
+export const changes = {
+  heading: 'Same request. Same answer. A smaller bill.',
+  body: 'We change what each route sends and which model handles it. Your product does not change.',
+  modelAfter: 'Model: small, and just as accurate on this job',
+  elsewhereHeading: 'And outside the request',
+  elsewhere: [
+    'Evals and backfills moved to batch APIs at 50% off',
+    'Retry limits and loop guards on every agent',
+    'Dev and staging pointed at small models',
+  ],
+  speed: 'Shorter prompts and smaller models also respond faster, so latency usually drops with cost.',
+};
+
+export const proof = {
+  heading: 'Cheaper only counts if quality held.',
+  body: 'Nothing ships on a hunch. Every change is tested on your real traffic first.',
+  checks: [
+    { title: 'Replay', body: 'We replay your real traffic through the cheaper option, in your cloud, on your API keys.' },
+    { title: 'Compare', body: 'Answers are scored against your current output on the checks that matter for that route.' },
+    { title: 'Ship', body: 'If quality held, you get a pull request with the before/after evidence. If not, it never reaches you.' },
+  ],
   pullRequest: {
-    heading: 'Every change arrives as a pull request',
-    body: 'You review the diff and the evidence, then merge it like any other change.',
-    title: 'Route ticket tagging to a smaller model',
-    removed: 'model: "large-model"',
-    added: 'model: "small-model"',
+    sampleLabel: 'Sample data',
+    note: 'Illustrative example, not a customer result.',
+    title: 'Trim ticket tagging and move it to a small model',
+    removed: ['model: "frontier"', 'tools: allTools', 'topK: 12'],
+    added: ['model: "small"', 'tools: taggingTools', 'topK: 2'],
     columns: ['Check', 'Before', 'After'],
     rows: [
-      { check: 'Cost per 1k calls', before: '$4.20', after: '$0.90' },
+      { check: 'Input tokens', before: '17,760', after: '7,910' },
       { check: 'Quality eval', before: '96.1%', after: '96.0%' },
       { check: 'p95 latency', before: '2.4s', after: '0.8s' },
     ],
   },
-};
-
-export const levers = {
-  heading: 'Where we cut costs',
-  items: [
-    { icon: 'models', title: 'Right-size models', body: 'Small models where they do the job just as well.' },
-    { icon: 'caching', title: 'Prompt caching', body: 'Stop paying full price for the same context on every call.' },
-    { icon: 'batch', title: 'Batch processing', body: "50% off for work that doesn't need an instant answer." },
-    { icon: 'trim', title: 'Trim prompts and context', body: 'Oversized system prompts, RAG chunks, chat history, tool definitions.' },
-    { icon: 'limits', title: 'Control output and reasoning', body: 'Sensible limits and reasoning effort per route.' },
-    { icon: 'waste', title: 'Kill waste', body: 'Retries, duplicate calls, runaway agent loops, dev/test traffic on expensive models.' },
-    { icon: 'speed', title: 'Faster responses', body: 'Smaller models, caching and shorter prompts cut latency, not just cost.' },
-    { icon: 'alerts', title: 'Stay ahead of changes', body: 'Model retirements and price hikes caught before they hit you.' },
-  ],
-};
-
-export const process = {
-  heading: 'How we work',
-  steps: [
-    {
-      title: 'Free audit (48 hours)',
-      body: 'Connect read-only usage data. You get your top savings opportunities with dollar estimates. No code required.',
-    },
-    {
-      title: 'Cost cut (2 weeks)',
-      body: 'We test cheaper options on your real traffic, verify quality held, and deliver every change as a pull request with before/after evidence.',
-    },
-    {
-      title: 'Savings dashboard',
-      body: 'See spend by feature, team and customer, savings realized against your baseline, and alerts when costs creep back.',
-    },
-    {
-      title: 'Ongoing optimization',
-      body: 'New models and prices tested automatically, quarterly check-ins, and migration help when a model you use is retired.',
-    },
-  ],
   trustHeading: 'Built to be trusted',
   trustItems: [
     { icon: 'readOnly', text: 'Read-only access to start' },
     { icon: 'path', text: 'Never sits in your request path' },
     { icon: 'cloud', text: 'Replays run in your cloud, on your API keys' },
+  ],
+};
+
+export const process = {
+  heading: 'How it runs',
+  steps: [
+    { title: 'Free audit, 48 hours', body: 'Connect read-only usage data. You get your top savings opportunities with dollar estimates. No code required.' },
+    { title: 'Cost cut, 2 weeks', body: 'We test the fixes on your real traffic and deliver each one as a pull request.' },
+    { title: 'Savings dashboard', body: 'See spend by feature, team and customer, savings against your baseline, and alerts when costs creep back.' },
+    { title: 'Ongoing optimization', body: 'New models and prices tested automatically, quarterly check-ins, and migration help when a model is retired.' },
   ],
 };
 

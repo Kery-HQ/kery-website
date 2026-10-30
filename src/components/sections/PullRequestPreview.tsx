@@ -1,9 +1,9 @@
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { preview } from '@/config/site';
+import { proof } from '@/config/site';
 
-const { pullRequest, sampleLabel, note } = preview;
+const { pullRequest } = proof;
 
 export default function PullRequestPreview() {
   return (
@@ -12,13 +12,21 @@ export default function PullRequestPreview() {
         <div className="flex items-center justify-between gap-3 border-b px-4 py-3">
           <p className="text-sm font-medium">{pullRequest.title}</p>
           <Badge variant="outline" className="shrink-0">
-            {sampleLabel}
+            {pullRequest.sampleLabel}
           </Badge>
         </div>
         <pre className="overflow-x-auto border-b p-4 font-mono text-sm leading-6">
           <code>
-            <span className="block text-muted-foreground">- {pullRequest.removed}</span>
-            <span className="block text-savings">+ {pullRequest.added}</span>
+            {pullRequest.removed.map((line) => (
+              <span key={line} className="block text-muted-foreground">
+                - {line}
+              </span>
+            ))}
+            {pullRequest.added.map((line) => (
+              <span key={line} className="block text-savings">
+                + {line}
+              </span>
+            ))}
           </code>
         </pre>
         <Table>
@@ -42,7 +50,7 @@ export default function PullRequestPreview() {
           </TableBody>
         </Table>
       </Card>
-      <figcaption className="mt-3 text-sm text-muted-foreground">{note}</figcaption>
+      <figcaption className="mt-3 text-sm text-muted-foreground">{pullRequest.note}</figcaption>
     </figure>
   );
 }
