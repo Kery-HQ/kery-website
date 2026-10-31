@@ -1,22 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '@/layouts/Layout.astro';
+import SiteHeader from '@/components/sections/SiteHeader';
+import SiteFooter from '@/components/sections/SiteFooter';
+import { CONTACT_EMAIL } from '@/config/site';
 ---
 
 <Layout
   title="Privacy Policy - Kery"
-  description="Privacy policy for kery.dev and Kery Cloud."
+  description="Privacy policy for kery.dev and the Kery service."
 >
-  <Navbar />
-  <main class="legal-page">
-    <div class="container legal-inner">
+  <SiteHeader />
+  <main class="mx-auto max-w-2xl px-4 py-12 [&_a]:underline [&_a]:underline-offset-4 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:tracking-tight [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:font-semibold [&_p]:mb-3 [&_p]:leading-7">
+    <div>
       <h1>Privacy Policy</h1>
-      <p class="legal-updated">Last updated: April 4, 2026</p>
+      <p class="text-sm text-muted-foreground">Last updated: October 30, 2026</p>
 
       <h2>1. Who we are</h2>
       <p>
-        “Kery” refers to Kery Cloud and this website (<strong>kery.dev</strong>). This policy describes how we handle
+        “Kery” refers to the Kery service and this website (<strong>kery.dev</strong>). This policy describes how we handle
         information when you visit the site or use the service.
       </p>
 
@@ -33,18 +34,17 @@ import Footer from '../components/Footer.astro';
         information such as IP address, browser, device, referrer, pages viewed, and interaction events.
       </p>
 
-      <h2>3. Kery Cloud</h2>
+      <h2>3. The Kery service</h2>
       <p>
-        When you use Kery Cloud, information you provide to operate the service may be processed, including account
-        details, connected project configuration, test credentials, prompts, screenshots, run history, and reports.
-        We use this information to provide and secure the service and make results available to your workspace.
+        When you use Kery, information you provide to operate the service may be processed, including account details,
+        connected usage data, and reports. We use this information to provide and secure the service and make results
+        available to you.
       </p>
 
       <h2>4. Third parties</h2>
       <p>
         Kery may rely on third-party providers to host the website and service, process payments, or provide
-        integrations. AI provider requests may include prompts and the context needed to run a check. Those providers
-        process information under their own terms and privacy policies.
+        integrations. Those providers process information under their own terms and privacy policies.
       </p>
 
       <h2>5. Retention and security</h2>
@@ -57,7 +57,7 @@ import Footer from '../components/Footer.astro';
       <h2>6. Your rights</h2>
       <p>
         Depending on where you live, you may have rights to access, correct, delete, or restrict certain personal
-        data. To make a privacy request, use the contact channels published on this site.
+        data. To make a privacy request, email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
 
       <h2>7. Changes</h2>
@@ -68,56 +68,10 @@ import Footer from '../components/Footer.astro';
 
       <h2>8. Contact</h2>
       <p>
-        Questions about this policy can be sent through the contact channels published on this site.
+        Questions about this policy can be sent to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
     </div>
   </main>
-  <Footer />
+  <SiteFooter />
 </Layout>
 
-<style>
-  .legal-page {
-    padding-top: 6rem;
-    padding-bottom: var(--space-2xl);
-    min-height: 60vh;
-  }
-
-  .legal-inner {
-    max-width: 720px;
-  }
-
-  .legal-inner h1 {
-    margin-bottom: 0.5rem;
-  }
-
-  .legal-updated {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-lg);
-  }
-
-  .legal-inner h2 {
-    font-family: var(--font-sans);
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-sm);
-    color: var(--color-text);
-  }
-
-  .legal-inner p {
-    margin-bottom: var(--space-sm);
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  .legal-inner a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .legal-inner a:hover {
-    color: var(--color-accent-hover);
-  }
-</style>
