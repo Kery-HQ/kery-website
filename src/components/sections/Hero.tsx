@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { hero } from '@/config/site';
+import { BOOKING_URL, hero } from '@/config/site';
 import BillChart from './BillChart';
 
 export default function Hero() {
@@ -58,7 +58,7 @@ export default function Hero() {
           <p className="mx-auto mt-6 max-w-3xl text-lg text-balance text-muted-foreground sm:text-xl">{hero.subhead}</p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
             <Button asChild size="lg">
-              <a href="#book">{hero.primaryCta}</a>
+              <a href={BOOKING_URL}>{hero.primaryCta}</a>
             </Button>
             <Button asChild size="lg" variant="outline">
               <a href="#savings">{hero.secondaryCta}</a>

@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { SITE_NAME, booking } from '@/config/site';
+import { BOOKING_URL, SITE_NAME, booking } from '@/config/site';
 
 export default function SiteHeader() {
   return (
@@ -9,7 +9,7 @@ export default function SiteHeader() {
           {SITE_NAME}
         </a>
         <Button asChild size="sm">
-          <a href="/#book">{booking.cta}</a>
+          <a href={BOOKING_URL}>{booking.cta}</a>
         </Button>
       </div>
     </header>

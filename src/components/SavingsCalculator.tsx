@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
-import { calculator } from '@/config/site';
+import { BOOKING_URL, calculator } from '@/config/site';
 import { estimateSavings } from '@/lib/savings';
 
 const { minSpend, maxSpend, stepSpend } = calculator;
@@ -132,7 +132,7 @@ export default function SavingsCalculator() {
 
           <p className="text-sm text-muted-foreground">{calculator.disclaimer}</p>
           <Button asChild size="lg" className="w-full sm:w-fit">
-            <a href="#book">{calculator.cta}</a>
+            <a href={BOOKING_URL}>{calculator.cta}</a>
           </Button>
         </div>
       </CardContent>
