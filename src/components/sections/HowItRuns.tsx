@@ -4,7 +4,7 @@ export default function HowItRuns() {
   return (
     <section className="border-t">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
-        <h2 className="text-4xl sm:text-5xl">{process.heading}</h2>
+        <h2 className="text-3xl sm:text-5xl">{process.heading}</h2>
         <ol className="mt-12 grid gap-8 md:grid-cols-4">
           {process.steps.map((step, index) => (
             <li key={step.title} className="relative pl-14 md:pt-14 md:pl-0">

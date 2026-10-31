@@ -10,7 +10,7 @@ export default function Booking() {
       </div>
       <div className="relative mx-auto max-w-6xl px-4 py-24 text-center sm:py-36">
         <img src={GLOSSY_LOGO_URL} alt="" width={240} height={240} loading="lazy" className="mx-auto mb-8 size-40 sm:size-60" />
-        <h2 className="text-5xl leading-none sm:text-7xl">{booking.heading}</h2>
+        <h2 className="text-4xl leading-none sm:text-5xl lg:text-6xl">{booking.heading}</h2>
         <p className="mt-6 text-lg text-muted-foreground">{booking.body}</p>
         <Button asChild size="lg" className="mt-8 w-full sm:w-fit">
           <a href={BOOKING_URL}>{booking.cta}</a>

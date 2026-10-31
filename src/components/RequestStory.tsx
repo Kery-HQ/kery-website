@@ -51,7 +51,7 @@ export default function RequestStory() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
         {/* Keyed text remounts on toggle, which replays the fade. */}
         <div key={String(trimmed)} className="min-h-72 animate-in fade-in duration-500 sm:min-h-64">
-          <h2 className="max-w-3xl text-4xl sm:text-6xl">{copy.heading}</h2>
+          <h2 className="max-w-3xl text-3xl sm:text-5xl">{copy.heading}</h2>
           <p className="mt-5 max-w-2xl text-lg text-muted-foreground">{copy.body}</p>
         </div>
 

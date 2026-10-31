@@ -8,7 +8,7 @@ export default function Proof() {
   return (
     <section className="border-t">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
-        <h2 className="max-w-3xl text-4xl sm:text-6xl">{proof.heading}</h2>
+        <h2 className="max-w-3xl text-3xl sm:text-5xl">{proof.heading}</h2>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">{proof.body}</p>
         <div className="mt-12 grid gap-12 md:grid-cols-2">
           <div>

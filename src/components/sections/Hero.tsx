@@ -26,10 +26,10 @@ export default function Hero() {
         <BillChart animate seed={tick} />
       </div>
       <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-80 sm:pt-28">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="mx-auto text-center">
           {/* The name stays fixed for screen readers while the visible word rotates. */}
-          <h1 aria-label={hero.headline} className="text-[6.6vw] leading-tight sm:text-4xl md:text-5xl">
-            <span aria-hidden="true" className="block whitespace-nowrap">
+          <h1 aria-label={hero.headline} className="text-[2.5rem] leading-[1.1] sm:text-6xl lg:text-7xl">
+            <span aria-hidden="true" className="block lg:whitespace-nowrap">
               {hero.headlineStart}{' '}
               <span
                 key={current.word}
@@ -51,7 +51,7 @@ export default function Hero() {
               </span>{' '}
               {hero.headlineEnd}
             </span>
-            <span aria-hidden="true" className="block whitespace-nowrap">
+            <span aria-hidden="true" className="block lg:whitespace-nowrap">
               {hero.headlineSecondLine}
             </span>
           </h1>
