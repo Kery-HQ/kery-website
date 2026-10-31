@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { BOOKING_URL, CONTACT_EMAIL, booking } from '@/config/site';
+import { BOOKING_URL, CONTACT_EMAIL, GLOSSY_LOGO_URL, booking } from '@/config/site';
 import BillChart from './BillChart';
 
 export default function Booking() {
@@ -9,6 +9,7 @@ export default function Booking() {
         <BillChart />
       </div>
       <div className="relative mx-auto max-w-6xl px-4 py-24 text-center sm:py-36">
+        <img src={GLOSSY_LOGO_URL} alt="" width={240} height={240} loading="lazy" className="mx-auto mb-8 size-40 sm:size-60" />
         <h2 className="text-5xl leading-none sm:text-7xl">{booking.heading}</h2>
         <p className="mt-6 text-lg text-muted-foreground">{booking.body}</p>
         <Button asChild size="lg" className="mt-8 w-full sm:w-fit">
