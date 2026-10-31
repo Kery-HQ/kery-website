@@ -94,6 +94,13 @@
   --ring: #f5b544;
 }
 
+/* Registered so the dot colour can fade between brands. */
+@property --dot {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #d97757;
+}
+
 /* Dots for the bill chart: a mask turns solid columns into a dot grid. */
 @utility mask-dots {
   mask-image: radial-gradient(circle, #000 1.7px, transparent 2.1px);

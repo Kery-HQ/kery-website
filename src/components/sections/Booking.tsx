@@ -5,7 +5,7 @@ import BillChart from './BillChart';
 export default function Booking() {
   return (
     <section id="book" className="relative scroll-mt-14 overflow-hidden border-t">
-      <div className="absolute inset-x-0 bottom-0 h-72 [mask-image:linear-gradient(to_top,black,transparent)]">
+      <div className="absolute inset-x-0 bottom-0 h-72 [--dot:var(--savings)] [mask-image:linear-gradient(to_top,black,transparent)]">
         <BillChart />
       </div>
       <div className="relative mx-auto max-w-6xl px-4 py-24 text-center sm:py-36">

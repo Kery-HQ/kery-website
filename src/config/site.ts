@@ -16,6 +16,15 @@ export const seo = {
 
 export const hero = {
   headline: 'Use LLMs right. Spend less.',
+  /** The word that rotates in "Use ___ right." The dot chart fades to each colour and reshuffles. */
+  rotation: [
+    { word: 'LLMs', color: '#1c1917' },
+    { icon: '/icons/anthropic.svg', word: 'Anthropic', color: '#d97757' },
+    { icon: '/icons/openai.svg', word: 'OpenAI', color: '#10a37f' },
+    { icon: '/icons/gemini.svg', word: 'Gemini', color: '#4285f4' },
+    { icon: '/icons/meta.svg', word: 'Llama', color: '#7c3aed' },
+  ],
+  rotationMs: 2400,
   subhead:
     'We find the cost and speed gains across your entire AI stack, and ship them.',
   primaryCta: 'Book a free cost audit',
