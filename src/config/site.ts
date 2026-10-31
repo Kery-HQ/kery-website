@@ -6,6 +6,7 @@ export const BOOKING_URL = 'https://cal.com/keval-shah/30min';
 export const CONTACT_EMAIL = 'hello@kery.dev';
 
 export const SITE_NAME = 'Kery';
+export const LOGO_URL = '/logo.png';
 export const SITE_ORIGIN = 'https://kery.dev';
 
 export const seo = {

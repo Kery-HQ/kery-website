@@ -8,7 +8,7 @@ import Proof from '@/components/sections/Proof';
 import HowItRuns from '@/components/sections/HowItRuns';
 import Booking from '@/components/sections/Booking';
 import SavingsCalculator from '@/components/SavingsCalculator';
-import { CONTACT_EMAIL, SITE_NAME, SITE_ORIGIN, calculator, seo } from '@/config/site';
+import { CONTACT_EMAIL, LOGO_URL, SITE_NAME, SITE_ORIGIN, calculator, seo } from '@/config/site';
 
 const structuredData = [
   {
@@ -16,6 +16,7 @@ const structuredData = [
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_ORIGIN,
+    logo: new URL(LOGO_URL, SITE_ORIGIN).href,
     email: CONTACT_EMAIL,
     description: seo.description,
   },
