@@ -11,13 +11,13 @@ export const SITE_ORIGIN = 'https://kery.dev';
 export const seo = {
   title: 'Kery — Cut your LLM bill without compromising quality',
   description:
-    'Kery finds where your AI spend is wasted, tests cheaper options on your real traffic, and ships the fixes as pull requests. Book a free cost audit.',
+    'Kery finds the cost and speed gains across your entire AI stack, and ships them without compromising quality. Book a free cost audit.',
 };
 
 export const hero = {
-  headline: 'Cut your LLM bill without compromising quality.',
+  headline: 'Cut your LLM bill, not quality.',
   subhead:
-    'We find where your AI spend is wasted, test cheaper options on your real traffic, and ship the fixes as pull requests.',
+    'We find the cost and speed gains across your entire AI stack, and ship them.',
   primaryCta: 'Book a free cost audit',
   secondaryCta: 'See your savings potential',
   trustLine: 'Read-only access to start. Your prompts never leave your cloud.',

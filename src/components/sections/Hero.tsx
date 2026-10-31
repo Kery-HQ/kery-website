@@ -9,9 +9,9 @@ export default function Hero() {
         <BillChart animate />
       </div>
       <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-64 sm:pt-28 sm:pb-72">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <h1 className="text-5xl leading-none sm:text-7xl">{hero.headline}</h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">{hero.subhead}</p>
+          <p className="mx-auto mt-6 max-w-3xl text-lg text-balance text-muted-foreground sm:text-xl">{hero.subhead}</p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
             <Button asChild size="lg">
               <a href="#book">{hero.primaryCta}</a>
