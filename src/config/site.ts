@@ -1,7 +1,7 @@
 /** Everything editable lives here: links, contact details and page copy. */
 
-/** Booking page for every call-to-action. Replace with the real link before launch. */
-export const BOOKING_URL = 'https://cal.com/REPLACE_ME';
+/** Booking page for every call-to-action. */
+export const BOOKING_URL = 'https://cal.com/keval-shah/30min';
 
 export const CONTACT_EMAIL = 'hello@kery.dev';
 
