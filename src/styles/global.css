@@ -101,10 +101,29 @@
   initial-value: #d97757;
 }
 
+/* Registered so the number of filled dots can animate. */
+@property --filled {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 /* Dots for the bill chart: a mask turns solid columns into a dot grid. */
-@utility mask-dots {
+/* A column of dots, filled from the bottom. --filled counts dots, and rounding it
+   means a column only ever stops between two dots, even mid-animation. */
+@utility bill-column {
+  width: 8px;
+  flex: none;
+  align-self: flex-end;
   mask-image: radial-gradient(circle, #000 1.7px, transparent 2.1px);
   mask-size: 8px 8px;
+  mask-position: bottom;
+  clip-path: inset(calc(100% - round(var(--filled), 1) * 8px) 0 0 0);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: --filled 700ms ease-in-out;
+    animation: column-rise 900ms ease-out backwards;
+  }
 }
 
 @keyframes button-pulse {
@@ -120,7 +139,7 @@
 
 @keyframes column-rise {
   from {
-    transform: scaleY(0);
+    --filled: 0;
   }
 }
 
