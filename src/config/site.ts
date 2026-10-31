@@ -62,30 +62,34 @@ export const request = {
   ],
 };
 
-export const leaks = {
-  heading: 'You pay for every word you send the AI.',
-  body: 'Each time your app asks an AI model something, it also sends a pile of background text. Most of it goes unused, and all of it is billed. Here is what one request really looks like.',
-  job: 'Sorting a support ticket, on the most expensive model',
-  callout: 'Just 0.3% of this request is the actual question.',
-  elsewhereHeading: 'Money also leaks outside the request',
-  elsewhere: [
-    'Overnight jobs paying instant-response prices',
-    'AI agents retrying the same failed step over and over',
-    'Test environments running on your most expensive model',
-  ],
-};
-
-export const changes = {
-  heading: 'Same request. Same answer. A smaller bill.',
-  body: 'We trim what each request sends and match it to the right model. Your users get the same product, often faster.',
-  job: 'Sorting the same ticket, on a smaller model',
-  callout: 'This request now sends about 55% less.',
-  elsewhereHeading: 'And we fix the leaks around it',
-  elsewhere: [
-    'Overnight jobs moved to batch pricing at 50% off',
-    'Limits that stop runaway retries',
-    'Test environments moved to small models',
-  ],
+/** Copy for the two states of the request card. The button switches between them. */
+export const story = {
+  before: {
+    heading: 'You pay for every word you send the AI.',
+    body: 'Each time your app asks an AI model something, it also sends a pile of background text. Most of it goes unused, and all of it is billed. Here is what one request really looks like.',
+    job: 'Sorting a support ticket, on the most expensive model',
+    callout: 'Just 0.3% of this request is the actual question.',
+    button: 'Trim this request',
+    elsewhereHeading: 'Money also leaks outside the request',
+    elsewhere: [
+      'Overnight jobs paying instant-response prices',
+      'AI agents retrying the same failed step over and over',
+      'Test environments running on your most expensive model',
+    ],
+  },
+  after: {
+    heading: 'Same request. Same answer. A smaller bill.',
+    body: 'We trim what each request sends and match it to the right model. Your users get the same product, often faster.',
+    job: 'Sorting the same ticket, on a smaller model',
+    callout: 'This request now sends about 55% less.',
+    button: 'Show the original',
+    elsewhereHeading: 'And we fix the leaks around it',
+    elsewhere: [
+      'Overnight jobs moved to batch pricing at 50% off',
+      'Limits that stop runaway retries',
+      'Test environments moved to small models',
+    ],
+  },
   speed: 'Shorter requests and smaller models also respond faster, so your product speeds up as the bill comes down.',
 };
 
