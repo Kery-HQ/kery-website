@@ -9,13 +9,13 @@ export const SITE_NAME = 'Kery';
 export const SITE_ORIGIN = 'https://kery.dev';
 
 export const seo = {
-  title: 'Kery — Cut your LLM bill without compromising quality',
+  title: 'Kery — Use LLMs right, spend less',
   description:
     'Kery finds the cost and speed gains across your entire AI stack, and ships them without compromising quality. Book a free cost audit.',
 };
 
 export const hero = {
-  headline: 'Cut your LLM bill, not quality.',
+  headline: 'Use LLMs right. Spend less.',
   subhead:
     'We find the cost and speed gains across your entire AI stack, and ship them.',
   primaryCta: 'Book a free cost audit',

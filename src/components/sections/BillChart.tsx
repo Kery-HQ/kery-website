@@ -10,11 +10,11 @@ function columnHeight(index: number) {
 
 export default function BillChart({ animate = false }: { animate?: boolean }) {
   return (
-    <div aria-hidden="true" className="mask-dots flex h-full items-end justify-center">
+    <div aria-hidden="true" className="mask-dots flex h-full items-end">
       {Array.from({ length: COLUMNS }, (_, index) => (
         <div
           key={index}
-          className="w-2 shrink-0 origin-bottom bg-gradient-to-t from-savings to-savings/50 motion-safe:[animation:column-rise_900ms_ease-out_backwards]"
+          className="min-w-0 flex-1 origin-bottom bg-gradient-to-t from-savings to-savings/50 motion-safe:[animation:column-rise_900ms_ease-out_backwards]"
           style={{
             height: `${columnHeight(index)}%`,
             animationDelay: animate ? `${index * 3}ms` : undefined,
