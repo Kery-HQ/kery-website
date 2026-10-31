@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { hero } from '@/config/site';
 import BillChart from './BillChart';
@@ -29,15 +28,15 @@ export default function Hero() {
       <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-80 sm:pt-28">
         <div className="mx-auto max-w-5xl text-center">
           {/* The name stays fixed for screen readers while the visible word rotates. */}
-          <h1 aria-label={hero.headline} className="text-[9.6vw] leading-tight sm:text-5xl md:text-7xl">
+          <h1 aria-label={hero.headline} className="text-[6.6vw] leading-tight sm:text-4xl md:text-5xl">
             <span aria-hidden="true" className="block whitespace-nowrap">
-              Use{' '}
+              {hero.headlineStart}{' '}
               <span
                 key={current.word}
                 className="inline-flex items-center gap-[0.15em] align-bottom animate-in fade-in slide-in-from-bottom-3 duration-500"
                 style={{ color: current.color }}
               >
-                {current.icon ? (
+                {current.icon && (
                   <span
                     className="size-[0.8em] bg-current"
                     style={{
@@ -47,15 +46,13 @@ export default function Hero() {
                       maskPosition: 'center',
                     }}
                   />
-                ) : (
-                  <Sparkles className="size-[0.8em]" />
                 )}
                 {current.word}
               </span>{' '}
-              right.
+              {hero.headlineEnd}
             </span>
-            <span aria-hidden="true" className="block">
-              Spend less.
+            <span aria-hidden="true" className="block whitespace-nowrap">
+              {hero.headlineSecondLine}
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-lg text-balance text-muted-foreground sm:text-xl">{hero.subhead}</p>

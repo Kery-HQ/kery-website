@@ -9,14 +9,17 @@ export const SITE_NAME = 'Kery';
 export const SITE_ORIGIN = 'https://kery.dev';
 
 export const seo = {
-  title: 'Kery — Use LLMs right, spend less',
+  title: 'Kery — Use LLMs the right way and spend less',
   description:
     'Kery finds the cost and speed gains across your entire AI stack, and ships them without compromising quality. Book a free cost audit.',
 };
 
 export const hero = {
-  headline: 'Use LLMs right. Spend less.',
-  /** The word that rotates in "Use ___ right." The dot chart fades to each colour and reshuffles. */
+  headline: 'Use LLMs the right way, and spend less on every request.',
+  headlineStart: 'Use',
+  headlineEnd: 'the right way,',
+  headlineSecondLine: 'and spend less on every request.',
+  /** The word that rotates in "Use ___ the right way," The dot chart fades to each colour and reshuffles. */
   rotation: [
     { word: 'LLMs', color: '#1c1917' },
     { icon: '/icons/anthropic.svg', word: 'Anthropic', color: '#d97757' },
