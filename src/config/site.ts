@@ -34,7 +34,7 @@ export const hero = {
     'We find the cost and speed gains across your entire AI stack, and ship them.',
   primaryCta: 'Book a free cost audit',
   secondaryCta: 'See your savings potential',
-  trustLine: 'Read-only access to start. Your prompts never leave your cloud.',
+  trustLine: 'Read-only access to start.',
 };
 
 export const calculator = {
@@ -139,7 +139,7 @@ export const proof = {
 export const process = {
   heading: 'How it runs',
   steps: [
-    { title: 'Free audit, 48 hours', body: 'Connect read-only usage data. You get your top savings opportunities with dollar estimates. No code required.' },
+    { title: 'Free audit, 48 hours', body: 'Connect read-only access. You get your top savings opportunities with dollar estimates. No code changes required.' },
     { title: 'Cost cut, 2 weeks', body: 'We test the fixes on your real traffic and deliver each one as a pull request.' },
     { title: 'Savings dashboard', body: 'See spend by feature, team and customer, savings against your baseline, and alerts when costs creep back.' },
     { title: 'Ongoing optimization', body: 'New models and prices tested automatically, quarterly check-ins, and migration help when a model is retired.' },
