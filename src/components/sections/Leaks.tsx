@@ -8,7 +8,7 @@ export default function Leaks() {
         <h2 className="max-w-3xl text-4xl sm:text-6xl">{leaks.heading}</h2>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">{leaks.body}</p>
         <div className="mt-10">
-          <RequestAnatomy state="before" model={leaks.modelBefore} />
+          <RequestAnatomy state="before" job={leaks.job} callout={leaks.callout} />
         </div>
         <h3 className="mt-14 font-medium">{leaks.elsewhereHeading}</h3>
         <ul className="mt-4 grid gap-x-8 gap-y-3 text-muted-foreground md:grid-cols-3">

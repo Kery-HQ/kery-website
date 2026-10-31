@@ -9,6 +9,10 @@
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
   --color-savings: var(--savings);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -60,6 +64,10 @@
 .dark {
   /* Brand tokens: the site always runs in this theme. Change these to rebrand. */
   --savings: #f5b544;
+  --chart-1: #4a5f9e;
+  --chart-2: #6f8fd6;
+  --chart-3: #9db8f2;
+  --chart-4: #d3def8;
   --background: #0c1017;
   --foreground: #f2f4f8;
   --card: #131822;

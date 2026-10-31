@@ -45,43 +45,48 @@ export const calculator = {
   cta: 'Get my real number',
 };
 
-/** One example request carries the page's story. Token counts are illustrative, not customer data. */
+/**
+ * One example request carries the page's story. All figures are illustrative.
+ * `squares` is how many of the 100 grid squares each part fills, before and after.
+ */
 export const request = {
   exampleLabel: 'Example request',
-  note: 'Illustrative example, not customer data.',
-  tokensLabel: 'input tokens',
+  note: 'Illustrative example. Each square is about 1% of the original request.',
+  totalLabel: 'tokens, the unit AI providers bill by',
   rows: [
-    { label: 'System prompt', before: 6200, after: 6200, leak: 'Same text on every call, never cached', fix: 'Cached, so repeat reads cost a fraction' },
-    { label: 'Tool definitions', before: 4100, after: 450, leak: '40 tools sent, 3 ever used on this route', fix: 'Only the 3 tools this route calls' },
-    { label: 'Retrieved context', before: 4800, after: 800, leak: '12 chunks retrieved, 2 cited', fix: 'Fewer, better-ranked chunks' },
-    { label: 'Chat history', before: 2600, after: 400, leak: 'Every past turn resent', fix: 'Older turns summarized' },
-    { label: 'The actual question', before: 60, after: 60, leak: 'The only part the user wrote', fix: 'Unchanged' },
+    { label: 'Standing instructions', before: 6200, after: 6200, squares: [35, 35], leak: 'The same instructions, sent every time', fix: 'Saved and reused at a fraction of the price', afterTag: 'Reused' },
+    { label: 'List of tools', before: 4100, after: 450, squares: [23, 3], leak: '40 tools listed. This job uses 3.', fix: 'Only the 3 tools this job needs' },
+    { label: 'Background documents', before: 4800, after: 800, squares: [27, 5], leak: '12 documents attached. 2 were useful.', fix: 'Only the 2 useful documents' },
+    { label: 'Past conversation', before: 2600, after: 400, squares: [14, 2], leak: 'The whole chat, resent on every message', fix: 'Older messages boiled down to a short summary' },
+    { label: 'The actual question', before: 60, after: 60, squares: [1, 1], leak: 'The one part your user typed', fix: 'Exactly the same', afterTag: 'Same' },
   ],
 };
 
 export const leaks = {
-  heading: 'Your bill is mostly context, not questions.',
-  body: 'Most of a typical request is material the model never needed. Here is one call, taken apart.',
-  modelBefore: 'Model: frontier, sorting tickets into five labels',
-  elsewhereHeading: 'And the waste outside the request',
+  heading: 'You pay for every word you send the AI.',
+  body: 'Each time your app asks an AI model something, it also sends a pile of background text. Most of it goes unused, and all of it is billed. Here is what one request really looks like.',
+  job: 'Sorting a support ticket, on the most expensive model',
+  callout: 'Just 0.3% of this request is the actual question.',
+  elsewhereHeading: 'Money also leaks outside the request',
   elsewhere: [
-    'Nightly evals and backfills paying real-time prices',
-    'Agents retrying the same failed tool call until they hit a limit',
-    'Staging traffic running on your production model',
+    'Overnight jobs paying instant-response prices',
+    'AI agents retrying the same failed step over and over',
+    'Test environments running on your most expensive model',
   ],
 };
 
 export const changes = {
   heading: 'Same request. Same answer. A smaller bill.',
-  body: 'We change what each route sends and which model handles it. Your product does not change.',
-  modelAfter: 'Model: small, and just as accurate on this job',
-  elsewhereHeading: 'And outside the request',
+  body: 'We trim what each request sends and match it to the right model. Your users get the same product, often faster.',
+  job: 'Sorting the same ticket, on a smaller model',
+  callout: 'This request now sends about 55% less.',
+  elsewhereHeading: 'And we fix the leaks around it',
   elsewhere: [
-    'Evals and backfills moved to batch APIs at 50% off',
-    'Retry limits and loop guards on every agent',
-    'Dev and staging pointed at small models',
+    'Overnight jobs moved to batch pricing at 50% off',
+    'Limits that stop runaway retries',
+    'Test environments moved to small models',
   ],
-  speed: 'Shorter prompts and smaller models also respond faster, so latency usually drops with cost.',
+  speed: 'Shorter requests and smaller models also respond faster, so your product speeds up as the bill comes down.',
 };
 
 export const proof = {
@@ -94,7 +99,7 @@ export const proof = {
   ],
   pullRequest: {
     sampleLabel: 'Sample data',
-    note: 'Illustrative example, not a customer result.',
+    note: 'Illustrative example.',
     title: 'Trim ticket tagging and move it to a small model',
     removed: ['model: "frontier"', 'tools: allTools', 'topK: 12'],
     added: ['model: "small"', 'tools: taggingTools', 'topK: 2'],

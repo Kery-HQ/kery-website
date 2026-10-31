@@ -10,7 +10,7 @@ Kery finds where a company's AI spend is wasted, tests cheaper options on its re
 - Primary audience: US engineering leaders and CTOs at companies spending $10k or more per month on LLM APIs.
 - How it starts: a free 48-hour audit using read-only usage data.
 - Trust model: read-only access to start; Kery never sits in the request path; replays run in the customer's cloud, on the customer's API keys.
-- Savings figures on kery.dev are estimates, not guarantees.
+- Savings figures on kery.dev are estimates.
 
 ## Key pages
 

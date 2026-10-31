@@ -8,7 +8,7 @@ export default function Changes() {
         <h2 className="max-w-3xl text-4xl sm:text-6xl">{changes.heading}</h2>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">{changes.body}</p>
         <div className="mt-10">
-          <RequestAnatomy state="after" model={changes.modelAfter} />
+          <RequestAnatomy state="after" job={changes.job} callout={changes.callout} />
         </div>
         <h3 className="mt-14 font-medium">{changes.elsewhereHeading}</h3>
         <ul className="mt-4 grid gap-x-8 gap-y-3 md:grid-cols-3">
