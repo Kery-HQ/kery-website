@@ -5,7 +5,7 @@ import BillChart from './BillChart';
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-x-0 bottom-0 h-72 opacity-70">
+      <div className="absolute inset-x-0 bottom-0 h-72">
         <BillChart animate />
       </div>
       <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-64 sm:pt-28 sm:pb-72">

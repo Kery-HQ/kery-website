@@ -23,7 +23,7 @@ export default function PullRequestPreview() {
               </span>
             ))}
             {pullRequest.added.map((line) => (
-              <span key={line} className="block text-savings">
+              <span key={line} className="block text-savings-text">
                 + {line}
               </span>
             ))}

@@ -9,6 +9,7 @@
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
   --color-savings: var(--savings);
+  --color-savings-text: var(--savings-text);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -40,30 +41,35 @@
 :root {
   --radius: 0.625rem;
   --background: #ffffff;
-  --foreground: #141b34;
+  --foreground: #1c1917;
   --card: #ffffff;
-  --card-foreground: #141b34;
+  --card-foreground: #1c1917;
   --popover: #ffffff;
-  --popover-foreground: #141b34;
-  --primary: #2747d6;
+  --popover-foreground: #1c1917;
+  --primary: #1c1917;
   --primary-foreground: #ffffff;
-  --secondary: #e7ecfb;
-  --secondary-foreground: #141b34;
-  --muted: #f4f6fb;
-  --muted-foreground: #566079;
-  --accent: #e7ecfb;
-  --accent-foreground: #141b34;
+  --secondary: #f5f5f4;
+  --secondary-foreground: #1c1917;
+  --muted: #f7f6f4;
+  --muted-foreground: #57534e;
+  --accent: #f5f5f4;
+  --accent-foreground: #1c1917;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #dfe4f0;
-  --input: #c9d1e4;
-  --ring: #2747d6;
-  /* Brand tokens: change these to rebrand. --savings colours the estimator meter. */
-  --savings: #0e8f6a;
+  --border: #e7e5e4;
+  --input: #d6d3d1;
+  --ring: #d97757;
+  --savings: #d97757;
+  /* Brand tokens: change these to rebrand. --savings is the accent, --savings-text its readable text shade. */
+  --savings-text: #b4532f;
+  --chart-1: #44403c;
+  --chart-2: #78716c;
+  --chart-3: #a8a29e;
+  --chart-4: #d6d3d1;
 }
 
 .dark {
-  /* Brand tokens: the site always runs in this theme. Change these to rebrand. */
-  --savings: #f5b544;
+  --savings: #d97757;
+  --savings-text: #e9a48c;
   --chart-1: #4a5f9e;
   --chart-2: #6f8fd6;
   --chart-3: #9db8f2;

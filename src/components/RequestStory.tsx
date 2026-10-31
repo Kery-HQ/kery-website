@@ -127,7 +127,7 @@ export default function RequestStory() {
                           {trimmed ? row.fix : row.leak}
                         </p>
                       </div>
-                      <span className={`font-mono text-sm ${trimmed ? 'text-savings' : ''}`}>
+                      <span className={`font-mono text-sm ${trimmed ? 'text-savings-text' : ''}`}>
                         {rowFigure(row, trimmed)}
                       </span>
                     </li>
@@ -147,7 +147,7 @@ export default function RequestStory() {
           <h3 className="mt-14 font-medium">{copy.elsewhereHeading}</h3>
           <ul className="mt-4 grid gap-x-8 gap-y-3 md:grid-cols-3">
             {copy.elsewhere.map((item) => (
-              <li key={item} className={`border-t pt-3 ${trimmed ? 'border-savings/50' : 'text-muted-foreground'}`}>
+              <li key={item} className={`border-t pt-3 ${trimmed ? 'border-savings/60' : 'text-muted-foreground'}`}>
                 {item}
               </li>
             ))}

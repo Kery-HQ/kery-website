@@ -14,7 +14,7 @@ export default function BillChart({ animate = false }: { animate?: boolean }) {
       {Array.from({ length: COLUMNS }, (_, index) => (
         <div
           key={index}
-          className="w-2 shrink-0 origin-bottom bg-gradient-to-t from-savings to-savings/20 motion-safe:[animation:column-rise_900ms_ease-out_backwards]"
+          className="w-2 shrink-0 origin-bottom bg-gradient-to-t from-savings to-savings/50 motion-safe:[animation:column-rise_900ms_ease-out_backwards]"
           style={{
             height: `${columnHeight(index)}%`,
             animationDelay: animate ? `${index * 3}ms` : undefined,
