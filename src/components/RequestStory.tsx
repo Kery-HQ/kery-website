@@ -41,6 +41,8 @@ function rowFigure(row: (typeof request.rows)[number], trimmed: boolean) {
 
 export default function RequestStory() {
   const [trimmed, setTrimmed] = useState(false);
+  // The button pulses until the first click, so it reads as something to press.
+  const [hasClicked, setHasClicked] = useState(false);
   const copy = trimmed ? story.after : story.before;
   const Icon = trimmed ? RotateCcw : Scissors;
 
@@ -98,8 +100,11 @@ export default function RequestStory() {
                   size="lg"
                   variant={trimmed ? 'outline' : 'default'}
                   aria-pressed={trimmed}
-                  className="mt-6 w-full"
-                  onClick={() => setTrimmed((current) => !current)}
+                  className={`relative mt-6 w-full motion-safe:transition-transform motion-safe:hover:-translate-y-0.5 ${hasClicked ? '' : 'after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:ring-2 after:ring-savings motion-safe:after:[animation:button-pulse_1.8s_ease-out_infinite]'}`}
+                  onClick={() => {
+                    setHasClicked(true);
+                    setTrimmed((current) => !current);
+                  }}
                 >
                   <Icon aria-hidden="true" />
                   {copy.button}

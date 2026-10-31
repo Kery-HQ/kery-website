@@ -94,6 +94,17 @@
   mask-size: 8px 8px;
 }
 
+@keyframes button-pulse {
+  from {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.05, 1.4);
+  }
+}
+
 @keyframes column-rise {
   from {
     transform: scaleY(0);
